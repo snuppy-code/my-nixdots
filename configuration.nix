@@ -145,12 +145,13 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
   	neovim
 	btop
 	git
+	delta
 	fzf
 	ripgrep
 	fd
 	fastfetch
 	pciutils
-	lshw
+	#lshw
 	clinfo
 	vulkan-tools
 	
