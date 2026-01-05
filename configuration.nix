@@ -151,7 +151,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
 	fd
 	fastfetch
 	pciutils
-	#lshw
+	lshw
 	clinfo
 	vulkan-tools
 	
