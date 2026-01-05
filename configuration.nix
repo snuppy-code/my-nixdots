@@ -14,6 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -27,7 +28,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
   
   services.pcscd.enable = true;
 
-  networking.hostName = "snuppynixos"; # Define your hostname.
+  networking.hostName = "snp-lap1nix"; # Define your hostname.
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -111,9 +112,13 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
       spotify
       obsidian
       lazygit
-      wezterm
       krita
       qalculate-qt
+      #foot
+      #alacritty
+      #wezterm
+      ghostty
+      #kitty
     ];
   };
   
@@ -134,6 +139,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+  	libfido2
   	python314
   	helix
   	neovim
@@ -147,7 +153,11 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
 	lshw
 	clinfo
 	vulkan-tools
+	
   ];
+  
+  environment.variables.EDITOR = "nvim";
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.adwaita-mono
@@ -179,6 +189,21 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+
+  programs.ssh.startAgent = true;
+
+  programs.ssh = {
+#  	extraConfig = "
+#	Host snp-nuc1nix
+#		Hostname 192.168.30.
+#		Port 22
+#		User snuppymend
+	extraConfig = "
+	IdentitiesOnly no
+	";
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
