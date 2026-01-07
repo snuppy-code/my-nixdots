@@ -122,6 +122,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
       #ghostty
       vscode
       mpv
+      vlc
       #kitty
     ];
   };
