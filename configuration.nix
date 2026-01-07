@@ -2,17 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
-      ./second-user.nix
+      inputs.home-manager.nixosModules.home-manager
     ];
   
-  second-user.enable = true;
-  second-user.userName = "gupp";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -120,8 +118,9 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
       qalculate-qt
       #foot
       #alacritty
-      #wezterm
-      ghostty
+      wezterm
+      #ghostty
+      vscode
       #kitty
     ];
   };
