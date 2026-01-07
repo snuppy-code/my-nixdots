@@ -11,7 +11,7 @@
       inputs.home-manager.nixosModules.home-manager
     ];
   
-  fileSystems."/home/yourusername/proton-logs" = {
+  fileSystems."/home/yourusername/.proton-logs" = {
     device = "none";
     fsType = "tmpfs";
     options = [ "defaults" "size=512M" "mode=755" "uid=1000" "gid=100" ];
