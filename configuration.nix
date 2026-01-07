@@ -11,6 +11,11 @@
       inputs.home-manager.nixosModules.home-manager
     ];
   
+  fileSystems."/home/yourusername/proton-logs" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = [ "defaults" "size=512M" "mode=755" "uid=1000" "gid=100" ];
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -121,6 +126,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
       lazygit
       krita
       qalculate-qt
+      blender
       #foot
       #alacritty
       wezterm
