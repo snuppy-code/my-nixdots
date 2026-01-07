@@ -121,6 +121,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
       wezterm
       #ghostty
       vscode
+      mpv
       #kitty
     ];
   };
