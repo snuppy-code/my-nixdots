@@ -11,48 +11,32 @@
       inputs.home-manager.nixosModules.home-manager
     ];
   
-  fileSystems."/home/yourusername/.proton-logs" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = [ "defaults" "size=512M" "mode=755" "uid=1000" "gid=100" ];
-  };
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Resolves return from sleep on Wi-Fi 7 BE200 (Gale Peak 2)
-  # Written by gemini! :/
-  services.udev.extraRules = ''
-ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"
-  '';
-  # Gemini ( :/ ) says this makes nixos continue to get latest closed source firmware, which can help my sleep issue above
+  # This is from gemini :/ because I wasn't able to solve this on my own and this solves my issue
+  services.udev.extraRules = ''ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"'';
+  
+  # Gemini :/ says this makes nixos continue to get latest closed source firmware, which can help my sleep issue above
   hardware.enableRedistributableFirmware = true;
   
+  # Something something yubikey
   services.pcscd.enable = true;
 
-  networking.hostName = "snp-lap1nix"; # Define your hostname.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  networking.hostName = "snp-lap1nix";
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
   hardware.graphics.extraPackages = with pkgs; [ intel-compute-runtime ];
 
-  # Set your time zone.
   time.timeZone = "Europe/Oslo";
 
-  # Select internationalisation properties.
+  # Internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "nb_NO.UTF-8";
     LC_IDENTIFICATION = "nb_NO.UTF-8";
@@ -65,20 +49,11 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
     LC_TIME = "nb_NO.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  #   services.xserver.enable = true;
-
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
+  # locate command
   services.locate = {
   	enable = true;
 	package = pkgs.plocate;
@@ -87,6 +62,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
   # Enable CUPS to print documents.
   # services.printing.enable = true;
   
+  # yubikey sudo: https://nixos.wiki/wiki/Yubikey
   security.pam.services = {
     login.u2fAuth = true;
     sudo.u2fAuth = true;
@@ -102,14 +78,7 @@ ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x2
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.snuppy = {
