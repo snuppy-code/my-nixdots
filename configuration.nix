@@ -85,28 +85,6 @@
     isNormalUser = true;
     description = "snuppy";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      protonvpn-gui
-      yubikey-manager
-      yubioath-flutter
-      vesktop
-      spotify
-      obsidian
-      lazygit
-      krita
-      qalculate-qt
-      blender
-      #foot
-      #alacritty
-      wezterm
-      #ghostty
-      vscode
-      mpv
-      vlc
-      lnav
-      plocate
-      #kitty
-    ];
   };
   
   programs.steam = {
@@ -128,7 +106,6 @@
   environment.systemPackages = with pkgs; [
   	libfido2
   	python314
-  	helix
   	neovim
 	btop
 	git
@@ -141,7 +118,6 @@
 	lshw
 	clinfo
 	vulkan-tools
-	
   ];
   
   environment.variables.EDITOR = "nvim";
