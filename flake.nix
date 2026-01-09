@@ -15,15 +15,27 @@
 		nixosConfigurations.snp-lap1nix = nixpkgs.lib.nixosSystem {
 			specialArgs = { inherit inputs; };
         		modules = [
-				./configuration.nix
+				./snp-lap1nix/configuration.nix
 				home-manager.nixosModules.home-manager {
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
 
-					home-manager.users.snuppy = (import ./home.nix);
+					home-manager.users.snuppy = (import ./snp-lap1nix/snuppy-home.nix);
 					# home-manager.extraSpecialArgs = { some stuf }
 				}
         		];
+		};
+		nixosConfigurations.snp-nuc1nix = nixpkgs.lib.nixosSystem {
+			specialArgs = { inherit inputs; };
+			modules = [
+				./snp-nuc1nix/configuration.nix
+				home-manager.nixosModules.home-manager {
+					home-manager.useGlobalPkgs = true;
+					home-manager.useUserPackages = true;
+
+					home-manager.users.mend = (import ./snp-nuc1nix/mend-home.nix);
+				}
+			];
 		};
 	};
 }
