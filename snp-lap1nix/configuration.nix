@@ -9,8 +9,93 @@
     [
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
+      inputs.spicetify-nix.nixosModules.spicetify
     ];
   
+  users.users.snuppy = {
+    extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.nushell;
+    description = "snuppy";
+    isNormalUser = true;
+  };
+
+  environment.shells = with pkgs; [
+    nushell
+  ];
+  
+  #home-manager.backupFileExtension = "backup";
+  
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+  stylix.image = ./wp1.png;
+
+  programs.spicetify = {
+    enable = true;
+    #theme = pkgs.lib.mkForce inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system}.themes.catppuccin;
+  };
+
+  
+  
+  environment.systemPackages = with pkgs; [
+  	libfido2
+  	python314
+  	neovim
+	btop
+	git
+	delta
+	fzf
+	ripgrep
+	fd
+	fastfetch
+	pciutils
+	lshw
+	clinfo
+	vulkan-tools
+	nushell
+  ];
+
+  programs.ssh = {
+ 	extraConfig = "
+	Host snp-nuc1nix
+		Hostname 192.168.30.65
+		Port 22
+		User mend
+	
+	Host snp-des2nix
+		Hostname 192.168.30.174
+		Port 22
+		User mend
+	";
+  };
+  
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+  
+  programs.firefox.enable = true;
+  
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.adwaita-mono
+    nerd-fonts.agave
+    nerd-fonts.arimo
+    nerd-fonts.aurulent-sans-mono
+    nerd-fonts.bigblue-terminal
+    nerd-fonts.caskaydia-mono
+    nerd-fonts.commit-mono
+    nerd-fonts.departure-mono
+    nerd-fonts.go-mono
+    nerd-fonts.inconsolata
+    nerd-fonts.iosevka-term
+    nerd-fonts.iosevka-term-slab
+    nerd-fonts.overpass
+    nerd-fonts.sauce-code-pro
+    nerd-fonts.tinos
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -80,66 +165,10 @@
     #jack.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.snuppy = {
-    isNormalUser = true;
-    description = "snuppy";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
-  
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-
-  # Install firefox.
-  programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  	libfido2
-  	python314
-  	neovim
-	btop
-	git
-	delta
-	fzf
-	ripgrep
-	fd
-	fastfetch
-	pciutils
-	lshw
-	clinfo
-	vulkan-tools
-  ];
-  
-  environment.variables.EDITOR = "nvim";
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.adwaita-mono
-    nerd-fonts.agave
-    nerd-fonts.arimo
-    nerd-fonts.aurulent-sans-mono
-    nerd-fonts.bigblue-terminal
-    nerd-fonts.caskaydia-mono
-    nerd-fonts.commit-mono
-    nerd-fonts.departure-mono
-    nerd-fonts.go-mono
-    nerd-fonts.inconsolata
-    nerd-fonts.iosevka-term
-    nerd-fonts.iosevka-term-slab
-    nerd-fonts.overpass
-    nerd-fonts.sauce-code-pro
-    nerd-fonts.tinos
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -156,18 +185,7 @@
   
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
-  programs.ssh.startAgent = true;
-
-  programs.ssh = {
-#  	extraConfig = "
-#	Host snp-nuc1nix
-#		Hostname 192.168.30.65
-#		Port 22
-#		User snuppymend
-	extraConfig = "
-	IdentitiesOnly no
-	";
-  };
+  #programs.ssh.startAgent = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
