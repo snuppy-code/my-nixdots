@@ -5,65 +5,71 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-  ];
+        imports = [
+        ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  
-  networking.hostName = "snp-des2nix";
-  networking.networkmanager.enable = true;
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
+        boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  time.timeZone = "Europe/Oslo";
+        networking.hostName = "snp-des2nix";
+        networking.networkmanager.enable = true;
 
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nb_NO.UTF-8";
-    LC_IDENTIFICATION = "nb_NO.UTF-8";
-    LC_MEASUREMENT = "nb_NO.UTF-8";
-    LC_MONETARY = "nb_NO.UTF-8";
-    LC_NAME = "nb_NO.UTF-8";
-    LC_NUMERIC = "nb_NO.UTF-8";
-    LC_PAPER = "nb_NO.UTF-8";
-    LC_TELEPHONE = "nb_NO.UTF-8";
-    LC_TIME = "nb_NO.UTF-8";
-  };
+        time.timeZone = "Europe/Oslo";
 
-  users.users.mend = {
-    isNormalUser = true;
-    description = "mend";
-    extraGroups = [ "networkmanager" "wheel" ];
-    initialPassword = "changeme";
-  };
+        i18n.defaultLocale = "en_US.UTF-8";
+        i18n.extraLocaleSettings = {
+                LC_ADDRESS = "nb_NO.UTF-8";
+                LC_IDENTIFICATION = "nb_NO.UTF-8";
+                LC_MEASUREMENT = "nb_NO.UTF-8";
+                LC_MONETARY = "nb_NO.UTF-8";
+                LC_NAME = "nb_NO.UTF-8";
+                LC_NUMERIC = "nb_NO.UTF-8";
+                LC_PAPER = "nb_NO.UTF-8";
+                LC_TELEPHONE = "nb_NO.UTF-8";
+                LC_TIME = "nb_NO.UTF-8";
+        };
 
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
-  environment.systemPackages = with pkgs; [
-    neovim
-    fastfetch
-  ];
+        users.users.mend = {
+                isNormalUser = true;
+                description = "mend";
+                extraGroups = [ "networkmanager" "wheel" ];
+                initialPassword = "changeme";
+        };
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-    };
-  };
+        nixpkgs.config.allowUnfree = true;
+        nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+        environment.systemPackages = with pkgs; [
+        ];
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+        services.openssh = {
+                enable = true;
+                settings = {
+                        PermitRootLogin = "no";
+                };
+        };
+        programs.ssh = {
+                extraConfig = "
+                        Host snp-nuc1nix
+                                Hostname 192.168.30.65
+                                Port 22
+                                User mend
+                        ";
+        };
+
+        # Open ports in the firewall.
+        # networking.firewall.allowedTCPPorts = [ ... ];
+        # networking.firewall.allowedUDPPorts = [ ... ];
+        # Or disable the firewall altogether.
+        # networking.firewall.enable = false;
+
+        # This value determines the NixOS release from which the default
+        # settings for stateful data, like file locations and database versions
+        # on your system were taken. It‘s perfectly fine and recommended to leave
+        # this value at the release version of the first install of this system.
+        # Before changing this value read the documentation for this option
+        # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+        system.stateVersion = "25.11"; # Did you read the comment?
 
 }

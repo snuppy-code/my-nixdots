@@ -5,242 +5,236 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports = [
-  ];
-  
-  users.users.snuppy = {
-    extraGroups = [ "networkmanager" "wheel" ];
-    description = "snuppy";
-    isNormalUser = true;
-  };
+        imports = [
+        ];
 
-  stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-  stylix.image = ./../wallpapers/highres/wp3.png;
-  # The generated color scheme can be viewed at /etc/stylix/palette.html on NixOS, or at ~/.config/stylix/palette.html on Home Manager.
-  #stylix.polarity = "dark";
-  stylix.fonts = {
-    #serif = {
-    #  package = pkgs.dejavu_fonts;
-    #  name = "DejaVu Serif";
-    #};
-    #sansSerif = {
-    #  package = pkgs.dejavu_fonts;
-    #  name = "DejaVu Sans";
-    #};
-    monospace = {
-      package = pkgs.nerd-fonts._0xproto;
-      name = "0xProto Nerd Font";
-    };
-    #emoji = {
-    #  package = pkgs.noto-fonts-color-emoji;
-    #  name = "Noto Color Emoji";
-    #};
-  };
-  stylix.autoEnable = false;
+        users.users.snuppy = {
+                extraGroups = [ "networkmanager" "wheel" ];
+                description = "snuppy";
+                isNormalUser = true;
+        };
 
-  # https://nix-community.github.io/stylix/options/modules/firefox.html
-  # about:profiles
-  programs.firefox.enable = true;
+        stylix.enable = true;
+        stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+        stylix.image = ./../wallpapers/highres/wp3.png;
+        # The generated color scheme can be viewed at /etc/stylix/palette.html on NixOS, or at ~/.config/stylix/palette.html on Home Manager.
+        #stylix.polarity = "dark";
+        stylix.fonts = {
+                #serif = {
+                #  package = pkgs.dejavu_fonts;
+                #  name = "DejaVu Serif";
+                #};
+                #sansSerif = {
+                #  package = pkgs.dejavu_fonts;
+                #  name = "DejaVu Sans";
+                #};
+                monospace = {
+                        package = pkgs.nerd-fonts._0xproto;
+                        name = "0xProto Nerd Font";
+                };
+                #emoji = {
+                #  package = pkgs.noto-fonts-color-emoji;
+                #  name = "Noto Color Emoji";
+                #};
+        };
+        stylix.autoEnable = false;
 
-  programs.spicetify = {
-    enable = true;
-    #theme = pkgs.lib.mkForce inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system}.themes.catppuccin;
-  };
+        # https://nix-community.github.io/stylix/options/modules/firefox.html
+        # about:profiles
+        programs.firefox.enable = true;
 
-  fonts.packages = with pkgs; [
-    nerd-fonts._0xproto
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.adwaita-mono
-    nerd-fonts.agave
-    nerd-fonts.arimo
-    nerd-fonts.aurulent-sans-mono
-    nerd-fonts.bigblue-terminal
-    nerd-fonts.caskaydia-mono
-    nerd-fonts.commit-mono
-    nerd-fonts.departure-mono
-    nerd-fonts.dejavu-sans-mono
-    nerd-fonts.go-mono
-    nerd-fonts.inconsolata
-    nerd-fonts.iosevka-term
-    nerd-fonts.iosevka-term-slab
-    nerd-fonts.overpass
-    nerd-fonts.sauce-code-pro
-    nerd-fonts.tinos
-  ];
-  
-  services.logind.settings.Login = { # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "suspend-then-hibernate", "lock"
-    HandleLidSwitch = "hybrid-sleep"; # like sleep (suspend) but also prepares hibernation, so if battery runs out I can still resume as if from hibernation
-    HandleLidSwitchExternalPower = "lock";
-    HandleLidSwitchDocked = "ignore";
-  };
-  powerManagement.enable = true; #https://nixos.wiki/wiki/Laptop
-  services.thermald.enable = true;
-  # https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/14IAH7/shared.nix
-  boot.kernelParams = [
-    "pcie_aspm.policy=powersupersave"
-    "mem_sleep_default=deep"
-  ];
-  services.fstrim.enable = true;
-  
-  services.power-profiles-daemon.enable = false; # KDE and Gnome both enable this one, so I disable it to instead use tlp
-  services.tlp.enable = true;
-  services.tlp.settings = { #mostly settings making it throttle on battery and not on AC
-    CPU_SCALING_GOVERNOR_ON_AC = "performance"; 
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        programs.spicetify = {
+                enable = true;
+        #theme = pkgs.lib.mkForce inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system}.themes.catppuccin;
+        };
 
-    CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        fonts.packages = with pkgs; [
+                nerd-fonts._0xproto
+                        nerd-fonts.jetbrains-mono
+                        nerd-fonts.adwaita-mono
+                        nerd-fonts.agave
+                        nerd-fonts.arimo
+                        nerd-fonts.aurulent-sans-mono
+                        nerd-fonts.bigblue-terminal
+                        nerd-fonts.caskaydia-mono
+                        nerd-fonts.commit-mono
+                        nerd-fonts.departure-mono
+                        nerd-fonts.dejavu-sans-mono
+                        nerd-fonts.go-mono
+                        nerd-fonts.inconsolata
+                        nerd-fonts.iosevka-term
+                        nerd-fonts.iosevka-term-slab
+                        nerd-fonts.overpass
+                        nerd-fonts.sauce-code-pro
+                        nerd-fonts.tinos
+        ];
 
-    CPU_MIN_PERF_ON_AC = 0;
-    CPU_MAX_PERF_ON_AC = 100;
-    CPU_MIN_PERF_ON_BAT = 0;
-    CPU_MAX_PERF_ON_BAT = 20;
+        services.logind.settings.Login = { # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "suspend-then-hibernate", "lock"
+                HandleLidSwitch = "hybrid-sleep"; # like sleep (suspend) but also prepares hibernation, so if battery runs out I can still resume as if from hibernation
+                        HandleLidSwitchExternalPower = "lock";
+                HandleLidSwitchDocked = "ignore";
+        };
+        powerManagement.enable = true; #https://nixos.wiki/wiki/Laptop
+                services.thermald.enable = true;
+        # https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/14IAH7/shared.nix
+        boot.kernelParams = [
+                "pcie_aspm.policy=powersupersave"
+                        "mem_sleep_default=deep"
+        ];
+        services.fstrim.enable = true;
 
-    # maybe slightly help battery life
-    START_CHARGE_THRESH_BAT0 = 40;
-    STOP_CHARGE_THRESH_BAT0 = 80;
-  };
-  
-  boot.kernelPackages = pkgs.linuxPackages_latest; # latest kernel.
-  #boot.initrd.kernelModules ;
+        services.power-profiles-daemon.enable = false; # KDE and Gnome both enable this one, so I disable it to instead use tlp
+                services.tlp.enable = true;
+        services.tlp.settings = { #mostly settings making it throttle on battery and not on AC
+                CPU_SCALING_GOVERNOR_ON_AC = "performance"; 
+                CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-  # Resolves return from sleep on Wi-Fi 7 BE200 (Gale Peak 2). This is from gemini :/ because I wasn't able to solve this on my own and this solves my issue.
-  services.udev.extraRules = ''ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"'';
-  
-  # Gemini :/ says this makes nixos continue to get latest closed source firmware, which can help my sleep issue above
-  # https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/slim/gen8/default.nix
-  hardware.enableRedistributableFirmware = true;
-  
-  # https://wiki.nixos.org/wiki/Accelerated_Video_Playback
-  # https://nixos.wiki/wiki/Intel_Graphics
-  # https://wiki.nixos.org/wiki/Intel_Graphics
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-compute-runtime # for openCL, optional
-      intel-media-driver
-      vpl-gpu-rt
-    ];
-  };
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; #unsure if this is right?
-  
-  services.tailscale.enable = true;
+                CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+                CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-  environment.systemPackages = with pkgs; [
-  	libfido2
-  ];
+                CPU_MIN_PERF_ON_AC = 0;
+                CPU_MAX_PERF_ON_AC = 100;
+                CPU_MIN_PERF_ON_BAT = 0;
+                CPU_MAX_PERF_ON_BAT = 20;
 
-  programs.ssh = {
- 	extraConfig = "
-	Host snp-nuc1nix
-		Hostname 192.168.30.65
-		Port 22
-		User mend
-	
-	Host snp-des2nix
-		Hostname 192.168.30.174
-		Port 22
-		User mend
-	";
-  };
-  
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-  
-  
+        # maybe slightly help battery life
+                START_CHARGE_THRESH_BAT0 = 40;
+                STOP_CHARGE_THRESH_BAT0 = 80;
+        };
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+        boot.kernelPackages = pkgs.linuxPackages_latest; # latest kernel.
+        #boot.initrd.kernelModules ;
 
-  
-  # Something something yubikey
-  services.pcscd.enable = true;
+        # Resolves return from sleep on Wi-Fi 7 BE200 (Gale Peak 2). This is from gemini :/ because I wasn't able to solve this on my own and this solves my issue.
+                services.udev.extraRules = ''ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"'';
 
-  networking.hostName = "snp-lap1nix";
-  networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true;
+        # Gemini :/ says this makes nixos continue to get latest closed source firmware, which can help my sleep issue above
+        # https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/slim/gen8/default.nix
+        hardware.enableRedistributableFirmware = true;
 
-  time.timeZone = "Europe/Oslo";
+        # https://wiki.nixos.org/wiki/Accelerated_Video_Playback
+        # https://nixos.wiki/wiki/Intel_Graphics
+        # https://wiki.nixos.org/wiki/Intel_Graphics
+        hardware.graphics = {
+                enable = true;
+                extraPackages = with pkgs; [
+                        intel-compute-runtime # for openCL, optional
+                                intel-media-driver
+                                vpl-gpu-rt
+                ];
+        };
+        environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; #unsure if this is right?
 
-  # Internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nb_NO.UTF-8";
-    LC_IDENTIFICATION = "nb_NO.UTF-8";
-    LC_MEASUREMENT = "nb_NO.UTF-8";
-    LC_MONETARY = "nb_NO.UTF-8";
-    LC_NAME = "nb_NO.UTF-8";
-    LC_NUMERIC = "nb_NO.UTF-8";
-    LC_PAPER = "nb_NO.UTF-8";
-    LC_TELEPHONE = "nb_NO.UTF-8";
-    LC_TIME = "nb_NO.UTF-8";
-  };
+                services.tailscale.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+        environment.systemPackages = with pkgs; [
+                libfido2
+        ];
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-  
-  # yubikey sudo: https://nixos.wiki/wiki/Yubikey
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
-  };
+        programs.ssh = {
+                extraConfig = "
+                        Host snp-nuc1nix
+                        Hostname 192.168.30.65
+                        Port 22
+                        User mend
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  };
+                        Host snp-des2nix
+                        Hostname 192.168.30.174
+                        Port 22
+                        User mend
+                        ";
+        };
+
+        programs.steam = {
+                enable = true;
+                remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+                        dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+                        localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+        };
+
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
+
+        # Something something yubikey
+        services.pcscd.enable = true;
+        # yubikey sudo: https://nixos.wiki/wiki/Yubikey
+        security.pam.services = {
+                login.u2fAuth = true;
+                sudo.u2fAuth = true;
+        };
+
+        networking.hostName = "snp-lap1nix";
+        networking.networkmanager.enable = true;
+        hardware.bluetooth.enable = true;
+
+        time.timeZone = "Europe/Oslo";
+
+        i18n.defaultLocale = "en_US.UTF-8";
+        i18n.extraLocaleSettings = {
+                LC_ADDRESS = "nb_NO.UTF-8";
+                LC_IDENTIFICATION = "nb_NO.UTF-8";
+                LC_MEASUREMENT = "nb_NO.UTF-8";
+                LC_MONETARY = "nb_NO.UTF-8";
+                LC_NAME = "nb_NO.UTF-8";
+                LC_NUMERIC = "nb_NO.UTF-8";
+                LC_PAPER = "nb_NO.UTF-8";
+                LC_TELEPHONE = "nb_NO.UTF-8";
+                LC_TIME = "nb_NO.UTF-8";
+        };
+
+        # Enable the KDE Plasma Desktop Environment.
+        services.displayManager.sddm.enable = true;
+        services.desktopManager.plasma6.enable = true;
+
+        # Enable CUPS to print documents.
+        # services.printing.enable = true;
+
+        # Enable sound with pipewire.
+        services.pulseaudio.enable = false;
+        security.rtkit.enable = true;
+        services.pipewire = {
+                enable = true;
+                alsa.enable = true;
+                alsa.support32Bit = true;
+                pulse.enable = true;
+        # If you want to use JACK applications, uncomment this
+        #jack.enable = true;
+        };
 
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+        # Allow unfree packages
+        nixpkgs.config.allowUnfree = true;
+        nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+        # Some programs need SUID wrappers, can be configured further or are
+        # started in user sessions.
+        # programs.mtr.enable = true;
+        # programs.gnupg.agent = {
+        #   enable = true;
+        #   enableSSHSupport = true;
+        # };
 
-  # List services that you want to enable:
+        # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+        # Enable the OpenSSH daemon.
+        # services.openssh.enable = true;
 
-  #programs.ssh.startAgent = true;
+        services.udev.packages = [ pkgs.yubikey-personalization ];
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+        #programs.ssh.startAgent = true;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+        # Open ports in the firewall.
+        # networking.firewall.allowedTCPPorts = [ ... ];
+        # networking.firewall.allowedUDPPorts = [ ... ];
+        # Or disable the firewall altogether.
+        # networking.firewall.enable = false;
+
+        # This value determines the NixOS release from which the default
+        # settings for stateful data, like file locations and database versions
+        # on your system were taken. It‘s perfectly fine and recommended to leave
+        # this value at the release version of the first install of this system.
+        # Before changing this value read the documentation for this option
+        # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+        system.stateVersion = "25.11"; # Did you read the comment?
 
 }
