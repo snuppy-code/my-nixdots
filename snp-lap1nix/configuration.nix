@@ -5,53 +5,130 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.home-manager
-      inputs.spicetify-nix.nixosModules.spicetify
-    ];
+  imports = [
+  ];
   
   users.users.snuppy = {
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.nushell;
     description = "snuppy";
     isNormalUser = true;
   };
 
-  environment.shells = with pkgs; [
-    nushell
-  ];
-  
-  #home-manager.backupFileExtension = "backup";
-  
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-  stylix.image = ./wp1.png;
+  stylix.image = ./../wallpapers/highres/wp3.png;
+  # The generated color scheme can be viewed at /etc/stylix/palette.html on NixOS, or at ~/.config/stylix/palette.html on Home Manager.
+  #stylix.polarity = "dark";
+  stylix.fonts = {
+    #serif = {
+    #  package = pkgs.dejavu_fonts;
+    #  name = "DejaVu Serif";
+    #};
+    #sansSerif = {
+    #  package = pkgs.dejavu_fonts;
+    #  name = "DejaVu Sans";
+    #};
+    monospace = {
+      package = pkgs.nerd-fonts._0xproto;
+      name = "0xProto Nerd Font";
+    };
+    #emoji = {
+    #  package = pkgs.noto-fonts-color-emoji;
+    #  name = "Noto Color Emoji";
+    #};
+  };
+  stylix.autoEnable = false;
+
+  # https://nix-community.github.io/stylix/options/modules/firefox.html
+  # about:profiles
+  programs.firefox.enable = true;
 
   programs.spicetify = {
     enable = true;
     #theme = pkgs.lib.mkForce inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.system}.themes.catppuccin;
   };
 
+  fonts.packages = with pkgs; [
+    nerd-fonts._0xproto
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.adwaita-mono
+    nerd-fonts.agave
+    nerd-fonts.arimo
+    nerd-fonts.aurulent-sans-mono
+    nerd-fonts.bigblue-terminal
+    nerd-fonts.caskaydia-mono
+    nerd-fonts.commit-mono
+    nerd-fonts.departure-mono
+    nerd-fonts.dejavu-sans-mono
+    nerd-fonts.go-mono
+    nerd-fonts.inconsolata
+    nerd-fonts.iosevka-term
+    nerd-fonts.iosevka-term-slab
+    nerd-fonts.overpass
+    nerd-fonts.sauce-code-pro
+    nerd-fonts.tinos
+  ];
   
+  services.logind.settings.Login = { # one of "ignore", "poweroff", "reboot", "halt", "kexec", "suspend", "hibernate", "hybrid-sleep", "suspend-then-hibernate", "lock"
+    HandleLidSwitch = "hybrid-sleep"; # like sleep (suspend) but also prepares hibernation, so if battery runs out I can still resume as if from hibernation
+    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchDocked = "ignore";
+  };
+  powerManagement.enable = true; #https://nixos.wiki/wiki/Laptop
+  services.thermald.enable = true;
+  # https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/14IAH7/shared.nix
+  boot.kernelParams = [
+    "pcie_aspm.policy=powersupersave"
+    "mem_sleep_default=deep"
+  ];
+  services.fstrim.enable = true;
   
+  services.power-profiles-daemon.enable = false; # KDE and Gnome both enable this one, so I disable it to instead use tlp
+  services.tlp.enable = true;
+  services.tlp.settings = { #mostly settings making it throttle on battery and not on AC
+    CPU_SCALING_GOVERNOR_ON_AC = "performance"; 
+    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+    CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+    CPU_MIN_PERF_ON_AC = 0;
+    CPU_MAX_PERF_ON_AC = 100;
+    CPU_MIN_PERF_ON_BAT = 0;
+    CPU_MAX_PERF_ON_BAT = 20;
+
+    # maybe slightly help battery life
+    START_CHARGE_THRESH_BAT0 = 40;
+    STOP_CHARGE_THRESH_BAT0 = 80;
+  };
+  
+  boot.kernelPackages = pkgs.linuxPackages_latest; # latest kernel.
+  #boot.initrd.kernelModules ;
+
+  # Resolves return from sleep on Wi-Fi 7 BE200 (Gale Peak 2). This is from gemini :/ because I wasn't able to solve this on my own and this solves my issue.
+  services.udev.extraRules = ''ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"'';
+  
+  # Gemini :/ says this makes nixos continue to get latest closed source firmware, which can help my sleep issue above
+  # https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/slim/gen8/default.nix
+  hardware.enableRedistributableFirmware = true;
+  
+  # https://wiki.nixos.org/wiki/Accelerated_Video_Playback
+  # https://nixos.wiki/wiki/Intel_Graphics
+  # https://wiki.nixos.org/wiki/Intel_Graphics
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-compute-runtime # for openCL, optional
+      intel-media-driver
+      vpl-gpu-rt
+    ];
+  };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; #unsure if this is right?
+  
+  services.tailscale.enable = true;
+
   environment.systemPackages = with pkgs; [
   	libfido2
-  	python314
-  	neovim
-	btop
-	git
-	delta
-	fzf
-	ripgrep
-	fd
-	fastfetch
-	pciutils
-	lshw
-	clinfo
-	vulkan-tools
-	nushell
   ];
 
   programs.ssh = {
@@ -75,40 +152,12 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
   
-  programs.firefox.enable = true;
   
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.adwaita-mono
-    nerd-fonts.agave
-    nerd-fonts.arimo
-    nerd-fonts.aurulent-sans-mono
-    nerd-fonts.bigblue-terminal
-    nerd-fonts.caskaydia-mono
-    nerd-fonts.commit-mono
-    nerd-fonts.departure-mono
-    nerd-fonts.go-mono
-    nerd-fonts.inconsolata
-    nerd-fonts.iosevka-term
-    nerd-fonts.iosevka-term-slab
-    nerd-fonts.overpass
-    nerd-fonts.sauce-code-pro
-    nerd-fonts.tinos
-  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # Resolves return from sleep on Wi-Fi 7 BE200 (Gale Peak 2)
-  # This is from gemini :/ because I wasn't able to solve this on my own and this solves my issue
-  services.udev.extraRules = ''ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"'';
-  
-  # Gemini :/ says this makes nixos continue to get latest closed source firmware, which can help my sleep issue above
-  hardware.enableRedistributableFirmware = true;
   
   # Something something yubikey
   services.pcscd.enable = true;
@@ -116,7 +165,6 @@
   networking.hostName = "snp-lap1nix";
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [ intel-compute-runtime ];
 
   time.timeZone = "Europe/Oslo";
 
@@ -137,12 +185,6 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  # locate command
-  services.locate = {
-  	enable = true;
-	package = pkgs.plocate;
-};
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

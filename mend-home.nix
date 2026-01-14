@@ -1,26 +1,12 @@
 { config, pkgs, ... }:
 
 {
-	#home.username = "snuppy";
-	#home.homeDirectory = "/home/snuppy";
-	
 	home.packages = with pkgs; [
-		protonvpn-gui
-		yubikey-manager
-		yubioath-flutter
-		qalculate-qt
-		vesktop
-		spotify
-		obsidian
-		krita
-		blender
-		vscode
-		vlc
-		mpv
-		wezterm
+		#protonvpn-gui
+		#yubikey-manager
+		#yubioath-flutter
 		lnav
 		plocate
-		lazygit
 
 	];
 
@@ -36,3 +22,4 @@
   # changes in each release.
   home.stateVersion = "25.11";
 }
+
