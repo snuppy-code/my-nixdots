@@ -61,7 +61,7 @@
         # after power failure: wake up / power on
 
         boot.kernelPackages = pkgs.linuxPackages; # linuxPackages = LTS !
-        networking.networkmanager.wifi.powersave = true; # I would imagine if anything this is actively detrimental but first time with 19 hours uptime this is true
+        networking.networkmanager.wifi.powersave = false; # I would imagine if anything this is actively detrimental but first time with 19 hours uptime this is true
         hardware.cpu.intel.updateMicrocode = true;
         powerManagement.enable = false;
         systemd.targets.sleep.enable = false;
@@ -161,6 +161,8 @@
 				Hostname 192.168.30.174
 				Port 22
 				User mend
+                                IdentityFile ~/.ssh/snp-nuc1nix-own-key
+                                IdentitiesOnly yes
 		'';
 	};
 
