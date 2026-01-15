@@ -142,6 +142,11 @@
                         Hostname 192.168.30.174
                         Port 22
                         User mend
+
+                        Host snp-des3nix
+                        Hostname 192.168.30.144
+                        Port 22
+                        User mend
                 ";
         };
 
