@@ -53,13 +53,6 @@
                         nerd-fonts.tinos
         ];
         
-        # Some settings trying to make it not sleep
-        # bios should have:
-        # legacy s3 sleep
-        # disabled s4/s5
-        # wake on lan enabled
-        # after power failure: wake up / power on
-
         boot.kernelPackages = pkgs.linuxPackages; # linuxPackages = LTS !
         networking.networkmanager.wifi.powersave = false; # I would imagine if anything this is actively detrimental but first time with 19 hours uptime this is true
         hardware.cpu.intel.updateMicrocode = true;
@@ -80,29 +73,7 @@
         boot.kernelParams = [
                 "intel_idle.max_cstate=1"
                 "processor.max_cstate=1"
-
-                "i915.enable_dc=0"
-                "i915.enable_psr=0"
-
-                "pcie_aspm=off"
-                "nvme_core.default_ps_max_latency_us=0"
-
-                "panic=120"
-                "nmi_watchdog=1"
-
-                "reboot=acpi"
         ];
-        systemd.settings.Manager.RuntimeWatchdogSec = "60s";
-        systemd.settings.Manager.RebootWatchdogSec = "60s";
-        boot.blacklistedKernelModules = [ "intel_oc_wdt" ];
-        boot.kernelModules = [
-                "iTCO_wdt"
-                "iTCO_vendor_support"
-                "wdat_wdt"
-                "mei_wdt"
-                "mei_me"
-        ];
-
         
         boot.loader.systemd-boot.enable = true;
         boot.loader.efi.canTouchEfiVariables = true;
@@ -157,14 +128,13 @@
 		'';
 	};
 	programs.ssh = {
-		#extraConfig = ''
-		#	Host snp-des2nix
-		#		Hostname 192.168.30.174
-		#		Port 22
-		#		User mend
-                #                IdentityFile ~/.ssh/snp-nuc1nix-own-key
-                #                IdentitiesOnly yes
-		#'';
+		extraConfig = ''
+			Host snp-des2nix
+				Hostname 192.168.30.174
+				Port 22
+                                IdentityFile ~/.ssh/mend-snp-des3nix
+                                IdentitiesOnly yes
+		'';
 	};
 
 	# git on the server ! - https://nixos.wiki/wiki/Git

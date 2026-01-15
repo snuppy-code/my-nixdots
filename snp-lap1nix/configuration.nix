@@ -125,7 +125,7 @@
         };
         environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; #unsure if this is right?
 
-                services.tailscale.enable = true;
+        services.tailscale.enable = true;
 
         environment.systemPackages = with pkgs; [
                 libfido2
@@ -153,8 +153,8 @@
         programs.steam = {
                 enable = true;
                 remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-                        dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-                        localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+                dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+                localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
         };
 
         boot.loader.systemd-boot.enable = true;
