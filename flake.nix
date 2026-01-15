@@ -73,5 +73,22 @@
 				}
 			];
 		};
+		nixosConfigurations.snp-des3nix = nixpkgs.lib.nixosSystem {
+			specialArgs = { inherit inputs; };
+			modules = [
+				./snp-des3nix/configuration.nix
+                                ./cli-common.nix
+				./snp-des3nix/hardware-configuration.nix
+				nvf.nixosModules.default
+				stylix.nixosModules.stylix
+				home-manager.nixosModules.home-manager
+				{
+                                        mycli.username = "mend";
+					home-manager.useGlobalPkgs = true;
+					home-manager.useUserPackages = true;
+					home-manager.users.mend = import ./mend-home.nix;
+					home-manager.extraSpecialArgs = { inherit inputs; };
+				}
+			];
 	};
 }
