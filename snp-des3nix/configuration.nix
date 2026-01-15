@@ -122,7 +122,6 @@
 			Match user git
 			AllowTcpForwarding no
 			AllowAgentForwarding no
-			PasswordAuthentication no
 			PermitTTY no
 			X11Forwarding no
 		'';
@@ -132,7 +131,7 @@
 			Host snp-des2nix
 				Hostname 192.168.30.174
 				Port 22
-                                IdentityFile ~/.ssh/mend-snp-des3nix
+                                IdentityFile ~/.ssh/snp-des3nix-mend-own
                                 IdentitiesOnly yes
 		'';
 	};
