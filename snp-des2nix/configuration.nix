@@ -59,6 +59,7 @@
 
 	networking.hostName = "snp-des2nix";
 	networking.networkmanager.enable = true;
+        services.tailscale.enable = true;
 
 	time.timeZone = "Europe/Oslo";
 

@@ -109,6 +109,7 @@
 
 	networking.hostName = "snp-nuc1nix";
 	networking.networkmanager.enable = true;
+        services.tailscale.enable = true;
 
 	time.timeZone = "Europe/Oslo";
 
