@@ -19,6 +19,8 @@
                         btop
                         pciutils
                         lshw
+                        inxi
+                        iperf
                         clinfo
                         plocate
                         #vulkan-tools

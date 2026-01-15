@@ -142,7 +142,7 @@
                         Hostname 192.168.30.174
                         Port 22
                         User mend
-                        ";
+                ";
         };
 
         programs.steam = {

@@ -2,185 +2,203 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.home-manager
-    ];
-  
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+	imports = [
+	];
+        
+	stylix.enable = true;
+        stylix.autoEnable = false;
+        stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+        stylix.image = ./../wallpapers/highres/wp3.png;
+        # The generated color scheme can be viewed at /etc/stylix/palette.html on NixOS, or at ~/.config/stylix/palette.html on Home Manager.
+        #stylix.polarity = "dark";
+        stylix.fonts = {
+                #serif = {
+                #  package = pkgs.dejavu_fonts;
+                #  name = "DejaVu Serif";
+                #};
+                #sansSerif = {
+                #  package = pkgs.dejavu_fonts;
+                #  name = "DejaVu Sans";
+                #};
+                monospace = {
+                        package = pkgs.nerd-fonts._0xproto;
+                        name = "0xProto Nerd Font";
+                };
+                #emoji = {
+                #  package = pkgs.noto-fonts-color-emoji;
+                #  name = "Noto Color Emoji";
+                #};
+        };
+        fonts.packages = with pkgs; [
+                nerd-fonts._0xproto
+                        nerd-fonts.jetbrains-mono
+                        nerd-fonts.adwaita-mono
+                        nerd-fonts.agave
+                        nerd-fonts.arimo
+                        nerd-fonts.aurulent-sans-mono
+                        nerd-fonts.bigblue-terminal
+                        nerd-fonts.caskaydia-mono
+                        nerd-fonts.commit-mono
+                        nerd-fonts.departure-mono
+                        nerd-fonts.dejavu-sans-mono
+                        nerd-fonts.go-mono
+                        nerd-fonts.inconsolata
+                        nerd-fonts.iosevka-term
+                        nerd-fonts.iosevka-term-slab
+                        nerd-fonts.overpass
+                        nerd-fonts.sauce-code-pro
+                        nerd-fonts.tinos
+        ];
+        
+        # Some settings trying to make it not sleep
+        # bios should have:
+        # legacy s3 sleep
+        # disabled s4/s5
+        # wake on lan enabled
+        # after power failure: wake up / power on
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+        boot.kernelPackages = pkgs.linuxPackages; # linuxPackages = LTS !
+        networking.networkmanager.wifi.powersave = true; # I would imagine if anything this is actively detrimental but first time with 19 hours uptime this is true
+        hardware.cpu.intel.updateMicrocode = true;
+        powerManagement.enable = false;
+        systemd.targets.sleep.enable = false;
+        systemd.targets.suspend.enable = false;
+        systemd.targets.hibernate.enable = false;
+        systemd.targets.hybrid-sleep.enable = false;
+        systemd.sleep.extraConfig = ''
+                AllowSuspend=no
+                AllowHibernation=no
+                AllowHybridSleep=no
+                AllowSuspendThenHibernate=no
+                '';
+        services.logind.settings.Login.HandleLidSwitch = "ignore";
+        services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
+        services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+        boot.kernelParams = [
+                "intel_idle.max_cstate=1"
+                "processor.max_cstate=1"
 
-  # Resolves return from sleep on Wi-Fi 7 BE200 (Gale Peak 2)
-  # This is from gemini :/ because I wasn't able to solve this on my own and this solves my issue
-  services.udev.extraRules = ''ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"'';
-  
-  # Gemini :/ says this makes nixos continue to get latest closed source firmware, which can help my sleep issue above
-  hardware.enableRedistributableFirmware = true;
-  
-  # Something something yubikey
-  services.pcscd.enable = true;
+                "i915.enable_dc=0"
+                "i915.enable_psr=0"
 
-  networking.hostName = "snp-lap1nix";
-  networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [ intel-compute-runtime ];
+                "pcie_aspm=off"
+                "nvme_core.default_ps_max_latency_us=0"
 
-  time.timeZone = "Europe/Oslo";
+                "panic=120"
+                "nmi_watchdog=1"
 
-  # Internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nb_NO.UTF-8";
-    LC_IDENTIFICATION = "nb_NO.UTF-8";
-    LC_MEASUREMENT = "nb_NO.UTF-8";
-    LC_MONETARY = "nb_NO.UTF-8";
-    LC_NAME = "nb_NO.UTF-8";
-    LC_NUMERIC = "nb_NO.UTF-8";
-    LC_PAPER = "nb_NO.UTF-8";
-    LC_TELEPHONE = "nb_NO.UTF-8";
-    LC_TIME = "nb_NO.UTF-8";
-  };
+                "reboot=acpi"
+        ];
+        systemd.settings.Manager.RuntimeWatchdogSec = "60s";
+        systemd.settings.Manager.RebootWatchdogSec = "60s";
+        boot.blacklistedKernelModules = [ "intel_oc_wdt" ];
+        boot.kernelModules = [
+                "iTCO_wdt"
+                "iTCO_vendor_support"
+                "wdat_wdt"
+                "mei_wdt"
+                "mei_me"
+        ];
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+        
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
 
-  # locate command
-  services.locate = {
-  	enable = true;
-	package = pkgs.plocate;
-};
+	networking.hostName = "snp-nuc1nix";
+	networking.networkmanager.enable = true;
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-  
-  # yubikey sudo: https://nixos.wiki/wiki/Yubikey
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
-  };
+	time.timeZone = "Europe/Oslo";
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  };
+	i18n.defaultLocale = "en_US.UTF-8";
+	i18n.extraLocaleSettings = {
+		LC_ADDRESS = "nb_NO.UTF-8";
+		LC_IDENTIFICATION = "nb_NO.UTF-8";
+		LC_MEASUREMENT = "nb_NO.UTF-8";
+		LC_MONETARY = "nb_NO.UTF-8";
+		LC_NAME = "nb_NO.UTF-8";
+		LC_NUMERIC = "nb_NO.UTF-8";
+		LC_PAPER = "nb_NO.UTF-8";
+		LC_TELEPHONE = "nb_NO.UTF-8";
+		LC_TIME = "nb_NO.UTF-8";
+	};
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.snuppy = {
-    isNormalUser = true;
-    description = "snuppy";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
-  
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
+	users.users.mend = {
+		isNormalUser = true;
+		description = "mend";
+		extraGroups = [ "networkmanager" "wheel" ];
+		initialPassword = "changeme";
+                openssh.authorizedKeys.keys = [
+                        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
+                ];
+	};
 
-  # Install firefox.
-  programs.firefox.enable = true;
+	nixpkgs.config.allowUnfree = true;
+	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+	environment.systemPackages = with pkgs; [
+	];
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  	libfido2
-  	python314
-  	neovim
-	btop
-	git
-	delta
-	fzf
-	ripgrep
-	fd
-	fastfetch
-	pciutils
-	lshw
-	clinfo
-	vulkan-tools
-  ];
-  
-  environment.variables.EDITOR = "nvim";
+	services.openssh = {
+		enable = true;
+		settings = {
+			PermitRootLogin = "no";
+		};
+		extraConfig = ''
+			Match user git
+			AllowTcpForwarding no
+			AllowAgentForwarding no
+			PasswordAuthentication no
+			PermitTTY no
+			X11Forwarding no
+		'';
+	};
+	programs.ssh = {
+		extraConfig = ''
+			Host snp-des2nix
+				Hostname 192.168.30.174
+				Port 22
+				User mend
+		'';
+	};
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.adwaita-mono
-    nerd-fonts.agave
-    nerd-fonts.arimo
-    nerd-fonts.aurulent-sans-mono
-    nerd-fonts.bigblue-terminal
-    nerd-fonts.caskaydia-mono
-    nerd-fonts.commit-mono
-    nerd-fonts.departure-mono
-    nerd-fonts.go-mono
-    nerd-fonts.inconsolata
-    nerd-fonts.iosevka-term
-    nerd-fonts.iosevka-term-slab
-    nerd-fonts.overpass
-    nerd-fonts.sauce-code-pro
-    nerd-fonts.tinos
-  ];
+	# git on the server ! - https://nixos.wiki/wiki/Git
+	#users.users.git = {
+	#	isSystemUser = true;
+	#	group = "git";
+	#	home = "/var/lib/git-server";
+	#	createHome = true;
+	#	shell = "${pkgs.git}/bin/git-shell";
+	#	openssh.authorizedKeys.keys = [
+	#		"sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
+	#		"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILDkgmUlpM3cGE0MDHU0QyCtspkpImLjQVpkU7ihv5P9 mend@snp-des2nix"
+	#	];
+	#};
+	#users.groups.git = {};
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+	programs.git = {
+		enable = true;
+		config = {
+			init.defaultBranch = "main";
+                        user.name = "snuppy";
+                        user.email = "snuppy.code@pm.me";
+		};
+	};
 
-  # List services that you want to enable:
+	# Open ports in the firewall.
+	# networking.firewall.allowedTCPPorts = [ ... ];
+	# networking.firewall.allowedUDPPorts = [ ... ];
+	# Or disable the firewall altogether.
+	# networking.firewall.enable = false;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-
-  programs.ssh.startAgent = true;
-
-  programs.ssh = {
-#  	extraConfig = "
-#	Host snp-nuc1nix
-#		Hostname 192.168.30.
-#		Port 22
-#		User snuppymend
-	extraConfig = "
-	IdentitiesOnly no
-	";
-  };
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+	# This value determines the NixOS release from which the default
+	# settings for stateful data, like file locations and database versions
+	# on your system were taken. It‘s perfectly fine and recommended to leave
+	# this value at the release version of the first install of this system.
+	# Before changing this value read the documentation for this option
+	# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+	system.stateVersion = "25.11"; # Did you read the comment?
 
 }
