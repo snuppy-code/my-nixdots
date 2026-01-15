@@ -43,6 +43,8 @@
 				./snp-nuc1nix/configuration.nix
                                 ./cli-common.nix
 				./snp-nuc1nix/hardware-configuration.nix
+				nvf.nixosModules.default
+				stylix.nixosModules.stylix
 				home-manager.nixosModules.home-manager
 				{
                                         mycli.username = "mend";
