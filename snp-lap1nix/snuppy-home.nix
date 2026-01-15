@@ -18,6 +18,7 @@
 		vlc
 		mpv
 		gparted
+                caligula
 	]; 
 
 	#programs.spicetify.enable = true;
