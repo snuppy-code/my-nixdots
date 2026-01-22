@@ -19,6 +19,13 @@
 		mpv
 		gparted
                 caligula
+                geteduroam
+                #geteduroam-cli
+                networkmanager
+                #jdk25_headless
+                jdk
+                solaar
+                freecad
 	]; 
 
 	#programs.spicetify.enable = true;
