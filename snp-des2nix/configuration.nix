@@ -7,8 +7,18 @@
 {
 	imports = [
 	];
-        
-	stylix.enable = true;
+
+        environment.etc."nextcloud-admin-pass".text = "changeme";
+        services.nextcloud = {
+                enable = true;
+                package = pkgs.nextcloud31;
+                hostName = "snp-des2nix.tailf46592.ts.net";
+                database.createLocally = true;
+                config.adminpassFile = "/etc/nextcloud-admin-pass";
+                config.dbtype = "pgsql";
+        };
+
+        stylix.enable = true;
         stylix.autoEnable = false;
         stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
         stylix.image = ./../wallpapers/highres/wp3.png;
