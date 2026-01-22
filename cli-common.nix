@@ -23,6 +23,7 @@
                         iperf
                         clinfo
                         plocate
+                        caligula
                         #vulkan-tools
                         #nushell
                 ];
