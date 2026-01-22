@@ -26,6 +26,8 @@
                 jdk
                 solaar
                 freecad
+                nextcloud-client
+                super-productivity
 	]; 
 
 	#programs.spicetify.enable = true;

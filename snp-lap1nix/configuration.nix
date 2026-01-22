@@ -14,9 +14,6 @@
                 isNormalUser = true;
         };
 
-        hardware.logitech.wireless.enable = true;
-        hardware.logitech.wireless.enableGraphical = true;
-
         stylix.enable = true;
         stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
         stylix.image = ./../wallpapers/highres/wp3.png;
@@ -175,36 +172,6 @@
 
         networking.hostName = "snp-lap1nix";
         networking.networkmanager.enable = true; 
-        #networking.networkmanager.ensureProfiles.profiles = {
-        #        eduroam = {
-        #                connection = {
-        #                        id = "eduroam";
-        #                        type = "wifi";
-        #                        interface-name = "wlp1s0f0"; ## interface-name as displayed by "ip a" 
-        #                };
-        #                wifi = {
-        #                        mode = "infrastructure";
-        #                        ssid = "eduroam";
-        #                };
-        #                wifi-security = {
-        #                        key-mgmt = "wpa-eap"; ## adapt according to your universities setup
-        #                };
-        #                "802-1x" = { ## not all or even some additional values may be needed here according to your institution
-        #                        eap = "ttls"; ## adapt according to your universities setup
-        #                                identity = "likely-youremail@youruniversity.edu";
-        #                        client-cert = "/etc/ssl/certs/eduroam/cert.pem";
-        #                        private-key = "/etc/ssl/certs/eduroam/private.key";
-        #                        private-key-password = "p@ssw0rd-of-your-.key-file"; ## warning, this should only be done for testing purposes, as it makes the password world-readable. You should replace this with some form of secrets-management using sops-nix or agenix. 
-        #                                ca-cert = "/etc/ssl/certs/certs.pem";
-        #                };
-        #                ipv4 = {
-        #                        method = "auto";
-        #                };
-        #                ipv6 = {
-        #                        method = "auto";
-        #                };
-        #        };
-        #};
         hardware.bluetooth.enable = true;
 
         time.timeZone = "Europe/Oslo";
