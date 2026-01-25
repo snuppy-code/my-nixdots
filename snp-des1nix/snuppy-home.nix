@@ -27,7 +27,12 @@
                         solaar
                         nextcloud-client
                         super-productivity
+                        sops
         ]; 
+
+        home.sessionVariables = {
+                EDITOR = "nvim";
+        };
 
         # ~/.config
         xdg.configFile."libvirt/qemu.conf".text = ''

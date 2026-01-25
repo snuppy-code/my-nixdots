@@ -8,6 +8,56 @@
 	imports = [
 	];
         
+        sops = {
+                defaultSopsFile = ../secrets.yaml;
+                validateSopsFiles = false; # https://youtu.be/gdxlc5a6ne0 his was false
+                age = {
+                        # I generated a key from this host's public ssh host key
+                        # I added it to .sops.yaml, so it can be used to decrypt 
+                        # Here I tell sops-nix(?) about my host's private ssh host key so it can import it automatically as an age key
+                        sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+                        # this is where it will store the converted/imported age key
+                        keyFile = "/var/lib/sops-nix/key.txt";
+                        # generate a key from the sshKeyPaths if the key specified above doesn't exist
+                        generateKey = true;
+                };
+                secrets = {
+                        # Secrets get output to /run/secrets unencrypted but only accessible to root -
+                        #  until we specify otherwise.
+                        # E.g. /run/secrets/msmtp-password
+                        # Secrets required for user creation need to be handled slightly differently -
+                        #  since sops-nix normally runs after users have been created by nixos so    -
+                        #  appropriate ownership/permissions can be set, but this can't happen for   -
+                        #  user passwords, because the user won't have been created yet.
+                        # The provided solution is that setting neededForUsers extracts to           -
+                        # /run/secrets-for-users before user creation, and owners can't be set for   -
+                        # those files.
+
+                        m2nd-password.neededForUsers = true;
+                };
+        };
+        # Makes the passwords of users controlled only by nixos config
+        # Required to set passwords with sops-nix
+        users.mutableUsers = false; 
+
+        users.users.m2nd = {
+                extraGroups = [ "networkmanager" "wheel" ];
+                hashedPasswordFile = config.sops.secrets.m2nd-password.path;
+                openssh.authorizedKeys.keys = [
+                        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
+                ];
+                isNormalUser = true;
+        };
+	users.users.mend = {
+		isNormalUser = true;
+		description = "mend";
+		extraGroups = [ "networkmanager" "wheel" ];
+		initialPassword = "changeme";
+                openssh.authorizedKeys.keys = [
+                        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
+                ];
+	};
+        
 	stylix.enable = true;
         stylix.autoEnable = false;
         stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
@@ -97,15 +147,6 @@
 		LC_TIME = "nb_NO.UTF-8";
 	};
 
-	users.users.mend = {
-		isNormalUser = true;
-		description = "mend";
-		extraGroups = [ "networkmanager" "wheel" ];
-		initialPassword = "changeme";
-                openssh.authorizedKeys.keys = [
-                        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
-                ];
-	};
 
 	nixpkgs.config.allowUnfree = true;
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];

@@ -7,6 +7,9 @@
 		home-manager.url = "github:nix-community/home-manager";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+                sops-nix.url = "github:Mic92/sops-nix";
+                sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
 		nvf.url = "github:notashelf/nvf";
 		nvf.inputs.nixpkgs.follows = "nixpkgs";
 		
@@ -17,7 +20,7 @@
 		spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 	};
   
-	outputs = { self, nixpkgs, home-manager, nvf, stylix, spicetify-nix }@inputs: {
+	outputs = { self, nixpkgs, home-manager, sops-nix, nvf, stylix, spicetify-nix }@inputs: {
 		nixosConfigurations.snp-des1nix = nixpkgs.lib.nixosSystem {
 			specialArgs = { inherit inputs; };
         		modules = [
@@ -25,6 +28,7 @@
 				./cli-common.nix
 				./snp-des1nix/hardware-configuration.nix
 				home-manager.nixosModules.home-manager
+                                sops-nix.nixosModules.sops
 				nvf.nixosModules.default
 				stylix.nixosModules.stylix
                                 spicetify-nix.nixosModules.spicetify

@@ -8,6 +8,8 @@
         imports = [
         ];
 
+        services.smartd.enable = true; # SMART Daemon
+
         boot.kernelModules = [ "kvm-amd" ];
         virtualisation.libvirtd = {
                 enable = true;
@@ -18,12 +20,54 @@
                 };
         };
 
+        sops = {
+                defaultSopsFile = ../secrets.yaml;
+                validateSopsFiles = false; # https://youtu.be/gdxlc5a6ne0 his was false
+                age = {
+                        # I generated a key from this host's public ssh host key
+                        # I added it to .sops.yaml, so it can be used to decrypt 
+                        # Here I tell sops-nix(?) about my host's private ssh host key so it can import it automatically as an age key
+                        sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+                        # this is where it will store the converted/imported age key
+                        keyFile = "/var/lib/sops-nix/key.txt";
+                        # generate a key from the sshKeyPaths if the key specified above doesn't exist
+                        generateKey = true;
+                };
+                secrets = {
+                        # Secrets get output to /run/secrets unencrypted but only accessible to root -
+                        #  until we specify otherwise.
+                        # E.g. /run/secrets/msmtp-password
+                        # Secrets required for user creation need to be handled slightly differently -
+                        #  since sops-nix normally runs after users have been created by nixos so    -
+                        #  appropriate ownership/permissions can be set, but this can't happen for   -
+                        #  user passwords, because the user won't have been created yet.
+                        # The provided solution is that setting neededForUsers extracts to           -
+                        # /run/secrets-for-users before user creation, and owners can't be set for   -
+                        # those files.
+
+                        axie-password.neededForUsers = true;
+                        snuppy-password.neededForUsers = true;
+                };
+        };
+        # Makes the passwords of users controlled only by nixos config
+        # Required to set passwords with sops-nix
+        users.mutableUsers = false; 
 
         users.users.snuppy = {
                 extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
                 description = "snuppy";
+                hashedPasswordFile = config.sops.secrets.snuppy-password.path;
                 isNormalUser = true;
         };
+        users.users.axie = {
+                isNormalUser = true;
+                hashedPasswordFile = config.sops.secrets.axie-password.path;
+                extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
+        };
+
+        security.sudo.extraConfig = ''
+          Defaults timestamp_timeout=120 # only ask for passwd every 120min
+        '';
 
         stylix.enable = true;
         stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
@@ -103,19 +147,22 @@
         ];
 
         programs.ssh = {
+                # snp-nuc1nix 192.168.30.65
+                # snp-des2nix 192.168.30.174
+                # snp-des3nix 192.168.30.144
                 extraConfig = "
                         Host snp-nuc1nix
-                        Hostname 192.168.30.65
+                        Hostname snp-nuc1nix.tailf46592.ts.net
                         Port 22
                         User mend
 
                         Host snp-des2nix
-                        Hostname 192.168.30.174
+                        Hostname snp-des2nix.tailf46592.ts.net 
                         Port 22
                         User mend
 
                         Host snp-des3nix
-                        Hostname 192.168.30.144
+                        Hostname snp-des3nix.tailf46592.ts.net
                         Port 22
                         User mend
                 ";
@@ -232,22 +279,9 @@
         #jack.enable = true;
         };
 
-
-        # Allow unfree packages
         nixpkgs.config.allowUnfree = true;
         nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-        # Some programs need SUID wrappers, can be configured further or are
-        # started in user sessions.
-        # programs.mtr.enable = true;
-        # programs.gnupg.agent = {
-        #   enable = true;
-        #   enableSSHSupport = true;
-        # };
-
-        # List services that you want to enable:
-
-        # Enable the OpenSSH daemon.
         services.openssh.enable = true;
 
         services.udev.packages = [ pkgs.yubikey-personalization ];

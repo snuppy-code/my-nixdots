@@ -27,6 +27,12 @@
                         #vulkan-tools
                         #nushell
                 ];
+                
+                programs.neovim.enable = true;
+                programs.neovim.defaultEditor = true;
+
+                environment.variables.EDITOR = "nvim";
+
                 services.locate = {
                         enable = true;
                         package = pkgs.plocate;
