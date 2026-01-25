@@ -1,12 +1,11 @@
 { config, pkgs, lib, ... }: {
     config = {
         sops = {
-            defaultSopsFile = ../secrets.yaml;
+            defaultSopsFile = ./secrets.yaml;
             validateSopsFiles = false; # https://youtu.be/gdxlc5a6ne0 his was false
             age = {
-                # I generated a key from this host's public ssh host key
-                # I added it to .sops.yaml, so it can be used to decrypt 
-                # Here I tell sops-nix(?) about my host's private ssh host key so it can import it automatically as an age key
+                # I generated keys from all my hosts' public ssh host keys and added them to .sops.yaml
+                # Here I tell sops-nix(?) about this host's private ssh host key so it can import it automatically as an age key
                 sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
                 # this is where it will store the converted/imported age key
                 keyFile = "/var/lib/sops-nix/key.txt";

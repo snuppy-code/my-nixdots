@@ -107,6 +107,7 @@
 			modules = [
 				./snp-des3nix/configuration.nix
                                 ./cli-common.nix
+								./sops-common.nix
 				./snp-des3nix/hardware-configuration.nix
                                 sops-nix.nixosModules.sops
 				nvf.nixosModules.default
