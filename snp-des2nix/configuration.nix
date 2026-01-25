@@ -14,6 +14,9 @@
 		hashedPasswordFile = config.sops.secrets.mend-password.path;
 	};
 
+        sops.secrets.snp-des2nix-key.owner = "nginx";
+        sops.secrets.snp-des2nix-crt.owner = "nginx";
+
         environment.etc."nextcloud-admin-pass".text = "changeme";
         services.nextcloud = {
                 enable = true;
@@ -25,15 +28,15 @@
                 config.dbtype = "pgsql";
         };
 
-        #services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-        #        forceSSL = true;
-        #        
-        #        sslCertificate = "/var/lib/nginx/certs/nextcloud.crt";#"/var/lib/tailscale/certs/snp-des2nix.tailf46592.ts.net.crt";
-        #        sslCertificateKey = "/var/lib/nginx/certs/nextcloud.key";#"/var/lib/tailscale/certs/snp-des2nix.tailf46592.ts.net.key";
-        #        
-        #        # your cat said oh no no no girl don't even think about it
-        #        enableACME = false;
-        #};
+        services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
+                forceSSL = true;
+                
+                sslCertificate = sops.secrets.snp-des2nix-crt.path;
+                sslCertificateKey = sops.secrets.snp-des2nix-key.path;
+                
+                # your cat said oh no no no girl don't even think about it
+                enableACME = false;
+        };
 
         networking.firewall.allowedTCPPorts = [ 80 443 ];
 
