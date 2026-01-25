@@ -103,6 +103,7 @@
 				./snp-des3nix/configuration.nix
                                 ./cli-common.nix
 				./snp-des3nix/hardware-configuration.nix
+                                sops-nix.nixosModules.sops
 				nvf.nixosModules.default
 				stylix.nixosModules.stylix
 				home-manager.nixosModules.home-manager
