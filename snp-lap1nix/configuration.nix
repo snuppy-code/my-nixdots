@@ -8,10 +8,16 @@
         imports = [
         ];
 
+        sops.secrets.snuppy-password.neededForUsers = true;
         users.users.snuppy = {
                 extraGroups = [ "networkmanager" "wheel" ];
                 description = "snuppy";
                 isNormalUser = true;
+                hashedPasswordFile = config.sops.secrets.snuppy-password.path;
+                openssh.authorizedKeys.keys = [
+			"sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
+			"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILDkgmUlpM3cGE0MDHU0QyCtspkpImLjQVpkU7ihv5P9 mend@snp-des2nix"
+		];
         };
 
         stylix.enable = true;

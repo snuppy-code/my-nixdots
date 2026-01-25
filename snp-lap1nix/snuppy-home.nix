@@ -18,16 +18,16 @@
 		vlc
 		mpv
 		gparted
-                caligula
-                geteduroam
-                #geteduroam-cli
-                networkmanager
-                #jdk25_headless
-                jdk
-                solaar
-                freecad
-                nextcloud-client
-                super-productivity
+    caligula
+    geteduroam
+    #geteduroam-cli
+    networkmanager
+    #jdk25_headless
+    jdk
+    solaar
+    freecad
+    nextcloud-client
+    super-productivity
 	]; 
 
 	#programs.spicetify.enable = true;

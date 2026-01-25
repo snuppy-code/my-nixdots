@@ -26,6 +26,7 @@
         		modules = [
 				./snp-des1nix/configuration.nix
 				./cli-common.nix
+                                ./sops-common.nix
 				./snp-des1nix/hardware-configuration.nix
 				home-manager.nixosModules.home-manager
                                 sops-nix.nixosModules.sops
@@ -47,8 +48,10 @@
         		modules = [
 				./snp-lap1nix/configuration.nix
 				./cli-common.nix
+                                ./sops-common.nix
 				./snp-lap1nix/hardware-configuration.nix
 				home-manager.nixosModules.home-manager
+                                sops-nix.nixosModules.sops
 				nvf.nixosModules.default
 				stylix.nixosModules.stylix
                                 spicetify-nix.nixosModules.spicetify
@@ -84,7 +87,9 @@
 			modules = [
 				./snp-des2nix/configuration.nix
                                 ./cli-common.nix
+                                ./sops-common.nix
 				./snp-des2nix/hardware-configuration.nix
+                                sops-nix.nixosModules.sops
 				nvf.nixosModules.default
 				stylix.nixosModules.stylix
 				home-manager.nixosModules.home-manager

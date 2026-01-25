@@ -19,46 +19,15 @@
                         swtpm.enable = true;
                 };
         };
-
-        sops = {
-                defaultSopsFile = ../secrets.yaml;
-                validateSopsFiles = false; # https://youtu.be/gdxlc5a6ne0 his was false
-                age = {
-                        # I generated a key from this host's public ssh host key
-                        # I added it to .sops.yaml, so it can be used to decrypt 
-                        # Here I tell sops-nix(?) about my host's private ssh host key so it can import it automatically as an age key
-                        sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-                        # this is where it will store the converted/imported age key
-                        keyFile = "/var/lib/sops-nix/key.txt";
-                        # generate a key from the sshKeyPaths if the key specified above doesn't exist
-                        generateKey = true;
-                };
-                secrets = {
-                        # Secrets get output to /run/secrets unencrypted but only accessible to root -
-                        #  until we specify otherwise.
-                        # E.g. /run/secrets/msmtp-password
-                        # Secrets required for user creation need to be handled slightly differently -
-                        #  since sops-nix normally runs after users have been created by nixos so    -
-                        #  appropriate ownership/permissions can be set, but this can't happen for   -
-                        #  user passwords, because the user won't have been created yet.
-                        # The provided solution is that setting neededForUsers extracts to           -
-                        # /run/secrets-for-users before user creation, and owners can't be set for   -
-                        # those files.
-
-                        axie-password.neededForUsers = true;
-                        snuppy-password.neededForUsers = true;
-                };
-        };
-        # Makes the passwords of users controlled only by nixos config
-        # Required to set passwords with sops-nix
-        users.mutableUsers = false; 
-
+        
+        sops.secrets.snuppy-password.neededForUsers = true;
         users.users.snuppy = {
                 extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
                 description = "snuppy";
                 hashedPasswordFile = config.sops.secrets.snuppy-password.path;
                 isNormalUser = true;
         };
+        sops.secrets.axie-password.neededForUsers = true;
         users.users.axie = {
                 isNormalUser = true;
                 hashedPasswordFile = config.sops.secrets.axie-password.path;
@@ -66,7 +35,7 @@
         };
 
         security.sudo.extraConfig = ''
-          Defaults timestamp_timeout=120 # only ask for passwd every 120min
+                Defaults timestamp_timeout=120 # only ask for passwd every 120min
         '';
 
         stylix.enable = true;

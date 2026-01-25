@@ -1,13 +1,18 @@
+#nix-shell -p ssh-to-age --run "cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age"
 keys:
   - &users:
     - &snuppy age12alp54adee9nsks0ma72y54hshjpejgpqkecwnxyz5f60wfecedsw47mye
   - &hosts:
     - &snp-des1nix age144uhcyped36utr4yst02lq5xglma3t7ndzw7v8ns0xs8w2xu45pqdlnhgy
+    - &snp-des2nix age1g97necsrtfczdgd74jrwdk800qxgvtewjv2ejvtpwhc82cxsfcns9hfj3q
     - &snp-des3nix age1jtn2p72l83lmg3k0lhrthp4qfr3h28hurwp2l9qpj9k536t89ypqn7mq4x
+    - &snp-lap1nix age1hrs6qxuje6j5y3tq69qutv45kzwqj9mgzh2u727c3lc0gpehauuslyckvf
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
     - age:
       - *snuppy
       - *snp-des1nix
+      - *snp-des2nix
       - *snp-des3nix
+      - *snp-lap1nix
