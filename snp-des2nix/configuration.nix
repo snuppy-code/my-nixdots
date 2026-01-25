@@ -31,8 +31,8 @@
         services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
                 forceSSL = true;
                 
-                sslCertificate = sops.secrets.snp-des2nix-crt.path;
-                sslCertificateKey = sops.secrets.snp-des2nix-key.path;
+                sslCertificate = config.sops.secrets.snp-des2nix-crt.path;
+                sslCertificateKey = config.sops.secrets.snp-des2nix-key.path;
                 
                 # your cat said oh no no no girl don't even think about it
                 enableACME = false;
