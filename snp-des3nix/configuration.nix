@@ -33,26 +33,17 @@
                         # /run/secrets-for-users before user creation, and owners can't be set for   -
                         # those files.
 
-                        m2nd-password.neededForUsers = true;
+                        mend-password.neededForUsers = true;
                 };
         };
         # Makes the passwords of users controlled only by nixos config
         # Required to set passwords with sops-nix
         users.mutableUsers = false; 
 
-        users.users.m2nd = {
-                extraGroups = [ "networkmanager" "wheel" ];
-                hashedPasswordFile = config.sops.secrets.m2nd-password.path;
-                openssh.authorizedKeys.keys = [
-                        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
-                ];
-                isNormalUser = true;
-        };
 	users.users.mend = {
 		isNormalUser = true;
-		description = "mend";
 		extraGroups = [ "networkmanager" "wheel" ];
-		initialPassword = "changeme";
+                hashedPasswordFile = config.sops.secrets.mend-password.path;
                 openssh.authorizedKeys.keys = [
                         "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
                 ];
