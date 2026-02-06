@@ -1,6 +1,9 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
   ];
 
@@ -27,21 +30,22 @@
     solaar
     freecad
     nextcloud-client
-    super-productivity
-    android-tools
+    #super-productivity
+    #android-tools
     gnome-boxes
+    sops
     easyeffects
     gnome-font-viewer
-    cheese
-    ]; 
+    github-desktop
+    audacity
+  ];
 
-#programs.spicetify.enable = true;
+  #programs.spicetify.enable = true;
 
-        stylix.targets.firefox.profileNames = [ "default" "ax" ];
-        stylix.targets.firefox.enable = true;
-        stylix.targets.kitty.enable = true;
+  #stylix.targets.firefox.profileNames = [ "default" "ax" ];
+  #stylix.targets.firefox.enable = true;
+  #stylix.targets.kitty.enable = true;
 
-  
   programs.kitty = {
     enable = true;
     enableGitIntegration = true;
@@ -50,10 +54,10 @@
       enableZshIntegration = true;
     };
     extraConfig = ''
-      
+
     '';
   };
-  
+
   #home.file.".gtkrc-2.0".force = true;
   gtk.gtk2.force = true;
 
