@@ -1,23 +1,23 @@
 { config, pkgs, inputs, ... }:
 
 {
-	imports = [
-	];
+  imports = [
+  ];
 
-	home.packages = with pkgs; [
-		protonvpn-gui
-		yubikey-manager
-		yubioath-flutter
-		qalculate-qt
-		vesktop
-		spotify
-		obsidian
-		krita
-		blender
-		vscode
-		vlc
-		mpv
-		gparted
+  home.packages = with pkgs; [
+    protonvpn-gui
+    yubikey-manager
+    yubioath-flutter
+    qalculate-qt
+    vesktop
+    spotify
+    obsidian
+    krita
+    blender
+    vscode-fhs
+    vlc
+    mpv
+    gparted
     caligula
     geteduroam
     #geteduroam-cli
@@ -28,13 +28,18 @@
     freecad
     nextcloud-client
     super-productivity
-	]; 
+    android-tools
+    gnome-boxes
+    easyeffects
+    gnome-font-viewer
+    cheese
+    ]; 
 
-	#programs.spicetify.enable = true;
+#programs.spicetify.enable = true;
 
-  stylix.targets.firefox.profileNames = [ "default" "ax" ];
-  stylix.targets.firefox.enable = true;
-  stylix.targets.kitty.enable = true;
+        stylix.targets.firefox.profileNames = [ "default" "ax" ];
+        stylix.targets.firefox.enable = true;
+        stylix.targets.kitty.enable = true;
 
   
   programs.kitty = {

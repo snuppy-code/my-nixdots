@@ -27,10 +27,13 @@
         
         sops.secrets.snuppy-password.neededForUsers = true;
         users.users.snuppy = {
-                extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
                 description = "snuppy";
-                hashedPasswordFile = config.sops.secrets.snuppy-password.path;
                 isNormalUser = true;
+                extraGroups = [ 
+                        "wheel"
+                        "libvirtd"
+                ];
+                hashedPasswordFile = config.sops.secrets.snuppy-password.path;
         };
         sops.secrets.axie-password.neededForUsers = true;
         users.users.axie = {

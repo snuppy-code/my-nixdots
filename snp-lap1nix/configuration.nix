@@ -8,17 +8,41 @@
         imports = [
         ];
 
+        boot.kernelModules = [ "kvm-intel" ];
+        virtualisation.libvirtd = {
+                enable = true;
+                qemu = {
+                        package = pkgs.qemu_kvm;
+                        runAsRoot = true;
+                        swtpm.enable = true;
+                };
+        };
+
         sops.secrets.snuppy-password.neededForUsers = true;
         users.users.snuppy = {
-                extraGroups = [ "networkmanager" "wheel" ];
                 description = "snuppy";
                 isNormalUser = true;
+                extraGroups = [
+                        "wheel"
+                        "networkmanager"
+                        "adbusers"
+                        "libvirtd"
+                ];
                 hashedPasswordFile = config.sops.secrets.snuppy-password.path;
                 openssh.authorizedKeys.keys = [
 			"sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
 			"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILDkgmUlpM3cGE0MDHU0QyCtspkpImLjQVpkU7ihv5P9 mend@snp-des2nix"
 		];
         };
+
+        environment.systemPackages = with pkgs; [
+                libfido2
+                spice-vdagent
+        ];
+
+        security.sudo.extraConfig = ''
+                Defaults timestamp_timeout=120 # only ask for passwd every 120min
+        '';
 
         stylix.enable = true;
         stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
@@ -132,10 +156,6 @@
         environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; #unsure if this is right?
 
         services.tailscale.enable = true;
-
-        environment.systemPackages = with pkgs; [
-                libfido2
-        ];
 
         programs.ssh = {
                 #snp-des2nix 192.168.30.174
