@@ -35,9 +35,9 @@
                                 spicetify-nix.nixosModules.spicetify
 				{
                                         mycli.username = "snuppy";
-					home-manager.useGlobalPkgs = true;
-					home-manager.useUserPackages = true;
-					home-manager.users.snuppy = import ./snp-des1nix/snuppy-home.nix;
+                                        home-manager.useGlobalPkgs = true;
+                                        home-manager.useUserPackages = true;
+                                        home-manager.users.snuppy = import ./snp-des1nix/snuppy-home.nix;
 					home-manager.extraSpecialArgs = { inherit inputs; };
                                         home-manager.backupFileExtension = "backup";
 				}

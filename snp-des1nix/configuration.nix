@@ -9,6 +9,11 @@
         ];
 
         services.smartd.enable = true; # SMART Daemon
+        
+        # don't play with me.
+        virtualisation.waydroid.enable = true;
+
+        nix.settings.trusted-users = [ "root" "snuppy" ];
 
         boot.kernelModules = [ "kvm-amd" ];
         virtualisation.libvirtd = {
@@ -65,7 +70,7 @@
 
         # https://nix-community.github.io/stylix/options/modules/firefox.html
         # about:profiles
-        programs.firefox.enable = true;
+        #programs.firefox.enable = true;
 
         programs.spicetify = {
                 enable = true;
@@ -108,6 +113,7 @@
 
         environment.systemPackages = with pkgs; [
                 libfido2
+                cage
                 #swaynotificationcenter
                 #hyprpolkitagent
                 #waybar
@@ -213,9 +219,14 @@
 
 
         # Enable KDE !
-        services.displayManager.sddm.enable = true;
-        services.displayManager.sddm.wayland.enable = true;
-        services.desktopManager.plasma6.enable = true;
+        #services.displayManager.sddm.enable = true;
+        #services.displayManager.sddm.wayland.enable = true;
+        #services.desktopManager.plasma6.enable = true;
+        
+        # Cosmic !
+        # services.desktopManager.cosmic.enable = true;
+        # services.displayManager.cosmic-greeter.enable = true;
+        # services.flatpak.enable = true;
 
         # Hyprland...
         #programs.hyprland.enable = true;
@@ -223,15 +234,15 @@
         #environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
         # Enable GNOME !
-        #services.displayManager.gdm.enable = true;
-        #services.desktopManager.gnome.enable = true;
+        services.displayManager.gdm.enable = true;
+        services.desktopManager.gnome.enable = true;
 
         # To disable installing GNOME's suite of applications
         # and only be left with GNOME shell.
         #services.gnome.core-apps.enable = false;
-        #services.gnome.core-developer-tools.enable = false;
-        #services.gnome.games.enable = false;
-        #environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
+        services.gnome.core-developer-tools.enable = false;
+        services.gnome.games.enable = false;
+        environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
 
         # Enable CUPS to print documents.
         # services.printing.enable = true;
