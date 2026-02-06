@@ -39,6 +39,7 @@
     audacity
     pavucontrol
     input-remapper
+    github-desktop
     #python3
     #python313Packages.pygame-ce
     #    devenv
