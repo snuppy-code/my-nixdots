@@ -17,7 +17,7 @@
     obsidian
     krita
     blender
-    vscode-fhs
+    #vscode-fhs
     vlc
     mpv
     gparted
@@ -45,6 +45,14 @@
     #    devenv
     #    nixpkgs-fmt
   ];
+
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      vscode-extensions.catppuccin.catppuccin-vsc #dracula-theme.theme-dracula
+      vscode-extensions.pylyzer.pylyzer
+    ];
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
