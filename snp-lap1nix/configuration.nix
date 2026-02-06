@@ -40,6 +40,7 @@
   environment.systemPackages = with pkgs; [
     libfido2
     spice-vdagent
+    sddm-astronaut
   ];
 
   security.sudo.extraConfig = ''
