@@ -40,6 +40,8 @@
     pavucontrol
     input-remapper
     github-desktop
+    cloc
+    typst
     #python3
     #python313Packages.pygame-ce
     #    devenv
@@ -47,10 +49,51 @@
   ];
 
   programs.vscode = {
+    # https://home-manager-options.extranix.com/?query=vscode&release=master
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-      vscode-extensions.catppuccin.catppuccin-vsc #dracula-theme.theme-dracula
-      vscode-extensions.pylyzer.pylyzer
+      rust-lang.rust-analyzer
+
+      #bbenoist-nix
+      jnoortheen.nix-ide
+      arrterian.nix-env-selector
+
+      usernamehw.errorlens
+
+      redhat.java
+
+      ms-python.vscode-pylance
+      ms-python.python
+      ms-python.debugpy
+      ms-python.pylint
+
+      myriad-dreamin.tinymist
+    ];
+    keybindings = [
+      {
+        key = "ctrl+c";
+        command = "editor.action.clipboardCopyAction";
+        when = "textInputFocus";
+      }
+      {
+        "key" = "ctrl+shift+a";
+        "command" = "workbench.action.chat.focusConfirmation";
+        "when" = "accessibilityModeEnabled && chatIsEnabled";
+      }
+    ];
+    userSettings = {
+      "files.autoSave" = "off";
+      "extensions.autoUpdate" = false;
+      "update.mode" = "none";
+      "[nix]"."editor.tabSize" = 2;
+      "chat.agent.enabled" = false;
+      "chat.commandCenter.enabled" = false;
+      "inlineChat.accessibleDiffView" = "off";
+      "terminal.integrated.initialHint" = false;
+      "redhat.telemetry.enabled" = true;
+    };
+    profiles.snuppy.extensions = with pkgs.vscode-extensions; [
+      sumneko.lua
     ];
   };
 
