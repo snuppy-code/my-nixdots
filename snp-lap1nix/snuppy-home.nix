@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ../vscode-home.nix
   ];
 
   home.packages = with pkgs; [
@@ -17,7 +18,7 @@
     obsidian
     krita
     blender
-    vscode-fhs
+    # vscode-fhs
     vlc
     mpv
     gparted
@@ -38,6 +39,10 @@
     gnome-font-viewer
     github-desktop
     audacity
+    aseprite
+    cloc
+    typst
+    (python314.withPackages (ps: with ps; [pygame-ce]))
   ];
 
   #programs.spicetify.enable = true;
