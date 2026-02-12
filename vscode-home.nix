@@ -22,8 +22,38 @@
       ms-python.python
       ms-python.debugpy
       ms-python.pylint
+      ms-python.black-formatter
 
       myriad-dreamin.tinymist
+    ];
+    userSettings = {
+      "files.autoSave" = "off";
+      "extensions.autoUpdate" = false;
+      "update.mode" = "none";
+      "[nix]"."editor.tabSize" = 2;
+      "chat.agent.enabled" = false;
+      "chat.commandCenter.enabled" = false;
+      "inlineChat.accessibleDiffView" = "off";
+      "terminal.integrated.initialHint" = false;
+      "redhat.telemetry.enabled" = true;
+      "tinymist.fontPaths" = [
+        "./"
+      ];
+      "workbench.remoteIndicator.showExtensionRecommendations" = false;
+      "explorer.confirmDelete" = false;
+      # pylint wrong about pygame-ce, whitelist it
+      # https://www.reddit.com/r/pygame/comments/lsg4l1/module_pygame_has_no_quit_or_any_other_members/
+      # https://www.reddit.com/r/pygame/comments/lsg4l1/module_pygame_has_no_quit_or_any_other_members/
+      # and pylint overly aggressive, chill out whiteboy
+      "pylint.args" = [
+        "--extension-pkg-whitelist=pygame"
+        "--disable=C0114" # missing-module-docstring
+        "--disable=C0115" # missing-class-docstring
+        "--disable=C0116" # missing-function-docstring (or method)
+      ];
+    };
+    profiles.snuppy.extensions = with pkgs.vscode-extensions; [
+      sumneko.lua
     ];
     keybindings = [
       {
@@ -65,25 +95,6 @@
         "key" = "ctrl+pageup";
         "command" = "-workbench.action.previousEditor";
       }
-    ];
-    userSettings = {
-      "files.autoSave" = "off";
-      "extensions.autoUpdate" = false;
-      "update.mode" = "none";
-      "[nix]"."editor.tabSize" = 2;
-      "chat.agent.enabled" = false;
-      "chat.commandCenter.enabled" = false;
-      "inlineChat.accessibleDiffView" = "off";
-      "terminal.integrated.initialHint" = false;
-      "redhat.telemetry.enabled" = true;
-      "tinymist.fontPaths" = [
-        "./"
-      ];
-      "workbench.remoteIndicator.showExtensionRecommendations" = false;
-      "explorer.confirmDelete" = false;
-    };
-    profiles.snuppy.extensions = with pkgs.vscode-extensions; [
-      sumneko.lua
     ];
   };
 }

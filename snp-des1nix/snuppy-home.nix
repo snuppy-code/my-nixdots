@@ -5,43 +5,10 @@
   ...
 }: {
 
-  home.packages = with pkgs; [
-    protonvpn-gui
-    yubikey-manager
-    yubioath-flutter
-    qalculate-qt
-    vesktop
-    spotify
-    obsidian
-    krita
-    blender
-    #vscode-fhs
-    vlc
-    mpv
-    gparted
-    code
-    caligula
-    firefox
-    freecad
-    processing
-    gnome-boxes
-    jdk
-    solaar
-    nextcloud-client
-    super-productivity
-    sops
-    easyeffects
-    obs-studio
-    davinci-resolve
-    audacity
-    pavucontrol
-    input-remapper
-    github-desktop
-    cloc
-    typst
+  imports = [
+    ../vscode-home.nix
+    ../deslap-packages.nix
   ];
-
-  
 
   home.sessionVariables = {
     EDITOR = "nvim";

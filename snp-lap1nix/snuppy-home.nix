@@ -6,43 +6,13 @@
 }: {
   imports = [
     ../vscode-home.nix
+    ../deslap-packages.nix
   ];
 
   home.packages = with pkgs; [
-    protonvpn-gui
-    yubikey-manager
-    yubioath-flutter
-    qalculate-qt
-    vesktop
-    spotify
-    obsidian
-    krita
-    blender
-    # vscode-fhs
-    vlc
-    mpv
-    gparted
-    caligula
     geteduroam
     #geteduroam-cli
     networkmanager
-    #jdk25_headless
-    jdk
-    solaar
-    freecad
-    nextcloud-client
-    #super-productivity
-    #android-tools
-    gnome-boxes
-    sops
-    easyeffects
-    gnome-font-viewer
-    github-desktop
-    audacity
-    aseprite
-    cloc
-    typst
-    (python314.withPackages (ps: with ps; [pygame-ce]))
   ];
 
   #programs.spicetify.enable = true;

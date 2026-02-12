@@ -22,7 +22,7 @@
   services.smartd.enable = true; # SMART Daemon
 
   # don't play with me.
-  virtualisation.waydroid.enable = true;
+  # virtualisation.waydroid.enable = true;
 
   nix.settings.trusted-users = ["root" "snuppy"];
 
