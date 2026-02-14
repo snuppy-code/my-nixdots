@@ -6,15 +6,16 @@
 }: {
   home.packages = with pkgs; [
     protonvpn-gui
-    
+
     yubikey-manager
     yubioath-flutter
     solaar
 
     qalculate-qt
-    
+
     firefox
     vesktop
+    dino
     spotify
     obsidian
     nextcloud-client
@@ -40,8 +41,7 @@
     sops
     cloc
     typst
-    
-    
+
     easyeffects
     pavucontrol
   ];
