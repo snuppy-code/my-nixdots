@@ -27,6 +27,7 @@
     spotify
     obsidian
     nextcloud-client
+    mupdf
     krita
     aseprite
     blender
@@ -50,8 +51,12 @@
     gcc
     caligula
     sops
+    age
     cloc
     typst
+
+    corefonts
+    vista-fonts
 
     easyeffects
     pavucontrol
