@@ -15,7 +15,15 @@
 
     firefox
     vesktop
-    dino
+    element-desktop
+    fluffychat
+    noto-fonts
+    noto-fonts-color-emoji
+    #nheko # requires olm which has like 3 cves?
+    #cinny-desktop # same
+
+    #dino
+    gajim
     spotify
     obsidian
     nextcloud-client
@@ -37,6 +45,9 @@
     gparted
     jdk
     (python314.withPackages (ps: with ps; [pygame-ce]))
+    cargo
+    rustc
+    gcc
     caligula
     sops
     cloc
