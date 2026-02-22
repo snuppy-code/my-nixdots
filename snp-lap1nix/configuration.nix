@@ -280,31 +280,31 @@
   networking.networkmanager.ensureProfiles = {
     environmentFiles = [ config.sops.templates."lilith-env".path ];
     profiles = {
-    "lilith" = {
-      connection = {
-        id = "lilith";
-        uuid = "c38e3888-563f-4a79-b745-b9beb8a852a2"; # random one I generated with uuidgen
-        type = "wifi";
-        interface-name = "wlp1s0f0";
-        autoconnect = false; # start on boot
-      };
-      wifi = {
-        mode = "ap";
-        ssid = "Lilith";
-        band = "bg"; # force 2.4GHz to bypass intel LAR blocks
-      };
-      wifi-security = {
-        key-mgmt = "wpa-psk";
-        psk = "$LILITH_PASSWORD"; # config.sops.secrets.snuppy-password.path; ?
-      };
-      ipv4 = {
-        method = "shared"; # tells NM to act as router/DHCP server
-      };
-      ipv6 = {
-        method = "ignore";
+      "lilith" = {
+        connection = {
+          id = "lilith";
+          uuid = "c38e3888-563f-4a79-b745-b9beb8a852a2"; # random one I generated with uuidgen
+          type = "wifi";
+          interface-name = "wlp1s0f0";
+          autoconnect = false; # start on boot
+        };
+        wifi = {
+          mode = "ap";
+          ssid = "Lilith";
+          band = "bg"; # force 2.4GHz to bypass intel LAR blocks
+        };
+        wifi-security = {
+          key-mgmt = "wpa-psk";
+          psk = "$LILITH_PASSWORD"; # config.sops.secrets.snuppy-password.path; ?
+        };
+        ipv4 = {
+          method = "shared"; # tells NM to act as router/DHCP server
+        };
+        ipv6 = {
+          method = "ignore";
+        };
       };
     };
-    }
   };
   networking.firewall.interfaces.wlp1s0f0 = {
     # laptop hotspot from ethernet
