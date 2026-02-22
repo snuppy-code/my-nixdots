@@ -274,11 +274,11 @@
   #        allowedTCPPorts = [ 22 ];
   #};
   # sops.secrets.snuppy-password.neededForUsers = true; # not needed here? cuz not for a user?
-  sops.templates."lilith-env".content = ''
-    LILITH_PASSWORD=${config.sops.placeholder."lilith-password"}
-  '';
+  # sops.templates."lilith-env".content = ''
+  #   LILITH_PASSWORD=${config.sops.placeholder."lilith-password"}
+  # '';
   networking.networkmanager.ensureProfiles = {
-    environmentFiles = [ config.sops.templates."lilith-env".path ];
+    # environmentFiles = [ config.sops.templates."lilith-env".path ];
     profiles = {
       "lilith" = {
         connection = {
@@ -295,7 +295,8 @@
         };
         wifi-security = {
           key-mgmt = "wpa-psk";
-          psk = "$LILITH_PASSWORD"; # config.sops.secrets.snuppy-password.path; ?
+          # psk = "$LILITH_PASSWORD"; # config.sops.secrets.snuppy-password.path; ?
+          psk = "terminaldogma"; # config.sops.secrets.snuppy-password.path; ?
         };
         ipv4 = {
           method = "shared"; # tells NM to act as router/DHCP server
