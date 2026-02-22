@@ -292,11 +292,13 @@
           mode = "ap";
           ssid = "Lilith";
           band = "bg"; # force 2.4GHz to bypass intel LAR blocks
+          channel = 6; # Forces a standard channel, preventing 12/13 issues
         };
         wifi-security = {
           key-mgmt = "wpa-psk";
           # psk = "$LILITH_PASSWORD"; # config.sops.secrets.snuppy-password.path; ?
           psk = "terminaldogma"; # config.sops.secrets.snuppy-password.path; ?
+          pmf = 1; # 1 = Disable PMF to maximize compatibility for VR/IoT
         };
         ipv4 = {
           method = "shared"; # tells NM to act as router/DHCP server
