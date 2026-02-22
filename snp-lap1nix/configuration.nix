@@ -273,6 +273,11 @@
   #        allowedUDPPorts = [ config.services.tailscale.port ];
   #        allowedTCPPorts = [ 22 ];
   #};
+  networking.firewall.interfaces.wlp1s0f0 = {
+    # laptop hotspot from ethernet
+    allowedUDPPorts = [53 67]; #67 - DHCP, 53 - DNS
+    allowedTCPPorts = [53]; #53 - DNS
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

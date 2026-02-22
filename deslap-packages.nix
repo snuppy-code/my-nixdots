@@ -6,7 +6,7 @@
 }: {
   home.packages = with pkgs; [
     protonvpn-gui
-
+    iw
     yubikey-manager
     yubioath-flutter
     solaar
