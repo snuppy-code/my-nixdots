@@ -273,16 +273,16 @@
   #        allowedUDPPorts = [ config.services.tailscale.port ];
   #        allowedTCPPorts = [ 22 ];
   #};
-  networking.firewall.interfaces.wlp1s0f0 = {
-    # laptop hotspot from ethernet
-    allowedUDPPorts = [53 67]; #67 - DHCP, 53 - DNS
-    allowedTCPPorts = [53]; #53 - DNS
-  };
-
-  networking.networkmanager.ensureProfiles.profiles = {
-    "TestHotspot2" = {
+  # sops.secrets.snuppy-password.neededForUsers = true; # not needed here? cuz not for a user?
+  sops.templates."lilith-env".content = ''
+    LILITH_PASSWORD=${config.sops.placeholder."lilith-password"}
+  '';
+  networking.networkmanager.ensureProfiles = {
+    environmentFiles = [ config.sops.templates."lilith-env".path ];
+    profiles = {
+    "lilith" = {
       connection = {
-        id = "TestHotspot2";
+        id = "lilith";
         uuid = "c38e3888-563f-4a79-b745-b9beb8a852a2"; # random one I generated with uuidgen
         type = "wifi";
         interface-name = "wlp1s0f0";
@@ -290,12 +290,12 @@
       };
       wifi = {
         mode = "ap";
-        ssid = "TestHotspot";
+        ssid = "Lilith";
         band = "bg"; # force 2.4GHz to bypass intel LAR blocks
       };
       wifi-security = {
         key-mgmt = "wpa-psk";
-        psk = "temporary123";
+        psk = "$LILITH_PASSWORD"; # config.sops.secrets.snuppy-password.path; ?
       };
       ipv4 = {
         method = "shared"; # tells NM to act as router/DHCP server
@@ -304,6 +304,12 @@
         method = "ignore";
       };
     };
+    }
+  };
+  networking.firewall.interfaces.wlp1s0f0 = {
+    # laptop hotspot from ethernet
+    allowedUDPPorts = [53 67]; #67 - DHCP, 53 - DNS
+    allowedTCPPorts = [53]; #53 - DNS
   };
 
   # This value determines the NixOS release from which the default
