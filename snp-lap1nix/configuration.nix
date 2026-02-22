@@ -279,6 +279,33 @@
     allowedTCPPorts = [53]; #53 - DNS
   };
 
+  networking.networkmanager.ensureProfiles.profiles = {
+    "TestHotspot2" = {
+      connection = {
+        id = "TestHotspot2";
+        uuid = "c38e3888-563f-4a79-b745-b9beb8a852a2"; # random one I generated with uuidgen
+        type = "wifi";
+        interface-name = "wlp1s0f0";
+        autoconnect = false; # start on boot
+      };
+      wifi = {
+        mode = "ap";
+        ssid = "TestHotspot";
+        band = "bg"; # force 2.4GHz to bypass intel LAR blocks
+      };
+      wifi-security = {
+        key-mgmt = "wpa-psk";
+        psk = "temporary123";
+      };
+      ipv4 = {
+        method = "shared"; # tells NM to act as router/DHCP server
+      };
+      ipv6 = {
+        method = "ignore";
+      };
+    };
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
