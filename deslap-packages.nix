@@ -16,11 +16,11 @@
     firefox
     vesktop
     element-desktop
-    fluffychat
+    # fluffychat
     noto-fonts
     noto-fonts-color-emoji
     #nheko # requires olm which has like 3 cves?
-    #cinny-desktop # same
+    # cinny-desktop # same 
 
     #dino
     gajim

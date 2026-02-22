@@ -4,7 +4,6 @@
   inputs,
   ...
 }: {
-
   imports = [
     ../vscode-home.nix
     ../deslap-packages.nix
@@ -13,6 +12,10 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  home.packages = with pkgs; [
+    alvr
+  ];
 
   # ~/.config
   xdg.configFile."libvirt/qemu.conf".text = ''
