@@ -14,8 +14,21 @@
   };
 
   home.packages = with pkgs; [
-    alvr
+    #alvr
+    #sidequest
   ];
+
+  # GTK theming settings
+  gtk = {
+    enable = true;
+    #Icon Theme
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      # package = pkgs.kdePackages.breeze-icons;
+      # name = "Breeze-Dark";
+    };
+  };
 
   # ~/.config
   xdg.configFile."libvirt/qemu.conf".text = ''

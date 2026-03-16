@@ -12,6 +12,8 @@
     solaar
 
     qalculate-qt
+    jstest-gtk
+    protonplus
 
     firefox
     vesktop
@@ -20,7 +22,12 @@
     noto-fonts
     noto-fonts-color-emoji
     #nheko # requires olm which has like 3 cves?
-    # cinny-desktop # same 
+    # cinny-desktop # same
+
+    lutris
+    heroic
+    bottles
+    (prismlauncher.override {jdks = [jdk8 jdk17 jdk21 jdk25];})
 
     #dino
     gajim
@@ -39,6 +46,7 @@
     processing
     gnome-boxes
     gnome-font-viewer
+    veracrypt
 
     vlc
     mpv
@@ -58,7 +66,7 @@
     corefonts
     vista-fonts
 
-    easyeffects
-    pavucontrol
+    #easyeffects
+    #pavucontrol
   ];
 }

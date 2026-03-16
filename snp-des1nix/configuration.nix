@@ -19,6 +19,19 @@
   #   };
   # };
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    libGL
+    #xorg.libX11
+    #xorg.libXext
+    #xorg.libXrender
+    #glib
+    #alsa-lib
+    #fontconfig
+    #freetype
+    #zlib
+  ];
+
   services.smartd.enable = true; # SMART Daemon
 
   # don't play with me.
