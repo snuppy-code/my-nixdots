@@ -14,6 +14,7 @@
     qalculate-qt
     jstest-gtk
     protonplus
+    gnome-clocks
 
     firefox
     vesktop
@@ -22,7 +23,7 @@
     noto-fonts
     noto-fonts-color-emoji
     #nheko # requires olm which has like 3 cves?
-    # cinny-desktop # same
+    #cinny-desktop # nixpkgs is waiting on cinny which is waiting on something else, "CSF" or sumn?
 
     lutris
     heroic
