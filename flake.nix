@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +27,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
     home-manager,
     sops-nix,
     nvf,
@@ -44,6 +46,7 @@
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
+        {environment.systemPackages = [nixpkgs-stable.legacyPackages."x86_64-linux".heroic];}
         {
           mycli.username = "snuppy";
           home-manager.useGlobalPkgs = true;

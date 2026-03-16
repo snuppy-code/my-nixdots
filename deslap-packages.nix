@@ -26,7 +26,7 @@
     #cinny-desktop # nixpkgs is waiting on cinny which is waiting on something else, "CSF" or sumn?
 
     lutris
-    heroic
+    #heroic
     bottles
     (prismlauncher.override {jdks = [jdk8 jdk17 jdk21 jdk25];})
 
