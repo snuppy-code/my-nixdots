@@ -15,6 +15,8 @@
     jstest-gtk
     protonplus
     gnome-clocks
+    thunar
+    xfce.tumbler
 
     firefox
     vesktop
@@ -48,15 +50,19 @@
     gnome-boxes
     gnome-font-viewer
     veracrypt
+    #sublime4
+    vivaldi
 
     vlc
     mpv
+    ffmpeg
 
     gparted
     jdk
     (python314.withPackages (ps: with ps; [pygame-ce]))
     cargo
     rustc
+    bacon
     gcc
     caligula
     sops
