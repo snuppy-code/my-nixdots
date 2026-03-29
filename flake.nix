@@ -52,6 +52,7 @@
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
+        {environment.systemPackages = [nixpkgs-stable.legacyPackages."x86_64-linux".heroic];} # or better yet, in my configuration.nix, `inputs.nixpkgs-stable.packages.${pkgs.stdenv.hostPlatform.system}.heroic` ?
         {
           mycli.username = "snuppy";
           home-manager.useGlobalPkgs = true;
