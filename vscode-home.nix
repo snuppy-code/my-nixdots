@@ -40,6 +40,7 @@
       "tinymist.fontPaths" = [
         "./"
       ];
+      "git.enableSmartCommit" = true;
       "workbench.remoteIndicator.showExtensionRecommendations" = false;
       "explorer.confirmDelete" = false;
       # pylint wrong about pygame-ce, whitelist it
