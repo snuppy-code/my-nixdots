@@ -64,7 +64,13 @@
       ];
     };
     nixosConfigurations.snp-lap1nix = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        pkgs-stable = import nixpkgs-stable {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+      };
       modules = [
         ./snp-lap1nix/configuration.nix
         ./cli-common.nix
@@ -75,13 +81,14 @@
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
-        {
+        {environment.systemPackages = [nixpkgs-stable.legacyPackages."x86_64-linux".heroic];} # or better yet, in my configuration.nix, `inputs.nixpkgs-stable.packages.${pkgs.stdenv.hostPlatform.system}.heroic` ?
+        ({ pkgs-stable, ... }: {
           mycli.username = "snuppy";
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.snuppy = import ./snp-lap1nix/snuppy-home.nix;
-          home-manager.extraSpecialArgs = {inherit inputs;};
-        }
+          home-manager.extraSpecialArgs = {inherit inputs pkgs-stable;};
+        })
       ];
     };
     nixosConfigurations.snp-nuc1nix = nixpkgs.lib.nixosSystem {

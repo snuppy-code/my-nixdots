@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-stable,
   inputs,
   ...
 }: {
@@ -8,6 +9,7 @@
     [
       protonvpn-gui
       iw
+      dig
       yubikey-manager
       yubioath-flutter
       solaar
@@ -82,6 +84,6 @@
       #pavucontrol
     ]
     ++ [
-      inputs.pkgs-stable.heroic
+      pkgs-stable.heroic
     ];
 }
