@@ -29,6 +29,7 @@
       "networkmanager"
       "adbusers"
       "libvirtd"
+      "dialout"
     ];
     hashedPasswordFile = config.sops.secrets.snuppy-password.path;
     openssh.authorizedKeys.keys = [

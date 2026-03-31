@@ -57,6 +57,11 @@
     mpv
     ffmpeg
 
+    #arduino-ide
+    arduino
+    avrdude
+    #avrlibc
+
     gparted
     jdk
     (python314.withPackages (ps: with ps; [pygame-ce]))
