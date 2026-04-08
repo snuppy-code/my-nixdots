@@ -70,6 +70,8 @@
       (python314.withPackages (ps: with ps; [pygame-ce]))
       cargo
       rustc
+      clippy
+      cargo-flamegraph
       bacon
       gcc
       caligula

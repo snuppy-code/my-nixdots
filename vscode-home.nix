@@ -41,6 +41,7 @@
         "./"
       ];
       "git.enableSmartCommit" = true;
+      "git.confirmSync" = false;
       "workbench.remoteIndicator.showExtensionRecommendations" = false;
       "explorer.confirmDelete" = false;
       # pylint wrong about pygame-ce, whitelist it
