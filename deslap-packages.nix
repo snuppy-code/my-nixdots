@@ -68,10 +68,14 @@
       gparted
       jdk
       (python314.withPackages (ps: with ps; [pygame-ce]))
-      cargo
-      rustc
-      clippy
+      #cargo
+      rustup
+      #rustc
+      #clippy
       cargo-flamegraph
+      samply
+      cargo-public-api
+      cargo-modules
       bacon
       gcc
       caligula
