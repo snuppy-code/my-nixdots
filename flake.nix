@@ -2,8 +2,8 @@
   description = "My first flake :3";
 
   inputs = {
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +27,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
     home-manager,
     sops-nix,
     nvf,
@@ -34,7 +35,13 @@
     spicetify-nix,
   } @ inputs: {
     nixosConfigurations.snp-des1nix = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        pkgs-stable = import nixpkgs-stable {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+      };
       modules = [
         ./snp-des1nix/configuration.nix
         ./cli-common.nix
@@ -45,6 +52,7 @@
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
+        {environment.systemPackages = [nixpkgs-stable.legacyPackages."x86_64-linux".heroic];} # or better yet, in my configuration.nix, `inputs.nixpkgs-stable.packages.${pkgs.stdenv.hostPlatform.system}.heroic` ?
         {
           mycli.username = "snuppy";
           home-manager.useGlobalPkgs = true;
@@ -56,7 +64,13 @@
       ];
     };
     nixosConfigurations.snp-lap1nix = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        pkgs-stable = import nixpkgs-stable {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+      };
       modules = [
         ./snp-lap1nix/configuration.nix
         ./cli-common.nix
@@ -67,13 +81,14 @@
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
-        {
+        {environment.systemPackages = [nixpkgs-stable.legacyPackages."x86_64-linux".heroic];} # or better yet, in my configuration.nix, `inputs.nixpkgs-stable.packages.${pkgs.stdenv.hostPlatform.system}.heroic` ?
+        ({ pkgs-stable, ... }: {
           mycli.username = "snuppy";
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.snuppy = import ./snp-lap1nix/snuppy-home.nix;
-          home-manager.extraSpecialArgs = {inherit inputs;};
-        }
+          home-manager.extraSpecialArgs = {inherit inputs pkgs-stable;};
+        })
       ];
     };
     nixosConfigurations.snp-nuc1nix = nixpkgs.lib.nixosSystem {
