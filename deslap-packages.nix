@@ -17,7 +17,7 @@
     jstest-gtk
     protonplus
     gnome-clocks
-    thunar
+    xfce.thunar
     xfce.tumbler
 
     firefox
@@ -65,7 +65,7 @@
 
     gparted
     jdk
-    (python314.withPackages (ps: with ps; [pygame-ce]))
+    #(python314.withPackages (ps: with ps; [pygame-ce]))
     #cargo
     rustup
     #rustc
