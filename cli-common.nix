@@ -13,7 +13,10 @@
   };
   config = {
     environment.systemPackages = with pkgs; [
-      python314
+      iw
+      dig
+      whois
+      # python314
       git
       delta
       fzf
@@ -29,8 +32,6 @@
       plocate
       caligula
       tree
-      #vulkan-tools
-      #nushell
     ];
 
     environment.variables.EDITOR = "nvim";

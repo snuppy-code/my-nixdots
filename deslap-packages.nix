@@ -1,74 +1,80 @@
 {
   config,
   pkgs,
-  #pkgs-stable,
   inputs,
   ...
 }: {
   home.packages =
     with pkgs; [
-      google-chrome
-      #gnome-solanum # no history/stats
-      pomodoro-gtk # slightly less pretty than:
-      #gnome-pomodoro
-
-      protonvpn-gui
-      iw
-      dig
-      whois
       yubikey-manager
       yubioath-flutter
-      solaar
 
-      qalculate-qt
-      jstest-gtk
-      protonplus
-      gnome-clocks
-
+      google-chrome
       firefox
       vesktop
       element-desktop
+      gajim
       # fluffychat
-      noto-fonts
-      noto-fonts-color-emoji
       #nheko # requires olm which has like 3 cves?
       #cinny-desktop # nixpkgs is waiting on cinny which is waiting on something else, "CSF" or sumn?
 
-      lutris
-      bottles
-      (prismlauncher.override {jdks = [jdk8 jdk17 jdk21 jdk25];})
+      typst
+      noto-fonts
+      noto-fonts-color-emoji
+      corefonts
+      vista-fonts
 
-      #dino
-      gajim
+      #gnome-solanum # no history/stats
+      #gnome-pomodoro # slightly less pretty than:
+      pomodoro-gtk
+      protonvpn-gui
+      solaar
+      gnome-font-viewer
+      gnome-clocks
+      jstest-gtk
+      qalculate-qt
       spotify
       obsidian
       nextcloud-client
-      mupdf
+      # mupdf
       krita
       aseprite
       blender
       obs-studio
       davinci-resolve
       audacity
-      github-desktop
       freecad
-      processing
+
+      protonplus
+      (prismlauncher.override {jdks = [jdk8 jdk17 jdk21 jdk25];})
+      lutris
+      bottles
+
       gnome-boxes
-      gnome-font-viewer
+      gparted
       veracrypt
+
+      processing
+      github-desktop
+      zed-editor
       #sublime4
-      vivaldi
 
       vlc
       mpv
       ffmpeg
+      #easyeffects
+      #pavucontrol
+
+      sops
+      age
+
+      cloc
 
       #arduino-ide
       arduino
       avrdude
       #avrlibc
 
-      gparted
       jdk
       #(python314.withPackages (ps: with ps; [pygame-ce]))
       rustup
@@ -81,20 +87,5 @@
       cargo-modules
       bacon
       gcc
-      caligula
-      sops
-      age
-      cloc
-      typst
-
-      corefonts
-      vista-fonts
-
-      #easyeffects
-      #pavucontrol
-    ]
-    #++ [
-    #pkgs-stable.heroic
-    #]
-    ;
+    ];
 }
