@@ -7,7 +7,7 @@
 }: {
   boot.kernelPackages = pkgs.linuxPackages_latest; # latest kernel
   boot.kernelModules = ["kvm-intel"];
-  
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

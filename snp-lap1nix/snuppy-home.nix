@@ -6,6 +6,7 @@
 }: {
   imports = [
     ../vscode-home.nix
+    ../snuppy-home-common.nix
   ];
 
   home.packages = with pkgs; [
@@ -13,27 +14,6 @@
     #geteduroam-cli
     networkmanager
   ];
-
-  #programs.spicetify.enable = true;
-
-  #stylix.targets.firefox.profileNames = [ "default" "ax" ];
-  #stylix.targets.firefox.enable = true;
-  #stylix.targets.kitty.enable = true;
-
-  programs.kitty = {
-    enable = true;
-    enableGitIntegration = true;
-    shellIntegration = {
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-    extraConfig = ''
-
-    '';
-  };
-
-  #home.file.".gtkrc-2.0".force = true;
-  gtk.gtk2.force = true;
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

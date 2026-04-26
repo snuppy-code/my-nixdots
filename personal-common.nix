@@ -6,13 +6,6 @@
 }: {
   nix.settings.trusted-users = ["root" "snuppy"];
 
-  mycli.username = "snuppy";
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  # home-manager.users.snuppy = import ./snp-des1nix/snuppy-home.nix; # I specify this in the flake instead cuz this file also goes for snp-lap1nix
-  home-manager.extraSpecialArgs = {inherit inputs;};
-  home-manager.backupFileExtension = "backup";
-
   sops.secrets.snuppy-password.neededForUsers = true;
   users.users.snuppy = {
     description = "snuppy";
@@ -27,7 +20,7 @@
     hashedPasswordFile = config.sops.secrets.snuppy-password.path;
   };
 
-  services.udev.packages = [pkgs.yubikey-personalization];
+  services.udev.packages = [pkgs.yubikey-personalization]; #unsure why I have this
 
   hardware.bluetooth.enable = true;
   # Enable CUPS to print documents.
@@ -53,21 +46,6 @@
       runAsRoot = true;
       swtpm.enable = true;
     };
-  };
-
-  time.timeZone = "Europe/Oslo";
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nb_NO.UTF-8";
-    LC_IDENTIFICATION = "nb_NO.UTF-8";
-    LC_MEASUREMENT = "nb_NO.UTF-8";
-    LC_MONETARY = "nb_NO.UTF-8";
-    LC_NAME = "nb_NO.UTF-8";
-    LC_NUMERIC = "nb_NO.UTF-8";
-    LC_PAPER = "nb_NO.UTF-8";
-    LC_TELEPHONE = "nb_NO.UTF-8";
-    LC_TIME = "nb_NO.UTF-8";
   };
 
   # Open ports in the firewall.

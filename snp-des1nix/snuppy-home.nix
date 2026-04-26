@@ -6,85 +6,8 @@
 }: {
   imports = [
     ../vscode-home.nix
+    ../snuppy-home-common.nix
   ];
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
-  home.packages = with pkgs; [
-    #alvr
-    #sidequest
-  ];
-
-  # GTK theming settings
-  gtk = {
-    enable = true;
-    #Icon Theme
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-      # package = pkgs.kdePackages.breeze-icons;
-      # name = "Breeze-Dark";
-    };
-  };
-
-  # ~/.config
-  xdg.configFile."libvirt/qemu.conf".text = ''
-    # Taken from https://nixos.wiki/wiki/Libvirt cuz might be needed for gnome-boxes
-
-    # Adapted from /var/lib/libvirt/qemu.conf
-    # Note that AAVMF and OVMF are for Aarch64 and x86 respectively
-                    nvram = [ "/run/libvirt/nix-ovmf/AAVMF_CODE.fd:/run/libvirt/nix-ovmf/AAVMF_VARS.fd", "/run/libvirt/nix-ovmf/OVMF_CODE.fd:/run/libvirt/nix-ovmf/OVMF_VARS.fd" ]
-  '';
-
-  #programs.spicetify.enable = true;
-
-  stylix.targets.firefox.profileNames = ["default" "ax"];
-  stylix.targets.firefox.enable = true;
-  stylix.targets.kitty.enable = true;
-
-  programs.kitty = {
-    enable = true;
-    enableGitIntegration = true;
-    shellIntegration = {
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-    extraConfig = ''
-
-    '';
-  };
-
-  # HYPRLAND !!
-  #wayland.windowManager.hyprland.enable = true;
-  # Optionally, hint Electron apps to use Wayland??!?
-  #home.sessionVariables.NIXOS_OZONE_WL = "1";
-  #wayland.windowManager.hyprland.settings = {
-  #  "$mod" = "SUPER";
-  #  bind =
-  #    [
-  #      "$mod, Return, exec, kitty"
-  #
-  #      "$mod, F, exec, firefox"
-  #      ", Print, exec, grimblast copy area"
-  #    ]
-  #    ++ (
-  #      # workspaces
-  #      # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-  #      builtins.concatLists (builtins.genList (i:
-  #          let ws = i + 1;
-  #          in [
-  #            "$mod, code:1${toString i}, workspace, ${toString ws}"
-  #            "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-  #          ]
-  #        )
-  #        9)
-  #    );
-  #};
-
-  #home.file.".gtkrc-2.0".force = true;
-  gtk.gtk2.force = true;
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

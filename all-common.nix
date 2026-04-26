@@ -8,6 +8,39 @@
     Defaults timestamp_timeout=120 # only ask for passwd every 120min
   '';
 
+  programs.git = {
+    enable = true;
+    config = {
+      init.defaultBranch = "main";
+      user.name = "snuppy";
+      user.email = "snuppy.code@pm.me";
+    };
+  };
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.extraSpecialArgs = {inherit inputs;};
+  home-manager.backupFileExtension = "backup";
+  # I specify this in the flake instead cuz this file also goes for snp-lap1nix and snp-des2nix
+  # home-manager.users.snuppy = import ./snp-des1nix/snuppy-home.nix;
+  # I specify this in the flake instead cuz this file also goes for snp-des2nix
+  # mycli.username = "snuppy";
+
+  time.timeZone = "Europe/Oslo";
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "nb_NO.UTF-8";
+    LC_IDENTIFICATION = "nb_NO.UTF-8";
+    LC_MEASUREMENT = "nb_NO.UTF-8";
+    LC_MONETARY = "nb_NO.UTF-8";
+    LC_NAME = "nb_NO.UTF-8";
+    LC_NUMERIC = "nb_NO.UTF-8";
+    LC_PAPER = "nb_NO.UTF-8";
+    LC_TELEPHONE = "nb_NO.UTF-8";
+    LC_TIME = "nb_NO.UTF-8";
+  };
+
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -15,7 +48,6 @@
   services.fstrim.enable = true; # important !
   services.tailscale.enable = true;
   services.openssh.enable = true;
-
   networking.networkmanager.enable = true;
 
   # Gemini :/ says this makes nixos continue to get latest closed source firmware

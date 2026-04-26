@@ -46,79 +46,25 @@
 
   networking.firewall.allowedTCPPorts = [80 443];
 
-  stylix.enable = true;
-  stylix.autoEnable = false;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-  stylix.image = ./../wallpapers/highres/wp3.png;
-  # The generated color scheme can be viewed at /etc/stylix/palette.html on NixOS, or at ~/.config/stylix/palette.html on Home Manager.
-  #stylix.polarity = "dark";
-  stylix.fonts = {
-    #serif = {
-    #  package = pkgs.dejavu_fonts;
-    #  name = "DejaVu Serif";
-    #};
-    #sansSerif = {
-    #  package = pkgs.dejavu_fonts;
-    #  name = "DejaVu Sans";
-    #};
-    monospace = {
-      package = pkgs.nerd-fonts._0xproto;
-      name = "0xProto Nerd Font";
-    };
-    #emoji = {
-    #  package = pkgs.noto-fonts-color-emoji;
-    #  name = "Noto Color Emoji";
-    #};
-  };
-  fonts.packages = with pkgs; [
-    nerd-fonts._0xproto
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.adwaita-mono
-    nerd-fonts.agave
-    nerd-fonts.arimo
-    nerd-fonts.aurulent-sans-mono
-    nerd-fonts.bigblue-terminal
-    nerd-fonts.caskaydia-mono
-    nerd-fonts.commit-mono
-    nerd-fonts.departure-mono
-    nerd-fonts.dejavu-sans-mono
-    nerd-fonts.go-mono
-    nerd-fonts.inconsolata
-    nerd-fonts.iosevka-term
-    nerd-fonts.iosevka-term-slab
-    nerd-fonts.overpass
-    nerd-fonts.sauce-code-pro
-    nerd-fonts.tinos
-  ];
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "snp-des2nix";
-  networking.networkmanager.enable = true;
-  services.tailscale.enable = true;
 
-  time.timeZone = "Europe/Oslo";
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nb_NO.UTF-8";
-    LC_IDENTIFICATION = "nb_NO.UTF-8";
-    LC_MEASUREMENT = "nb_NO.UTF-8";
-    LC_MONETARY = "nb_NO.UTF-8";
-    LC_NAME = "nb_NO.UTF-8";
-    LC_NUMERIC = "nb_NO.UTF-8";
-    LC_PAPER = "nb_NO.UTF-8";
-    LC_TELEPHONE = "nb_NO.UTF-8";
-    LC_TIME = "nb_NO.UTF-8";
+  programs.ssh = {
+    extraConfig = ''
+      Host snp-nuc1nix
+      	Hostname 192.168.30.65
+      	Port 22
+      	User mend
+      Host localgit
+      	Hostname localhost
+      	User git
+      	IdentityFile ~/.ssh/mend_git_local
+      	IdentitiesOnly yes
+    '';
   };
-
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  environment.systemPackages = with pkgs; [
-  ];
 
   services.openssh = {
     enable = true;
@@ -132,19 +78,6 @@
       PasswordAuthentication no
       PermitTTY no
       X11Forwarding no
-    '';
-  };
-  programs.ssh = {
-    extraConfig = ''
-      Host snp-nuc1nix
-      	Hostname 192.168.30.65
-      	Port 22
-      	User mend
-      Host localgit
-      	Hostname localhost
-      	User git
-      	IdentityFile ~/.ssh/mend_git_local
-      	IdentitiesOnly yes
     '';
   };
 
@@ -161,15 +94,6 @@
     ];
   };
   users.groups.git = {};
-
-  programs.git = {
-    enable = true;
-    config = {
-      init.defaultBranch = "main";
-      user.name = "snuppy";
-      user.email = "snuppy.code@pm.me";
-    };
-  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

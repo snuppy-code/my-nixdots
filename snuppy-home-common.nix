@@ -4,6 +4,50 @@
   inputs,
   ...
 }: {
+  stylix.targets.firefox.profileNames = ["default" "ax"];
+  stylix.targets.firefox.enable = true;
+  stylix.targets.kitty.enable = true;
+
+  programs.kitty = {
+    enable = true;
+    enableGitIntegration = true;
+    shellIntegration = {
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+    extraConfig = ''
+
+    '';
+  };
+
+  # GTK theming settings
+  gtk = {
+    enable = true;
+    #Icon Theme
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      # package = pkgs.kdePackages.breeze-icons;
+      # name = "Breeze-Dark";
+    };
+  };
+
+  #home.file.".gtkrc-2.0".force = true;
+  gtk.gtk2.force = true;
+
+  # ~/.config
+  xdg.configFile."libvirt/qemu.conf".text = ''
+    # Taken from https://nixos.wiki/wiki/Libvirt cuz might be needed for gnome-boxes
+
+    # Adapted from /var/lib/libvirt/qemu.conf
+    # Note that AAVMF and OVMF are for Aarch64 and x86 respectively
+                    nvram = [ "/run/libvirt/nix-ovmf/AAVMF_CODE.fd:/run/libvirt/nix-ovmf/AAVMF_VARS.fd", "/run/libvirt/nix-ovmf/OVMF_CODE.fd:/run/libvirt/nix-ovmf/OVMF_VARS.fd" ]
+  '';
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   home.packages = with pkgs; [
     yubikey-manager
     yubioath-flutter

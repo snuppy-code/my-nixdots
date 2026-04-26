@@ -8,7 +8,6 @@
   networking.hostName = "snp-des1nix";
   networking.hostId = "7d1d9835";
 
-
   boot.supportedFilesystems = ["zfs"];
   boot.zfs.extraPools = ["tank"];
 
