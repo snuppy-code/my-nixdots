@@ -4,14 +4,38 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+  imports =[
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./battery-n-thermals.nix
+  ];
+
+  networking.hostName = "snp-lap1nix";
+
+  # https://wiki.nixos.org/wiki/Accelerated_Video_Playback
+  # https://nixos.wiki/wiki/Intel_Graphics
+  # https://wiki.nixos.org/wiki/Intel_Graphics
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-compute-runtime # for openCL, optional
+      intel-media-driver
+      vpl-gpu-rt
     ];
+  };
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; #unsure if this is right?
+
+  # Resolves return from sleep on Wi-Fi 7 BE200 (Gale Peak 2). This is from gemini :/ because I wasn't able to solve this on my own and this solves my issue.
+  services.udev.extraRules = ''ACTION=="add|bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{device}=="0x272b", ATTR{d3cold_allowed}="0"'';
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  
+  boot.kernelPackages = pkgs.linuxPackages_latest; # latest kernel
+  boot.kernelModules = [ "kvm-intel" ];
+  
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/4e17ec64-193e-46bb-8597-1d28ec2ba0d0";

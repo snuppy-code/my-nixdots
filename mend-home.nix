@@ -1,11 +1,7 @@
 { config, pkgs, ... }:
 
 {
-	home.packages = with pkgs; [
-		lnav
-		plocate
-
-	];
+        
 
         # This value determines the home Manager release that your
         # configuration is compatible with. This helps avoid breakage

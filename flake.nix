@@ -35,23 +35,21 @@
         inherit inputs;
       };
       modules = [
-        ./snp-des1nix/configuration.nix
+        ./all-common.nix
         ./cli-common.nix
-        ./sops-common.nix
+        ./personal-common.nix
+        ./personal-style.nix
+        ./snp-des1nix/configuration.nix
         ./snp-des1nix/hardware-configuration.nix
         home-manager.nixosModules.home-manager
+        { home-manager.users.snuppy = { imports = [
+          ./snp-lap1nix/snuppy-home.nix
+          ./snuppy-home-common.nix
+        ]; }; }
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
-        {
-          mycli.username = "snuppy";
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.snuppy = import ./snp-des1nix/snuppy-home.nix;
-          home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.backupFileExtension = "backup";
-        }
       ];
     };
     nixosConfigurations.snp-lap1nix = nixpkgs.lib.nixosSystem {
@@ -59,30 +57,29 @@
         inherit inputs;
       };
       modules = [
-        ./snp-lap1nix/configuration.nix
+        ./all-common.nix
         ./cli-common.nix
-        ./sops-common.nix
+        ./personal-common.nix
+        ./personal-style.nix
+        ./snp-lap1nix/configuration.nix
         ./snp-lap1nix/hardware-configuration.nix
         home-manager.nixosModules.home-manager
+        { home-manager.users.snuppy = { imports = [
+          ./snp-lap1nix/snuppy-home.nix
+          ./snuppy-home-common.nix
+        ]; }; }
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
-        {
-          mycli.username = "snuppy";
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.snuppy = import ./snp-lap1nix/snuppy-home.nix;
-          home-manager.extraSpecialArgs = {inherit inputs;};
-        }
       ];
     };
     nixosConfigurations.snp-des2nix = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
-        ./snp-des2nix/configuration.nix
+        ./all-common.nix
         ./cli-common.nix
-        ./sops-common.nix
+        ./snp-des2nix/configuration.nix
         ./snp-des2nix/hardware-configuration.nix
         sops-nix.nixosModules.sops
         nvf.nixosModules.default

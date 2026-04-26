@@ -13,10 +13,12 @@
   };
   config = {
     environment.systemPackages = with pkgs; [
+      lazygit
+      bat
+      lnav
       iw
       dig
       whois
-      # python314
       git
       delta
       fzf
@@ -34,15 +36,67 @@
       tree
     ];
 
-    environment.variables.EDITOR = "nvim";
-
     services.locate = {
       enable = true;
       package = pkgs.plocate;
     };
+
     environment.shells = with pkgs; [
       nushell
     ];
+    users.users.${config.mycli.username}.shell = pkgs.nushell;
+
+    environment.variables.EDITOR = "nvim";
+
+    home-manager.users.${config.mycli.username} = {pkgs, ...}: {
+      stylix.targets.nushell.enable = true;
+      stylix.targets.starship.enable = true;
+      stylix.targets.nvf.enable = true;
+
+      home.packages = with pkgs; [
+        starship
+        carapace
+      ];
+
+      programs.yazi.enable = true;
+
+      programs.nushell = {
+        enable = true;
+        extraConfig = ''
+          $env.config.show_banner = false
+          #$env.config.shell_integration = {
+          #	osc2: true
+          #	osc7: true
+          #	osc8: true
+          #	osc9_9: true
+          #	osc133: true
+          #	osc633: true
+          #	reset_application_mode: true
+          #}
+        '';
+        shellAliases = {
+          vi = "nvim";
+          vim = "nvim";
+          nano = "nvim";
+          l = "ls";
+          ll = "ls -l";
+        };
+      };
+      programs.carapace = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
+      programs.starship = {
+        enable = true;
+        settings = {
+          add_newline = true;
+          character = {
+            success_symbol = "[➜](bold green)";
+            error_symbol = "[➜](bold red)";
+          };
+        };
+      };
+    };
 
     programs.nvf = {
       enable = true;
@@ -116,59 +170,6 @@
           julia.enable = false;
           gleam.enable = false;
           haskell.enable = false;
-        };
-      };
-    };
-    users.users.${config.mycli.username}.shell = pkgs.nushell;
-    home-manager.users.${config.mycli.username} = {pkgs, ...}: {
-      stylix.targets.nushell.enable = true;
-      stylix.targets.starship.enable = true;
-      stylix.targets.nvf.enable = true;
-
-      home.packages = with pkgs; [
-        starship
-        carapace
-        lazygit
-        bat
-        lnav
-      ];
-
-      programs.yazi.enable = true;
-
-      programs.nushell = {
-        enable = true;
-        extraConfig = ''
-          $env.config.show_banner = false
-          #$env.config.shell_integration = {
-          #	osc2: true
-          #	osc7: true
-          #	osc8: true
-          #	osc9_9: true
-          #	osc133: true
-          #	osc633: true
-          #	reset_application_mode: true
-          #}
-        '';
-        shellAliases = {
-          vi = "nvim";
-          vim = "nvim";
-          nano = "nvim";
-          l = "ls";
-          ll = "ls -l";
-        };
-      };
-      programs.carapace = {
-        enable = true;
-        enableNushellIntegration = true;
-      };
-      programs.starship = {
-        enable = true;
-        settings = {
-          add_newline = true;
-          character = {
-            success_symbol = "[➜](bold green)";
-            error_symbol = "[➜](bold red)";
-          };
         };
       };
     };

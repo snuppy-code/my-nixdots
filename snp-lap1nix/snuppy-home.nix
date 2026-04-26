@@ -6,7 +6,6 @@
 }: {
   imports = [
     ../vscode-home.nix
-    ../deslap-packages.nix
   ];
 
   home.packages = with pkgs; [
