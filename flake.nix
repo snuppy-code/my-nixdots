@@ -73,7 +73,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.snuppy = import ./snp-lap1nix/snuppy-home.nix;
-          home-manager.extraSpecialArgs = {inherit inputs pkgs-stable;};
+          home-manager.extraSpecialArgs = {inherit inputs;};
         }
       ];
     };
@@ -97,7 +97,7 @@
         }
       ];
     };
-    
+
     # nixosConfigurations.snp-nuc1nix = nixpkgs.lib.nixosSystem {
     #   specialArgs = {inherit inputs;};
     #   modules = [
