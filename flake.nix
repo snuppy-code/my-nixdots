@@ -87,14 +87,11 @@
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
+        spicetify-nix.nixosModules.spicetify
         home-manager.nixosModules.home-manager
         {
           mycli.username = "mend";
-          home-manager.users.snuppy = {
-            imports = [
-              ./mend-home.nix
-            ];
-          };
+          home-manager.users.mend = import ./mend-home.nix;
         }
       ];
     };
