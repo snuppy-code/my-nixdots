@@ -62,6 +62,8 @@
         ./personal-common.nix
         ./personal-style.nix
         ./snp-lap1nix/configuration.nix
+        ./snp-lap1nix/battery-n-thermals.nix
+        ./snp-lap1nix/hardware-myextra.nix
         ./snp-lap1nix/hardware-configuration.nix
         home-manager.nixosModules.home-manager
         { home-manager.users.snuppy = { imports = [
