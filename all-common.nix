@@ -8,6 +8,19 @@
     Defaults timestamp_timeout=120 # only ask for passwd every 120min
   '';
 
+  system.autoUpgrade = {
+    enable = true;
+    dates = "00:00";
+    allowReboot = false; # don't destroy my work !
+    flake = "";
+    flags = [
+      "--update-input" "nixpkgs"
+      "--commit-lock-file"
+    ];
+    operation = "switch";
+    runGarbageCollection = true;
+  };
+
   programs.git = {
     enable = true;
     config = {
