@@ -18,7 +18,7 @@
             # Secrets required for user creation need to be handled slightly differently -
             #  since sops-nix normally runs after users have been created by nixos so    -
             #  appropriate ownership/permissions can be set, but this can't happen for   -
-            #  user passwords, because the user won't have been created yet.
+            #  user passwords, because the user will already have been created.
             # The provided solution is setting neededForUsers, it will extract to        -
             # /run/secrets-for-users before user creation. Owners can't be set           -
             # for those files:

@@ -2,9 +2,6 @@
 
 {
 	home.packages = with pkgs; [
-		#protonvpn-gui
-		#yubikey-manager
-		#yubioath-flutter
 		lnav
 		plocate
 
