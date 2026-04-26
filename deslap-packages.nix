@@ -17,8 +17,6 @@
     jstest-gtk
     protonplus
     gnome-clocks
-    xfce.thunar
-    xfce.tumbler
 
     firefox
     vesktop
@@ -66,8 +64,8 @@
     gparted
     jdk
     #(python314.withPackages (ps: with ps; [pygame-ce]))
-    #cargo
     rustup
+    #cargo
     #rustc
     #clippy
     cargo-flamegraph

@@ -140,7 +140,28 @@
 
   services.tailscale.enable = true;
 
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+      thunar-media-tags-plugin
+      thunar-vcs-plugin
+    ];
+  };
+
+  services.tumbler.enable = true;
+  programs.xfconf.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
   environment.systemPackages = with pkgs; [
+    file-roller
+    unzip
+    zip
+    p7zip
+    gnutar
+    #xarchiver
+
     libfido2
     cage
     gnome-system-monitor
