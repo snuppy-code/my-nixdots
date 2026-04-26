@@ -140,4 +140,3 @@
     gnomeExtensions.appindicator
   ];
 }
-

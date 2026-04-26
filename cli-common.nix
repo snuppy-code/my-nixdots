@@ -13,6 +13,7 @@
   };
   config = {
     environment.systemPackages = with pkgs; [
+      alejandra
       lazygit
       bat
       lnav
