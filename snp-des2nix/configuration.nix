@@ -21,7 +21,7 @@
   environment.etc."nextcloud-admin-pass".text = "changeme";
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud32;
+    package = pkgs.nextcloud33;
     hostName = "snp-des2nix.tailf46592.ts.net";
     https = true;
     database.createLocally = true;
