@@ -7,6 +7,11 @@
 }: {
   home.packages = with pkgs;
     [
+      google-chrome
+      #gnome-solanum # no history/stats
+      pomodoro-gtk # slightly less pretty than:
+      #gnome-pomodoro
+
       protonvpn-gui
       iw
       dig

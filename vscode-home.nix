@@ -18,6 +18,7 @@
       usernamehw.errorlens
 
       redhat.java
+      vscjava.vscode-java-debug
 
       ms-python.vscode-pylance
       ms-python.python
@@ -28,6 +29,7 @@
       myriad-dreamin.tinymist
     ];
     userSettings = {
+      "explorer.confirmDragAndDrop" = false;
       "files.autoSave" = "off";
       "extensions.autoUpdate" = false;
       "update.mode" = "none";
