@@ -8,18 +8,21 @@
     Defaults timestamp_timeout=120 # only ask for passwd every 120min
   '';
 
-  system.autoUpgrade = {
-    enable = true;
-    dates = "00:00";
-    allowReboot = false; # don't destroy my work !
-    flake = "";
-    flags = [
-      "--update-input" "nixpkgs"
-      "--commit-lock-file"
-    ];
-    operation = "switch";
-    runGarbageCollection = true;
-  };
+  # todo find out a nice way to make my devices share lockfile but also update it automatically
+  # also maybe DO have them pull automatically? I can work on feature branches when fucking around and breaking shit Ig
+
+  # system.autoUpgrade = {
+  #   enable = true;
+  #   dates = "15:00";
+  #   allowReboot = false; # don't destroy my work !
+  #   flake = "github:snuppy-code/my-nixdots";
+  #   flags = [
+  #     "--update-input" "nixpkgs"
+  #     "--commit-lock-file"
+  #   ];
+  #   operation = "switch";
+  #   runGarbageCollection = true;
+  # };
 
   programs.git = {
     enable = true;
