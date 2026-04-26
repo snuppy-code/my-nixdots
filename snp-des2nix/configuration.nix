@@ -20,14 +20,13 @@
         environment.etc."nextcloud-admin-pass".text = "changeme";
         services.nextcloud = {
                 enable = true;
-                package = pkgs.nextcloud31;
+                package = pkgs.nextcloud32;
                 hostName = "snp-des2nix.tailf46592.ts.net";
                 https = true;
                 database.createLocally = true;
                 config.adminpassFile = "/etc/nextcloud-admin-pass";
                 config.dbtype = "pgsql";
         };
-
         services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
                 forceSSL = true;
                 
