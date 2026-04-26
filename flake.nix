@@ -39,16 +39,13 @@
         ./personal-common.nix
         ./personal-style.nix
         ./snp-des1nix/configuration.nix
+        ./snp-des1nix/hardware-myextra.nix
         ./snp-des1nix/hardware-configuration.nix
         home-manager.nixosModules.home-manager
-        {
-          home-manager.users.snuppy = {
-            imports = [
-              ./snp-lap1nix/snuppy-home.nix
-              ./snuppy-home-common.nix
-            ];
-          };
-        }
+        { home-manager.users.snuppy = { imports = [
+            ./snp-des1nix/snuppy-home.nix
+            ./snuppy-home-common.nix
+          ];}; }
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
@@ -67,14 +64,10 @@
         ./snp-lap1nix/configuration.nix
         ./snp-lap1nix/hardware-configuration.nix
         home-manager.nixosModules.home-manager
-        {
-          home-manager.users.snuppy = {
-            imports = [
-              ./snp-lap1nix/snuppy-home.nix
-              ./snuppy-home-common.nix
-            ];
-          };
-        }
+        { home-manager.users.snuppy = { imports = [
+            ./snp-lap1nix/snuppy-home.nix
+            ./snuppy-home-common.nix
+          ];}; }
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
