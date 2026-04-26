@@ -1,12 +1,12 @@
 {
   config,
   pkgs,
-  pkgs-stable,
+  #pkgs-stable,
   inputs,
   ...
 }: {
-  home.packages = with pkgs;
-    [
+  home.packages =
+    with pkgs; [
       google-chrome
       #gnome-solanum # no history/stats
       pomodoro-gtk # slightly less pretty than:
@@ -20,10 +20,10 @@
       yubioath-flutter
       solaar
 
-    qalculate-qt
-    jstest-gtk
-    protonplus
-    gnome-clocks
+      qalculate-qt
+      jstest-gtk
+      protonplus
+      gnome-clocks
 
       firefox
       vesktop
@@ -68,25 +68,24 @@
       avrdude
       #avrlibc
 
-
-    gparted
-    jdk
-    #(python314.withPackages (ps: with ps; [pygame-ce]))
-    rustup
-    #cargo
-    #rustc
-    #clippy
-    cargo-flamegraph
-    samply
-    cargo-public-api
-    cargo-modules
-    bacon
-    gcc
-    caligula
-    sops
-    age
-    cloc
-    typst
+      gparted
+      jdk
+      #(python314.withPackages (ps: with ps; [pygame-ce]))
+      rustup
+      #cargo
+      #rustc
+      #clippy
+      cargo-flamegraph
+      samply
+      cargo-public-api
+      cargo-modules
+      bacon
+      gcc
+      caligula
+      sops
+      age
+      cloc
+      typst
 
       corefonts
       vista-fonts
@@ -94,7 +93,8 @@
       #easyeffects
       #pavucontrol
     ]
-    ++ [
-      pkgs-stable.heroic
-    ];
+    #++ [
+    #pkgs-stable.heroic
+    #]
+    ;
 }
