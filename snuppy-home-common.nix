@@ -71,7 +71,8 @@
     #gnome-pomodoro # slightly less pretty than:
     pomodoro-gtk
     normcap
-    input-leap
+    #input-leap # stuck on 'starting'
+    deskflow
     protonvpn-gui
     solaar
     gnome-system-monitor
