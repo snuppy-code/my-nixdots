@@ -70,6 +70,7 @@
     #gnome-solanum # no history/stats
     #gnome-pomodoro # slightly less pretty than:
     pomodoro-gtk
+    normcap
     protonvpn-gui
     solaar
     gnome-system-monitor
