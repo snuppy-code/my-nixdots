@@ -71,6 +71,7 @@
     #gnome-pomodoro # slightly less pretty than:
     pomodoro-gtk
     normcap
+    input-leap
     protonvpn-gui
     solaar
     gnome-system-monitor
