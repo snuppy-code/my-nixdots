@@ -29,6 +29,8 @@
     config.dbtype = "pgsql";
     settings = {
       maintenance_window_start = 5;
+      log_type = "file";
+      loglevel = 0;
     };
     phpOptions = {
       "opcache.interned_strings_buffer" = "16"; # make a warning go away
