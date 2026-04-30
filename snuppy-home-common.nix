@@ -51,6 +51,7 @@
   home.packages = with pkgs; [
     yubikey-manager
     yubioath-flutter
+    #super-productivity
 
     google-chrome
     firefox
