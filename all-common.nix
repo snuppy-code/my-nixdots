@@ -7,7 +7,6 @@
   security.sudo.extraConfig = ''
     Defaults timestamp_timeout=120 # only ask for passwd every 120min
   '';
-
   # todo find out a nice way to make my devices share lockfile but also update it automatically
   # also maybe DO have them pull automatically? I can work on feature branches when fucking around and breaking shit Ig
 

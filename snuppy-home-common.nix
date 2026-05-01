@@ -60,6 +60,7 @@
   };
 
   home.packages = with pkgs; [
+    code-cursor
     yubikey-manager
     yubioath-flutter
     #super-productivity
