@@ -65,6 +65,10 @@
 
       programs.nushell = {
         enable = true;
+        environmentVariables = {
+          NH_FLAKE = ".dots";
+          EDITOR = "nvim";
+        };
         extraConfig = ''
           $env.config.show_banner = false
           #$env.config.shell_integration = {

@@ -5,11 +5,19 @@
   ...
 }: {
   nix.settings.trusted-users = ["root" "snuppy"];
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 14d --keep 10";
+    flake = "/home/snuppy/.dots";
   };
+  # BLUNT HAMMER okay we dont need dat
+  #  nix.gc = {
+  #    automatic = true;
+  #    dates = "weekly";
+  #    options = "--delete-older-than 7d";
+  #  };
 
   sops.secrets.snuppy-password.neededForUsers = true;
   users.users.snuppy = {

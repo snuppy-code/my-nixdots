@@ -15,6 +15,10 @@
     };
   };
 
+  #home.sessionVariables = {
+  #    NH_FLAKE = "/home/snuppy/.dots";
+  #  };
+
   stylix.targets.firefox.profileNames = ["default" "ax"];
   stylix.targets.firefox.enable = true;
   stylix.targets.kitty.enable = true;
