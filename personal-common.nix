@@ -113,8 +113,5 @@
     spice-vdagent
 
     sddm-astronaut
-
-    gnomeExtensions.emoji-copy
-    gnomeExtensions.appindicator
   ];
 }

@@ -62,25 +62,6 @@
   # optionally hint electron apps to use wayland?:
   #environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Enable GNOME !
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  # To disable installing GNOME's suite of applications
-  # and only be left with GNOME shell.
-  #services.gnome.core-apps.enable = false;
-  services.gnome.core-developer-tools.enable = false;
-  services.gnome.games.enable = false;
-  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-user-docs];
-
-  # dconf.settings = {
-  #   "org/gnome/shell" = {
-  #     disable-user-extensions = false;
-  #     enabled-extensions = [
-  #       "emoji-copy@felipeftn"
-  #     ];
-  #   };
-  # };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
