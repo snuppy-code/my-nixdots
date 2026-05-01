@@ -20,6 +20,8 @@
       iw
       dig
       whois
+      netcat
+      unixtools.netstat
       git
       delta
       fzf

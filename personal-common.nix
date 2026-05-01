@@ -5,6 +5,11 @@
   ...
 }: {
   nix.settings.trusted-users = ["root" "snuppy"];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 
   sops.secrets.snuppy-password.neededForUsers = true;
   users.users.snuppy = {
@@ -48,16 +53,19 @@
     };
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  #networking.firewall = {
-  #        trustedInterfaces = [ "tailscale0" ];
-  #        allowedUDPPorts = [ config.services.tailscale.port ];
-  #        allowedTCPPorts = [ 22 ];
-  #};
+  # https://userbase.kde.org/KDEConnect#:~:text=can%27t%20see%20each%20other
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 1714;
+      to = 1764;
+    }
+  ];
+  networking.firewall.allowedUDPPortRanges = [
+    {
+      from = 1714;
+      to = 1764;
+    }
+  ];
 
   services.flatpak.enable = true;
 
