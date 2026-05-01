@@ -39,6 +39,7 @@
       modules = [
         ./all-common.nix
         ./cli-common.nix
+        ./gnome.nix
         ./style.nix
         ./personal-common.nix
         ./snp-des1nix/configuration.nix
