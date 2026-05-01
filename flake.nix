@@ -18,6 +18,8 @@
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    weathr.url = "github:Veirt/weathr";
   };
 
   outputs = {
@@ -28,6 +30,7 @@
     nvf,
     stylix,
     spicetify-nix,
+    weathr,
   } @ inputs: {
     nixosConfigurations.snp-des1nix = nixpkgs.lib.nixosSystem {
       specialArgs = {

@@ -4,6 +4,17 @@
   inputs,
   ...
 }: {
+  imports = [
+    inputs.weathr.homeModules.weathr
+  ];
+
+  programs.weathr = {
+    enable = true;
+    settings = {
+      hide_hud = true;
+    };
+  };
+
   stylix.targets.firefox.profileNames = ["default" "ax"];
   stylix.targets.firefox.enable = true;
   stylix.targets.kitty.enable = true;

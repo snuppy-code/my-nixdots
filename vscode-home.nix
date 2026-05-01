@@ -45,6 +45,8 @@
           "redhat.telemetry.enabled" = true;
           "tinymist.fontPaths" = [
             "./"
+            "./fonts"
+            #"\${workspaceFolder}/fonts"
           ];
           "git.enableSmartCommit" = true;
           "git.confirmSync" = false;
