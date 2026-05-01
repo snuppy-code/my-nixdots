@@ -24,7 +24,7 @@
       gnomeExtensions.clipboard-indicator
       gnomeExtensions.appindicator
     ];
-  }
+  };
 
   # dconf.settings = {
   #   "org/gnome/shell" = {
