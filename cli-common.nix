@@ -79,19 +79,22 @@
             $p | wl-copy --trim-newline
             print $"Copied: ($p)"
           }
+
           def fc [path: string] {
-            let p = if ($path == null) {
-                print "you must supply the path to the file to copy!"
-                return
-            } else {
-                $path | path expand
+            let p = ($path | path expand)
+            if ($p | path type) == "dir" {
+              error make {msg: $"(ansi red_bold)error:(ansi reset) ($p) is a directory — did you mean `pc`?"}
             }
-            open $p --raw | decode utf-8 | wl-copy --trim-newline
-            print $"Copied: ($p)"
-            let t = ^file --mime-type $p --no-pad --brief
-            if (not ($t | str trim | str starts-with "text")) {
-                print $"Warning! detected non text mimetype: ($t)"
+            let ftype = (^file -b $p)
+            if not ($ftype | str contains "text") {
+              print $"(ansi yellow_bold)warning:(ansi reset) file appears to be binary \(($ftype)\) — copying anyway"
             }
+            let fsize = (ls $p | get size | first)
+            if $fsize > 1mb {
+              print $"(ansi yellow_bold)warning:(ansi reset) large file ($fsize) — copying anyway"
+            }
+            open --raw $p | wl-copy
+            print $"Copied contents of ($p)"
           }
           #$env.config.shell_integration = {
           #$env.config.shell_integration = {
