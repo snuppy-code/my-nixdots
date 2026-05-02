@@ -52,11 +52,11 @@
   };
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.theme = "sddm-astronaut-theme";
-  services.displayManager.sddm.extraPackages = [pkgs.sddm-astronaut];
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.theme = "sddm-astronaut-theme";
+  # services.displayManager.sddm.extraPackages = [pkgs.sddm-astronaut];
 
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   # --- laptop hotspot from ethernet thing,, ---
   #

@@ -64,6 +64,7 @@
         ./all-common.nix
         ./cli-common.nix
         ./style.nix
+        ./gnome.nix
         ./personal-common.nix
         ./snp-lap1nix/configuration.nix
         ./snp-lap1nix/battery-n-thermals.nix
