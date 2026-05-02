@@ -67,6 +67,7 @@
     yubikey-manager
     yubioath-flutter
     #super-productivity
+    killall
 
     google-chrome
     firefox
