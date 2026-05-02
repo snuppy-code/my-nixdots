@@ -37,6 +37,7 @@
       plocate
       caligula
       tree
+      wl-clipboard
     ];
 
     services.locate = {
@@ -71,6 +72,12 @@
         };
         extraConfig = ''
           $env.config.show_banner = false
+
+          def pc [path?: string] {
+            let p = if ($path == null) { $env.PWD } else { $path | path expand }
+            $p | wl-copy --trim-newline
+            print $"Copied: ($p)"
+          }
           #$env.config.shell_integration = {
           #	osc2: true
           #	osc7: true
