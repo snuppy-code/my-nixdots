@@ -38,6 +38,7 @@
       caligula
       tree
       wl-clipboard
+      file
     ];
 
     services.locate = {
@@ -78,6 +79,21 @@
             $p | wl-copy --trim-newline
             print $"Copied: ($p)"
           }
+          def fc [path: string] {
+            let p = if ($path == null) {
+                print "you must supply the path to the file to copy!"
+                return
+            } else {
+                $path | path expand
+            }
+            open $p --raw | decode utf-8 | wl-copy --trim-newline
+            print $"Copied: ($p)"
+            let t = ^file --mime-type $p --no-pad --brief
+            if (not ($t | str trim | str starts-with "text")) {
+                print $"Warning! detected non text mimetype: ($t)"
+            }
+          }
+          #$env.config.shell_integration = {
           #$env.config.shell_integration = {
           #	osc2: true
           #	osc7: true
