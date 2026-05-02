@@ -68,6 +68,7 @@
     yubioath-flutter
     #super-productivity
     killall
+    claude-code
 
     google-chrome
     firefox
