@@ -5,7 +5,6 @@
   ...
 }: {
   config = {
-
     # Enable GNOME !
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
@@ -23,6 +22,7 @@
       gnomeExtensions.caffeine
       gnomeExtensions.clipboard-indicator
       gnomeExtensions.appindicator
+      gnomeExtensions.power-off-options
     ];
   };
 
@@ -36,3 +36,4 @@
   #   };
   # };
 }
+

@@ -79,7 +79,6 @@
             $p | wl-copy --trim-newline
             print $"Copied: ($p)"
           }
-
           def fc [path: string] {
             let p = ($path | path expand)
             if ($p | path type) == "dir" {
@@ -95,6 +94,10 @@
             }
             open --raw $p | wl-copy
             print $"Copied contents of ($p)"
+          }
+          def fp [name: string] {
+            wl-paste | save $name
+            print $"Wrote clipboard contents to: ($name)"
           }
           #$env.config.shell_integration = {
           #$env.config.shell_integration = {
