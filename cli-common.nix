@@ -147,10 +147,12 @@
     programs.nvf = {
       enable = true;
       settings.vim = {
-        expandtab = true; # put spaces instead of tabs
-        tabstop = 8; # tabs appear 8 wide
-        shiftwidth = 4; # neovim indentation commands (e.g. >> <<) use 4 spaces
-        softtabstop = 4; # remove/place 4 spaces with backslash and tab
+        options = {
+          expandtab = true; # put spaces instead of tabs
+          tabstop = 8; # tabs appear 8 wide
+          shiftwidth = 4; # neovim indentation commands (e.g. >> <<) use 4 spaces
+          softtabstop = 4; # remove/place 4 spaces with backslash and tab
+        };
         theme.enable = true;
         lsp = {
           enable = true;
