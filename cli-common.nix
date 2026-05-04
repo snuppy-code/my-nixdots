@@ -74,11 +74,13 @@
         extraConfig = ''
           $env.config.show_banner = false
 
+          # copy path to target or working dir
           def pc [path?: string] {
             let p = if ($path == null) { $env.PWD } else { $path | path expand }
             $p | wl-copy --trim-newline
             print $"Copied: ($p)"
           }
+          # copy whole target file to clipboard, meant for text files
           def fc [path: string] {
             let p = ($path | path expand)
             if ($p | path type) == "dir" {
@@ -95,9 +97,17 @@
             open --raw $p | wl-copy
             print $"Copied contents of ($p)"
           }
+          # write clipboard contents to target
           def fp [name: string] {
             wl-paste | save $name
             print $"Wrote clipboard contents to: ($name)"
+          }
+          # add, commit, push to both remotes
+          def pg [msg: string] {
+            git add .
+            git commit -m $msg
+            git push origin main
+            git push local-server main
           }
           #$env.config.shell_integration = {
           #$env.config.shell_integration = {
