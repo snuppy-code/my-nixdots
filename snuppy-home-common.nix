@@ -17,6 +17,35 @@
   services.syncthing = {
     enable = true;
   };
+  # AI SLOP WARNING ! AI SLOP WARNING !
+  # this is only half of the solution,, rest in personal-common.nix
+  systemd.user.services.backup-obsidian = {
+    Unit = {
+      Description = "Backup zetteltest vault to Nextcloud";
+    };
+    Service = {
+      Type = "oneshot";
+      # Inject the dependencies we need without relying on the global PATH
+      Environment = "PATH=${pkgs.coreutils}/bin:${pkgs.gnutar}/bin:${pkgs.findutils}/bin";
+      # %H is a systemd specifier that automatically resolves to the current hostname
+      ExecStart = "${pkgs.writeShellScript "backup-obsidian-script" ''
+        VAULT_DIR="$HOME/Documents/zetteltest"
+        DEST_DIR="$HOME/Nextcloud/zetteltest-backups/%H"
+        TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+        BACKUP_FILE="zetteltest_$TIMESTAMP.tar.gz"
+
+        mkdir -p "$DEST_DIR"
+
+        # Create the backup
+        tar -czf "$DEST_DIR/$BACKUP_FILE" -C "$VAULT_DIR" .
+
+        # Clean up backups older than 14 days
+        find "$DEST_DIR" -name "zetteltest_*.tar.gz" -type f -mtime +14 -delete
+
+        echo "Backup successful: $DEST_DIR/$BACKUP_FILE"
+      ''}";
+    };
+  };
 
   #home.sessionVariables = {
   #    NH_FLAKE = "/home/snuppy/.dots";

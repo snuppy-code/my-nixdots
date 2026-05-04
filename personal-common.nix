@@ -6,13 +6,31 @@
 }: {
   nix.settings.trusted-users = ["root" "snuppy"];
 
+  # AI SLOP WARNING !!
+  # this is the other half of the solution, rest in snuppy-home-common.nix
+  systemd.user.timers.backup-obsidian = {
+    Unit = {
+      Description = "Timer for Obsidian Vault Backup";
+    };
+    Timer = {
+      # Run every hour. Change to "*-*-* 02:00:00" for daily at 2 AM.
+      OnCalendar = "hourly";
+      # Crucial for laptops: if the machine is asleep when the timer triggers,
+      # it will run immediately once the machine wakes up.
+      Persistent = true;
+    };
+    Install = {
+      WantedBy = ["timers.target"];
+    };
+  };
+
   programs.nh = {
     enable = true;
     clean.enable = true;
     clean.extraArgs = "--keep-since 14d --keep 10";
     flake = "/home/snuppy/.dots";
   };
-  # BLUNT HAMMER okay we dont need dat
+  # listen okay we dont need dat !
   #  nix.gc = {
   #    automatic = true;
   #    dates = "weekly";
