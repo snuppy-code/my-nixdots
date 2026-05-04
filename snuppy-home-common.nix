@@ -69,6 +69,7 @@
     #super-productivity
     killall
     claude-code
+    syncthing
 
     google-chrome
     firefox
