@@ -6,13 +6,6 @@
 }: {
   nix.settings.trusted-users = ["root" "snuppy"];
 
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    group = "syncthing"; # this is default
-    user = "syncthing"; # this is default
-  };
-
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -67,6 +60,14 @@
       swtpm.enable = true;
     };
   };
+
+  networking.firewall.allowedTCPPorts = [
+    22000 # syncthing
+  ];
+  networking.firewall.allowedUDPPorts = [
+    22000 # syncthing
+    21027 # syncthing
+  ];
 
   # https://userbase.kde.org/KDEConnect#:~:text=can%27t%20see%20each%20other
   networking.firewall.allowedTCPPortRanges = [

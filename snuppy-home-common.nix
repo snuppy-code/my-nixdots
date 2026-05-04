@@ -14,6 +14,9 @@
       hide_hud = true;
     };
   };
+  services.syncthing = {
+    enable = true;
+  };
 
   #home.sessionVariables = {
   #    NH_FLAKE = "/home/snuppy/.dots";
