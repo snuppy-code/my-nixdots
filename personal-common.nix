@@ -6,6 +6,11 @@
 }: {
   nix.settings.trusted-users = ["root" "snuppy"];
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
+
   programs.nh = {
     enable = true;
     clean.enable = true;
