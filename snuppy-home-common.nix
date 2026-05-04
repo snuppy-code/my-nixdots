@@ -41,22 +41,21 @@
       # Added gzip so tar -z actually works!
       Environment = "PATH=${pkgs.coreutils}/bin:${pkgs.gnutar}/bin:${pkgs.findutils}/bin:${pkgs.gzip}/bin";
       ExecStart = "${pkgs.writeShellScript "backup-obsidian-script" ''
-        VAULT_DIR=\"$HOME/Documents/zetteltest\"
-        # Read hostname natively instead of relying on systemd specifiers
+        VAULT_DIR="$HOME/Documents/zetteltest"
         HOST=$(cat /etc/hostname | tr -d '\n')
-        DEST_DIR=\"$HOME/Nextcloud/zetteltest-backups/$HOST\"
-        TIMESTAMP=$(date +\"%Y-%m-%d_%H-%M\")
-        BACKUP_FILE=\"zetteltest_$TIMESTAMP.tar.gz\"
+        DEST_DIR="$HOME/Nextcloud/zetteltest-backups/$HOST"
+        TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+        BACKUP_FILE="zetteltest_$TIMESTAMP.tar.gz"
 
-        mkdir -p \"$DEST_DIR\"
+        mkdir -p "$DEST_DIR"
 
         # Create the backup
-        tar -czf \"$DEST_DIR/$BACKUP_FILE\" -C \"$VAULT_DIR\" .
+        tar -czf "$DEST_DIR/$BACKUP_FILE" -C "$VAULT_DIR" .
 
         # Clean up backups older than 14 days
-        find \"$DEST_DIR\" -name \"zetteltest_*.tar.gz\" -type f -mtime +14 -delete
+        find "$DEST_DIR" -name "zetteltest_*.tar.gz" -type f -mtime +14 -delete
 
-        echo \"Backup successful: $DEST_DIR/$BACKUP_FILE\"
+        echo "Backup successful: $DEST_DIR/$BACKUP_FILE"
       ''}";
     };
   };
