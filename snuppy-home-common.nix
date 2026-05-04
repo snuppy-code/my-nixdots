@@ -70,6 +70,7 @@
     killall
     claude-code
     syncthing
+    #fresh-editor # not out of unstable yet
 
     google-chrome
     firefox

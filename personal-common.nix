@@ -9,6 +9,8 @@
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
+    group = "syncthing"; # this is default
+    user = "syncthing"; # this is default
   };
 
   programs.nh = {
