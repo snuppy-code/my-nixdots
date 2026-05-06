@@ -154,6 +154,7 @@
     blender
     obs-studio
     davinci-resolve
+    kdePackages.kdenlive
     audacity
     freecad
 
