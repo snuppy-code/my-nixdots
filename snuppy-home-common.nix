@@ -157,6 +157,8 @@
     kdePackages.kdenlive # genuinely horrific to use!
     #openshot-qt # security problems
     shotcut
+    #olive-editor # nvm its development is on pause
+    flowblade
     audacity
     freecad
 
