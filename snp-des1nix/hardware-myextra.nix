@@ -17,35 +17,42 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  hardware.graphics = {
-    enable = true;
-  };
-  services.xserver.videoDrivers = ["nvidia"];
-  powerManagement.enable = true; # powerManagement.enable = true can sometimes fix this, but is itself unstable and is known to cause suspend issues.
+  services.xserver.videoDrivers = ["nvidia"]; # installs nvidia drivers to the system. incl. OpenCL and CUDA
   hardware.nvidia = {
-    # Modesetting is required.
-    modesetting.enable = true;
+    modesetting.enable = true; # KMS, needed for wayland
+    open = true; # use open source kernel module instead of noveau
+    package = config.boot.kernelPackages.nvidiaPackages.stable; # {production,stable,beta} as of writing
 
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
-    powerManagement.enable = true;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
+    nvidiaSettings = true; # official gui with info & settings
 
-    # Use the NVidia open source kernel module (not to be confused with noveau or whatever
-    open = true;
-
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable; # production was the last one
+    powerManagement.enable = true; # can fix resume-from-suspend issues
   };
+  powerManagement.enable = true; # can fix resume from suspend -issues
+  hardware.graphics = {
+    enable = true; # installs the appropriate `mesa` OpenGL driver, most DEs set this already apparently
+    extraPackages = {
+      # additional driver packages can be added here. e.g. OpenCL is not default in `mesa`, can be added here
+      # I get OpenCL from my nvidia drivers
+    };
+  };
+  nixpkgs.config.cudaSupport = true; # enables CUDA support for *packages* by default
+
+  # https://wiki.nixos.org/wiki/Graphics
+  # mesa includes OpenGL, Vulkan drivers, and hardware video acceleration
+  # "Kernel-level GPU support is provided by a kernel module [...]"
+  # "[...] The module is loaded automatically based on the detected hardware. On x86 devices, detection is done automatically through ACPI."
+  # "Normally, the kernel module is loaded and KMS is performed after the initrd stage ("late KMS"), i.e. after entering the encryption password if you use full disk encryption. This will produce some flickering."
+  # "The kernel module can also be added to the initrd itself ("early KMS") by adding the kernel module for your hardware to boot.initrd.kernelModules. Early KMS is especially desirable when using something like Plymouth for flicker-free fancy graphics during boot. If you don't use Plymouth, early KMS might actually make the boot sequence worse, because the flicker might heppen during encryption password entry."
+  boot.initrd.kernelModules = [
+    # The set of kernel modules in the initial ramdisk used during the boot process
+    # Arch wiki/nvidia: "Early loading the modules will break hibernation, as video memory preservation is enabled by default."
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
+
   # # https://discourse.nixos.org/t/black-screen-after-suspend-hibernate-with-nvidia/54341/6
   # # https://discourse.nixos.org/t/suspend-problem/54033/28
   # systemd = {
