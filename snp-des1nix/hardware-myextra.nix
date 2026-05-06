@@ -32,10 +32,6 @@
   # mesa includes OpenGL, Vulkan drivers, and hardware video acceleration
   hardware.graphics = {
     enable = true; # installs the appropriate mesa driver, most DEs set this already apparently
-    extraPackages = [
-      # additional driver packages can be added here. e.g. OpenCL is not default in `mesa`, can be added here
-      # I get OpenCL from my nvidia drivers
-    ];
   };
   nixpkgs.config.cudaSupport = true; # enables CUDA support for *packages* by default
   boot.initrd.kernelModules = [
