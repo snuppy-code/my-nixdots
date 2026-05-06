@@ -155,6 +155,7 @@
     obs-studio
     davinci-resolve
     kdePackages.kdenlive
+    openshot-qt
     audacity
     freecad
 
