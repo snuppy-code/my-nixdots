@@ -153,9 +153,10 @@
     aseprite
     blender
     obs-studio
-    davinci-resolve
-    kdePackages.kdenlive
-    openshot-qt
+    davinci-resolve # zero codecs!
+    kdePackages.kdenlive # genuinely horrific to use!
+    #openshot-qt # security problems
+    shotcut
     audacity
     freecad
 
