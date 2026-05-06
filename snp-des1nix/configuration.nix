@@ -13,6 +13,15 @@
   users.users.snuppy.openssh.authorizedKeys.keys = [
   ];
 
+  nix.settings = {
+    substituters = [
+      "https://cache.nixos-cuda.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+    ];
+  };
+
   # gonna beat my FUCKASS friend in tiktok fruit slice game
   # virtualisation.waydroid.enable = true;
 

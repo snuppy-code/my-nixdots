@@ -31,10 +31,10 @@
   powerManagement.enable = true; # can fix resume from suspend -issues
   hardware.graphics = {
     enable = true; # installs the appropriate `mesa` OpenGL driver, most DEs set this already apparently
-    extraPackages = {
+    extraPackages = [
       # additional driver packages can be added here. e.g. OpenCL is not default in `mesa`, can be added here
       # I get OpenCL from my nvidia drivers
-    };
+    ];
   };
   nixpkgs.config.cudaSupport = true; # enables CUDA support for *packages* by default
 
