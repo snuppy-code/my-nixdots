@@ -22,14 +22,11 @@
       Description = "Timer for Obsidian Vault Backup";
     };
     Timer = {
-      # Run every hour. Change to "*-*-* 02:00:00" for daily at 2 AM.
       OnCalendar = "hourly";
-      # Crucial for laptops: if the machine is asleep when the timer triggers,
-      # it will run immediately once the machine wakes up.
-      Persistent = true;
+      Persistent = true; # run on startup
     };
     Install = {
-      WantedBy = ["timers.target"];
+      WantedBy = ["timers.target"]; # why did gemini write this
     };
   };
   systemd.user.services.backup-obsidian = {
