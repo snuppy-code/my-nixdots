@@ -111,6 +111,7 @@
     #super-productivity
     killall
     claude-code
+    jan
     syncthing
     #fresh-editor # not out of unstable yet
 
