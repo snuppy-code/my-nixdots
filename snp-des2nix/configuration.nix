@@ -46,7 +46,26 @@
     enableACME = false;
   };
 
+  networking.firewall.trustedInterfaces = ["tailscale0"];
   networking.firewall.allowedTCPPorts = [80 443];
+
+  services.jellyfin.enable = true;
+
+  systemd.tmpfiles.rules = [
+    "d /srv/media 0755 mend users -"
+    "d /srv/media/movies 0755 mend users -"
+  ];
+
+  services.nginx.virtualHosts."jellyfin" = {
+    serverAliases = ["snp-des2nix.tailf46592.ts.net"];
+    listen = [{addr = "0.0.0.0"; port = 8920; ssl = true;}];
+    sslCertificate = config.sops.secrets.snp-des2nix-crt.path;
+    sslCertificateKey = config.sops.secrets.snp-des2nix-key.path;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:8096";
+      proxyWebsockets = true;
+    };
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

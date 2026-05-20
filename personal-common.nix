@@ -65,11 +65,6 @@
 
   networking.firewall.trustedInterfaces = ["tailscale0"];
 
-  systemd.tmpfiles.rules = [
-    "d /srv/media 0755 snuppy users -"
-    "d /srv/media/movies 0755 snuppy users -"
-  ];
-
   networking.firewall.allowedTCPPorts = [
     22000 # syncthing
   ];
