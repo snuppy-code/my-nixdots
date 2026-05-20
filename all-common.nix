@@ -22,6 +22,12 @@
   #   operation = "switch";
   #   runGarbageCollection = true;
   # };
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 14d --keep 10";
+    flake = "/home/snuppy/.dots";
+  };
 
   programs.git = {
     enable = true;
