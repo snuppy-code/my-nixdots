@@ -65,6 +65,7 @@
 
   services.nginx.virtualHosts."jellyfin" = {
     serverAliases = ["snp-des2nix.tailf46592.ts.net"];
+    onlySSL = true;
     listen = [{addr = "0.0.0.0"; port = 8920; ssl = true;}];
     sslCertificate = config.sops.secrets.snp-des2nix-crt.path;
     sslCertificateKey = config.sops.secrets.snp-des2nix-key.path;

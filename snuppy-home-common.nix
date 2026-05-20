@@ -113,6 +113,7 @@
     qbittorrent
     transmission_4-gtk
     claude-code
+    resources
 
     syncthing
     #fresh-editor # not out of unstable yet
