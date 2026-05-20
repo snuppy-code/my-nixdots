@@ -110,8 +110,10 @@
     yubioath-flutter
     #super-productivity
     killall
+    qbittorrent
+    transmission_4-gtk
     claude-code
-    jan
+
     syncthing
     #fresh-editor # not out of unstable yet
 

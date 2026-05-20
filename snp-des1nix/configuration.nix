@@ -10,6 +10,8 @@
   imports = [
   ];
 
+  services.jellyfin.enable = true;
+
   users.users.snuppy.openssh.authorizedKeys.keys = [
   ];
 
