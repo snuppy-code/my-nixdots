@@ -22,6 +22,13 @@
     hashedPasswordFile = config.sops.secrets.snuppy-password.path;
   };
 
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 14d --keep 10";
+    flake = "/home/snuppy/.dots";
+  };
+
   services.udev.packages = [pkgs.yubikey-personalization]; #unsure why I have this
 
   hardware.bluetooth.enable = true;

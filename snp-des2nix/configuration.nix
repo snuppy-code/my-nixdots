@@ -15,6 +15,13 @@
     hashedPasswordFile = config.sops.secrets.mend-password.path;
   };
 
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 14d --keep 10";
+    flake = "/home/mend/.dots";
+  };
+
   sops.secrets.snp-des2nix-key.owner = "nginx";
   sops.secrets.snp-des2nix-crt.owner = "nginx";
 
