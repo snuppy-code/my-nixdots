@@ -68,7 +68,7 @@
       programs.nushell = {
         enable = true;
         environmentVariables = {
-          NH_FLAKE = "/home/snuppy/.dots";
+          NH_FLAKE = "/home/${config.mycli.username}/.dots";
           EDITOR = "nvim";
         };
         extraConfig = ''
