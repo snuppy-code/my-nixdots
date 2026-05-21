@@ -158,20 +158,32 @@
           # 1. Trim a recording and prep for Discord (End time is optional)
           # Usage: prep-discord-trim "recording.mkv" "00:00:15" "00:01:30"
           #    OR: prep-discord-trim "recording.mkv" "00:00:15"
+          #    OR: prep-discord-trim "recording.mkv" "00:00:15" --quality high
+          # Quality presets: low (720p, crf 28 — tiny), med (1080p, crf 23),
+          #                  high (1440p, crf 20 — near-lossless, big file)
           def "prep-discord-trim" [
               input: string,
               start: string,
               end?: string # The '?' makes this parameter optional
+              --quality (-q): string = "low" # low | med | high
           ] {
+              let preset = match $quality {
+                  "low"  => { vf: "scale=-1:720,fps=30",  crf: "28", ab: "128k" }
+                  "med"  => { vf: "scale=-1:1080,fps=30", crf: "23", ab: "160k" }
+                  "high" => { vf: "scale=-1:1440,fps=30", crf: "20", ab: "192k" }
+                  _ => {
+                      error make { msg: $"unknown quality '($quality)': use low, med, or high" }
+                  }
+              }
               let file_info = ($input | path parse)
               let out = $"($file_info.stem)_discord.mp4"
 
               if ($end == null) {
-                  print $"✂️ Trimming '($input)' from ($start) to the end..."
-                  ^ffmpeg -y -ss $start -i $input -vf "scale=-1:720,fps=30" -c:v libx264 -crf 28 -preset faster -c:a aac -b:a 128k $out
+                  print $"✂️ Trimming '($input)' from ($start) to the end... [quality: ($quality)]"
+                  ^ffmpeg -y -ss $start -i $input -vf $preset.vf -c:v libx264 -crf $preset.crf -preset faster -c:a aac -b:a $preset.ab $out
               } else {
-                  print $"✂️ Trimming '($input)' from ($start) to ($end)..."
-                  ^ffmpeg -y -ss $start -to $end -i $input -vf "scale=-1:720,fps=30" -c:v libx264 -crf 28 -preset faster -c:a aac -b:a 128k $out
+                  print $"✂️ Trimming '($input)' from ($start) to ($end)... [quality: ($quality)]"
+                  ^ffmpeg -y -ss $start -to $end -i $input -vf $preset.vf -c:v libx264 -crf $preset.crf -preset faster -c:a aac -b:a $preset.ab $out
               }
 
               print $"✅ Done! Saved for Discord as: ($out)"
