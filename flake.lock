@@ -99,11 +99,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779386831,
-        "narHash": "sha256-NSMHZNnAKUON618V6scsWM9Nw0eywnBIlgkC5/cdpBI=",
+        "lastModified": 1779387375,
+        "narHash": "sha256-dI6fe1zyx3nee2IsKvV1sRZN8eWxa57wFmz0iWBsWhU=",
         "ref": "sidelined-work",
-        "rev": "481f39544c3ffb3b58b47169f0edfe2481b72664",
-        "revCount": 8,
+        "rev": "e40e0c53b12a60bd616209df4afa3e3795896291",
+        "revCount": 9,
         "type": "git",
         "url": "ssh://git@github.com/snuppy-code/finnjobbtool"
       },
