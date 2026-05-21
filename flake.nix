@@ -3,8 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    finnjobbtool.url = "git+ssh://git@github.com/snuppy-code/finnjobbtool/sidelined-work";
-    #finnjobtool.url = "github:snuppy-code/finnjobbtool/sidelined-work";
+    finnjobtool.url = "git+ssh://git@github.com/snuppy-code/finnjobbtool?ref=sidelined-work";
     finnjobtool.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
