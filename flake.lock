@@ -68,19 +68,42 @@
         "type": "github"
       }
     },
+    "fenix": {
+      "inputs": {
+        "nixpkgs": [
+          "finnjobtool",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src"
+      },
+      "locked": {
+        "lastModified": 1779357702,
+        "narHash": "sha256-QGu9ycXwaaqUzDkP7bcanTjGhuqlUNmjh1jLUPjDHgw=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "a6ebca03f87958a09065959897223790014cdcac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
     "finnjobtool": {
       "inputs": {
+        "fenix": "fenix",
         "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1779385697,
-        "narHash": "sha256-70mtn8hLDdidWxqrfRLFYVeApalfhXS2CcvLW1MqiNQ=",
+        "lastModified": 1779386216,
+        "narHash": "sha256-vNKwfVSb0XBAoce/KpDx1oxhzYSWVQm4Breal8SYY4I=",
         "ref": "sidelined-work",
-        "rev": "7e7ccb203718df94d9b8d77abd2d2282e5919879",
-        "revCount": 5,
+        "rev": "2903a1bcc6e7fd4c4b274c858e9a00a7a7b731db",
+        "revCount": 6,
         "type": "git",
         "url": "ssh://git@github.com/snuppy-code/finnjobbtool"
       },
@@ -400,6 +423,23 @@
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
         "weathr": "weathr"
+      }
+    },
+    "rust-analyzer-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779303932,
+        "narHash": "sha256-alMOllPgosTsuXGjhvQvbGH0ekPOZW0QfGTI0NdJtbQ=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "7f916ab1b1f669cec017960c2d91a9a87b4b7bae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
       }
     },
     "sops-nix": {
