@@ -106,6 +106,8 @@
   };
 
   home.packages = with pkgs; [
+    inputs.finnjobtool.packages.${pkgs.system}.default
+
     yubikey-manager
     yubioath-flutter
     #super-productivity
