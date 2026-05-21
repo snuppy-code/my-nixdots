@@ -107,6 +107,7 @@
 
   home.packages = with pkgs; [
     inputs.finnjobtool.packages.${pkgs.system}.default
+    inputs.finnjobtool.packages.${pkgs.system}.cli
 
     yubikey-manager
     yubioath-flutter
