@@ -62,8 +62,15 @@
   services.smartd.enable = true; # SMART Daemon
   services.fstrim.enable = true; # important !
   services.tailscale.enable = true;
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    openFirewall = false;
+  };
   networking.networkmanager.enable = true;
+
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
+    22 # ssh
+  ];
 
   # Gemini :/ says this makes nixos continue to get latest closed source firmware
   # configuring my laptop I found this too: # https://github.com/NixOS/nixos-hardware/blob/master/lenovo/yoga/7/slim/gen8/default.nix

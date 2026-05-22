@@ -57,7 +57,9 @@
     };
   };
 
-  networking.firewall.trustedInterfaces = ["tailscale0"];
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [
+    8080 # open-webui
+  ];
 
   networking.firewall.allowedTCPPorts = [
     22000 # syncthing
