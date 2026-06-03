@@ -217,8 +217,10 @@
 
               print $"📦 Crushing '($input)' down for Discord..."
 
-              # Added -y to overwrite existing files
-              ^ffmpeg -y -i $input -vf "scale=-1:720,fps=30" -c:v libx264 -crf 28 -preset faster -c:a aac -b:a 128k $out
+              # Strips HDR metadata by re-tagging as bt709 — avoids broken tonemapping that produces
+              # black frames. HLG is backward-compatible enough that SDR players show an acceptable
+              # picture. yuv420p + Main profile = universal phone decoder support.
+              ^ffmpeg -y -i $input -vf "scale=-2:720,fps=30" -c:v libx264 -profile:v main -level 4.0 -pix_fmt yuv420p -color_primaries bt709 -color_trc bt709 -colorspace bt709 -crf 28 -preset faster -c:a aac -b:a 128k -movflags +faststart $out
 
               print $"✅ Done! Saved for Discord as: ($out)"
           }
