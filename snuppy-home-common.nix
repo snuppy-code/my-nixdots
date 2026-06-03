@@ -140,6 +140,7 @@
     #gnome-pomodoro # slightly less pretty than:
     pomodoro-gtk
     normcap
+    anki
     #input-leap # stuck on 'starting'
     #deskflow
     protonvpn-gui
