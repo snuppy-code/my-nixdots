@@ -115,6 +115,7 @@
     killall
     qbittorrent
     transmission_4-gtk
+    makemkv
     claude-code
     resources
 
