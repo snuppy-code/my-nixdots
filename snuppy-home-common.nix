@@ -109,6 +109,8 @@
     inputs.finnjobtool.packages.${pkgs.system}.default
     inputs.finnjobtool.packages.${pkgs.system}.cli
 
+    cura
+
     yubikey-manager
     yubioath-flutter
     #super-productivity
