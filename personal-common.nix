@@ -18,6 +18,7 @@
       "adbusers"
       "libvirtd"
       "dialout"
+      "cdrom"
     ];
     hashedPasswordFile = config.sops.secrets.snuppy-password.path;
   };

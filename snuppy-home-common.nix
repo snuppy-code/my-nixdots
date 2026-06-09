@@ -109,6 +109,9 @@
     inputs.finnjobtool.packages.${pkgs.system}.default
     inputs.finnjobtool.packages.${pkgs.system}.cli
 
+    prusa-slicer
+    orca-slicer
+
     yubikey-manager
     yubioath-flutter
     #super-productivity
