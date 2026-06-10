@@ -109,7 +109,11 @@
     inputs.finnjobtool.packages.${pkgs.system}.default
     inputs.finnjobtool.packages.${pkgs.system}.cli
 
+    inputs.helium.packages.${pkgs.system}.default
+
     cura
+    prusa-slicer
+    makemkv
 
     yubikey-manager
     yubioath-flutter
@@ -123,7 +127,6 @@
     syncthing
     #fresh-editor # not out of unstable yet
 
-    google-chrome
     firefox
     vesktop
     element-desktop

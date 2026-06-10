@@ -31,6 +31,11 @@
 
   services.udev.packages = [pkgs.yubikey-personalization]; #unsure why I have this
 
+  # NuPhy keyboards (VID 19f5) — grant local user WebHID access so nuphy.io configurator can pair in the browser
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", ATTRS{idVendor}=="19f5", TAG+="uaccess", MODE="0660"
+  '';
+
   hardware.bluetooth.enable = true;
   # Enable CUPS to print documents.
   # services.printing.enable = true;

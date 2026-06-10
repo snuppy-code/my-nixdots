@@ -8,8 +8,8 @@
   networking.hostName = "snp-des1nix";
   networking.hostId = "7d1d9835";
 
-  boot.supportedFilesystems = ["zfs"];
-  boot.zfs.extraPools = ["tank"];
+  #boot.supportedFilesystems = ["zfs"];
+  #boot.zfs.extraPools = ["tank"];
 
   boot.kernelModules = ["kvm-amd"];
   boot.kernelPackages = pkgs.linuxPackages_6_6;

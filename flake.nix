@@ -21,6 +21,9 @@
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    helium.url = "github:schembriaiden/helium-browser-nix-flake";
+    helium.inputs.nixpkgs.follows = "nixpkgs";
+
     weathr.url = "github:Veirt/weathr";
   };
 
@@ -32,6 +35,7 @@
     nvf,
     stylix,
     spicetify-nix,
+    helium,
     weathr,
     finnjobtool,
   } @ inputs: {
