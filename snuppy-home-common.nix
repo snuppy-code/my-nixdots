@@ -113,7 +113,7 @@
 
     cura
     prusa-slicer
-    makemkv
+    orca-slicer
 
     yubikey-manager
     yubioath-flutter
@@ -121,6 +121,7 @@
     killall
     qbittorrent
     transmission_4-gtk
+    makemkv
     claude-code
     resources
 
