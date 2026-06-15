@@ -6,6 +6,7 @@
 }: {
   imports = [
     inputs.weathr.homeModules.weathr
+    inputs.sops-nix.homeManagerModule
   ];
 
   programs.weathr = {
@@ -101,6 +102,11 @@
                     nvram = [ "/run/libvirt/nix-ovmf/AAVMF_CODE.fd:/run/libvirt/nix-ovmf/AAVMF_VARS.fd", "/run/libvirt/nix-ovmf/OVMF_CODE.fd:/run/libvirt/nix-ovmf/OVMF_VARS.fd" ]
   '';
 
+  # can also do:
+  home.file = {
+    "Documents/dingus.txt".text = "DUUDE";
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
   };
@@ -110,8 +116,7 @@
     inputs.finnjobtool.packages.${pkgs.system}.cli
 
     inputs.helium.packages.${pkgs.system}.default
-
-    cura
+    #cura # unmaintained in nixpkgs !
     prusa-slicer
     orca-slicer
 
@@ -161,10 +166,10 @@
     nextcloud-client
     # mupdf
     krita
-    aseprite
+    #aseprite # causing rebuild to fail after 26.05 switch !
     blender
     obs-studio
-    davinci-resolve # zero codecs!
+    #davinci-resolve # zero codecs!
     kdePackages.kdenlive # genuinely horrific to use!
     #openshot-qt # security problems
     shotcut
@@ -185,6 +190,7 @@
     processing
     github-desktop
     zed-editor
+    nil
     #sublime4
 
     vlc
