@@ -182,8 +182,11 @@
 
     processing
     github-desktop
+
     zed-editor
-    #sublime4
+    # for nix support
+    nil
+    nixd
 
     vlc
     mpv
