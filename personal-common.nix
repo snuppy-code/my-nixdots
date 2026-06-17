@@ -32,9 +32,11 @@
 
   services.udev.packages = [pkgs.yubikey-personalization]; #unsure why I have this
 
-  # NuPhy keyboards (VID 19f5) — grant local user WebHID access so nuphy.io configurator can pair in the browser
+  # NuPhy keyboards (VID 19f5) — grant local user WebHID access so nuphy.io configurator can pair in the browser.
+  # uaccess works for the dongle (bus 1) but not for the direct USB enumeration (bus 5 via ASMedia hub —
+  # logind doesn't seat-tag that path), so GROUP="users" is the reliable fallback.
   services.udev.extraRules = ''
-    KERNEL=="hidraw*", ATTRS{idVendor}=="19f5", TAG+="uaccess", MODE="0660"
+    KERNEL=="hidraw*", ATTRS{idVendor}=="19f5", TAG+="uaccess", MODE="0660", GROUP="users"
   '';
 
   hardware.bluetooth.enable = true;
@@ -143,5 +145,7 @@
     spice-vdagent
 
     sddm-astronaut
+
+    chromium # control test for WebHID on nuphy.io vs Helium
   ];
 }

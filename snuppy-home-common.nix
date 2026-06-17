@@ -115,6 +115,8 @@
     inputs.finnjobtool.packages.${pkgs.system}.default
     inputs.finnjobtool.packages.${pkgs.system}.cli
 
+    stow
+
     inputs.helium.packages.${pkgs.system}.default
     #cura # unmaintained in nixpkgs !
     prusa-slicer
@@ -166,7 +168,7 @@
     nextcloud-client
     # mupdf
     krita
-    #aseprite # causing rebuild to fail after 26.05 switch !
+    aseprite # causing rebuild to fail after 26.05 switch !
     blender
     obs-studio
     #davinci-resolve # zero codecs!
@@ -191,6 +193,7 @@
     github-desktop
     zed-editor
     nil
+    nixd
     #sublime4
 
     vlc
