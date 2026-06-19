@@ -3,8 +3,12 @@
   pkgs,
   inputs,
   ...
-}: {
-  nix.settings.trusted-users = ["root" "snuppy"];
+}:
+{
+  nix.settings.trusted-users = [
+    "root"
+    "snuppy"
+  ];
 
   services.open-webui.enable = true;
 
@@ -30,7 +34,7 @@
     flake = "/home/snuppy/.dots";
   };
 
-  services.udev.packages = [pkgs.yubikey-personalization]; #unsure why I have this
+  services.udev.packages = [ pkgs.yubikey-personalization ]; # unsure why I have this
 
   hardware.bluetooth.enable = true;
   # Enable CUPS to print documents.
@@ -86,7 +90,7 @@
 
   services.flatpak.enable = true;
 
-  # Needed for some WINE stuff,, (?)
+  # Needed among other things for WINE stuff
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     libGL
