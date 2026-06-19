@@ -3,7 +3,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.weathr.homeModules.weathr
     inputs.sops-nix.homeManagerModule
@@ -27,7 +28,7 @@
       Persistent = true; # run on startup
     };
     Install = {
-      WantedBy = ["timers.target"]; # why did gemini write this
+      WantedBy = [ "timers.target" ]; # why did gemini write this
     };
   };
   systemd.user.services.backup-obsidian = {
@@ -62,7 +63,10 @@
   #    NH_FLAKE = "/home/snuppy/.dots";
   #  };
 
-  stylix.targets.firefox.profileNames = ["default" "ax"];
+  stylix.targets.firefox.profileNames = [
+    "default"
+    "ax"
+  ];
   stylix.targets.firefox.enable = true;
   stylix.targets.kitty.enable = true;
 
@@ -120,7 +124,7 @@
     inputs.helium.packages.${pkgs.system}.default
     #cura # unmaintained in nixpkgs !
     prusa-slicer
-    orca-slicer
+    #orca-slicer
 
     yubikey-manager
     yubioath-flutter
@@ -181,7 +185,14 @@
     freecad
 
     protonplus
-    (prismlauncher.override {jdks = [jdk8 jdk17 jdk21 jdk25];})
+    (prismlauncher.override {
+      jdks = [
+        jdk8
+        jdk17
+        jdk21
+        jdk25
+      ];
+    })
     lutris
     bottles
 
@@ -191,10 +202,11 @@
 
     processing
     github-desktop
+
     zed-editor
+    # for nix support
     nil
     nixd
-    #sublime4
 
     vlc
     mpv
