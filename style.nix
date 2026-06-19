@@ -6,9 +6,11 @@
 }: {
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+  #stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-soft.yaml";
   stylix.image = ./wallpapers/highres/wp3.png;
+  #stylix.image = ./wallpapers/lowres/wp19.png;
   # The generated color scheme can be viewed at /etc/stylix/palette.html on NixOS, or at ~/.config/stylix/palette.html on Home Manager.
-  #stylix.polarity = "dark";
+  stylix.polarity = "light";
   stylix.fonts = {
     #serif = {
     #  package = pkgs.dejavu_fonts;

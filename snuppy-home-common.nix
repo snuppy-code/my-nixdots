@@ -3,9 +3,11 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.weathr.homeModules.weathr
+    inputs.sops-nix.homeManagerModule
   ];
 
   programs.weathr = {
@@ -26,7 +28,7 @@
       Persistent = true; # run on startup
     };
     Install = {
-      WantedBy = ["timers.target"]; # why did gemini write this
+      WantedBy = [ "timers.target" ]; # why did gemini write this
     };
   };
   systemd.user.services.backup-obsidian = {
@@ -61,7 +63,10 @@
   #    NH_FLAKE = "/home/snuppy/.dots";
   #  };
 
-  stylix.targets.firefox.profileNames = ["default" "ax"];
+  stylix.targets.firefox.profileNames = [
+    "default"
+    "ax"
+  ];
   stylix.targets.firefox.enable = true;
   stylix.targets.kitty.enable = true;
 
@@ -101,6 +106,11 @@
                     nvram = [ "/run/libvirt/nix-ovmf/AAVMF_CODE.fd:/run/libvirt/nix-ovmf/AAVMF_VARS.fd", "/run/libvirt/nix-ovmf/OVMF_CODE.fd:/run/libvirt/nix-ovmf/OVMF_VARS.fd" ]
   '';
 
+  # can also do:
+  home.file = {
+    "Documents/dingus.txt".text = "DUUDE";
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
   };
@@ -109,6 +119,10 @@
     inputs.finnjobtool.packages.${pkgs.system}.default
     inputs.finnjobtool.packages.${pkgs.system}.cli
 
+    stow
+
+    inputs.helium.packages.${pkgs.system}.default
+    #cura # unmaintained in nixpkgs !
     prusa-slicer
     #orca-slicer
 
@@ -125,7 +139,6 @@
     syncthing
     #fresh-editor # not out of unstable yet
 
-    google-chrome
     firefox
     vesktop
     element-desktop
@@ -159,10 +172,10 @@
     nextcloud-client
     # mupdf
     krita
-    aseprite
+    aseprite # causing rebuild to fail after 26.05 switch !
     blender
     obs-studio
-    davinci-resolve # zero codecs!
+    #davinci-resolve # zero codecs!
     kdePackages.kdenlive # genuinely horrific to use!
     #openshot-qt # security problems
     shotcut
@@ -172,7 +185,14 @@
     freecad
 
     protonplus
-    (prismlauncher.override {jdks = [jdk8 jdk17 jdk21 jdk25];})
+    (prismlauncher.override {
+      jdks = [
+        jdk8
+        jdk17
+        jdk21
+        jdk25
+      ];
+    })
     lutris
     bottles
 

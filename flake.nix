@@ -2,11 +2,11 @@
   description = ":3c";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     finnjobtool.url = "git+ssh://git@github.com/snuppy-code/finnjobbtool?ref=sidelined-work";
     finnjobtool.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -15,11 +15,14 @@
     nvf.url = "github:notashelf/nvf";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
 
-    stylix.url = "github:nix-community/stylix/release-25.11";
+    stylix.url = "github:nix-community/stylix/release-26.05";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    helium.url = "github:schembriaiden/helium-browser-nix-flake";
+    helium.inputs.nixpkgs.follows = "nixpkgs";
 
     weathr.url = "github:Veirt/weathr";
   };
@@ -32,6 +35,7 @@
     nvf,
     stylix,
     spicetify-nix,
+    helium,
     weathr,
     finnjobtool,
   } @ inputs: {

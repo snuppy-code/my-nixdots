@@ -104,7 +104,22 @@
     # };
     # ```
     # And later reference as, in this case, `config.sops.secrets.snuppy-password.path`
+
+    secrets.github-pat = {};
+
+    templates."nix-access-tokens" = {
+      owner = "root";
+      group = "users";
+      mode = "0440";
+      content = ''
+        access-tokens = github.com=${config.sops.placeholder."github-pat"}
+      '';
+    };
   };
+
+  nix.extraOptions = ''
+    !include ${config.sops.templates."nix-access-tokens".path}
+  '';
   # Makes the passwords of users be controlled only by nixos config
   # Required to set passwords with sops-nix
   # BE CAREFUL WITH THIS! IT BITES! CAN AND WILL LOCK YOU OUT OF YOUR SERVER!
