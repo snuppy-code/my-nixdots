@@ -13,21 +13,4 @@
       "ctrl-tab": "pane::ActivateNextItem",
     },
   },
-  {
-    "context": "Workspace",
-    "bindings": {
-      "ctrl-~": null,
-    },
-  },
-  {
-    "context": "(Editor && mode == full)",
-    "bindings": {
-      "ctrl-g": null,
-    },
-  },
-  {
-    "bindings": {
-      "ctrl-g": "terminal_panel::ToggleFocus",
-    },
-  },
 ]
