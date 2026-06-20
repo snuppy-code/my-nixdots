@@ -54,5 +54,12 @@
         },
       },
     },
+    "nu": {
+      "initialization_options": {
+        "formatting": {
+          "command": ["nufmt", "--"],
+        },
+      },
+    },
   },
 }
