@@ -1,5 +1,6 @@
 # Notes to self:
 - git push origin main && git push local-server main
+- stow -d ~/.dots/stow/ -t ~ -S zed nushell
 
 ## First-time setup: GitHub access token
 
