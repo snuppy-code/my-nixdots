@@ -13,7 +13,6 @@
     },
   },
   "cli_default_open_behavior": "new_window",
-
   "project_panel": {
     "dock": "left",
   },
@@ -25,6 +24,7 @@
   },
   "git_panel": {
     "dock": "left",
+    "tree_view": true,
   },
   "agent": {
     "dock": "right",
@@ -33,20 +33,21 @@
   "theme": {
     "mode": "dark",
     "dark": "Kanagawa Wave",
-    "light": "Everforest Light Soft (regular)",
-  },
-  "terminal": {
-    "font_size": 16.0,
+    "light": "Everforest Light Soft (material)",
   },
   "buffer_font_family": "0xProto Nerd Font",
-  "ui_font_size": 16,
-  "buffer_font_size": 16.0,
-  "base_keymap": "VSCode",
   "icon_theme": {
     "mode": "dark",
     "light": "Warm Charmed Icons",
     "dark": "Base Charmed Icons",
   },
+  "terminal": {
+    "font_size": 16.0,
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 16.0,
+
+  "base_keymap": "VSCode",
 
   "lsp": {
     "nil": {
