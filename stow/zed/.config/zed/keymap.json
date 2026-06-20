@@ -13,4 +13,10 @@
       "ctrl-tab": "pane::ActivateNextItem",
     },
   },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-n": "agent::NewThread",
+    },
+  },
 ]
