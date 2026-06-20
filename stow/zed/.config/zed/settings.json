@@ -45,4 +45,14 @@
     "light": "Warm Charmed Icons",
     "dark": "Base Charmed Icons",
   },
+
+  "lsp": {
+    "nil": {
+      "initialization_options": {
+        "formatting": {
+          "command": ["alejandra", "--quiet", "--"],
+        },
+      },
+    },
+  },
 }

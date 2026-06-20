@@ -3,8 +3,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   nix.settings.trusted-users = [
     "root"
     "snuppy"
@@ -34,7 +33,7 @@
     flake = "/home/snuppy/.dots";
   };
 
-  services.udev.packages = [ pkgs.yubikey-personalization ]; # unsure why I have this
+  services.udev.packages = [pkgs.yubikey-personalization]; # unsure why I have this
 
   # NuPhy keyboards (VID 19f5) — grant local user WebHID access so nuphy.io configurator can pair in the browser.
   # uaccess works for the dongle (bus 1) but not for the direct USB enumeration (bus 5 via ASMedia hub —

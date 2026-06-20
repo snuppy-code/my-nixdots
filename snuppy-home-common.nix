@@ -3,8 +3,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
     inputs.weathr.homeModules.weathr
     inputs.sops-nix.homeManagerModule
@@ -28,7 +27,7 @@
       Persistent = true; # run on startup
     };
     Install = {
-      WantedBy = [ "timers.target" ]; # why did gemini write this
+      WantedBy = ["timers.target"]; # why did gemini write this
     };
   };
   systemd.user.services.backup-obsidian = {

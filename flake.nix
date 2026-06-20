@@ -3,6 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     finnjobtool.url = "git+ssh://git@github.com/snuppy-code/finnjobbtool?ref=sidelined-work";
     finnjobtool.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -30,6 +33,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     sops-nix,
     nvf,
@@ -53,10 +57,20 @@
         ./snp-des1nix/hardware-myextra.nix
         ./snp-des1nix/hardware-configuration.nix
         home-manager.nixosModules.home-manager
-        {
+        ({pkgs, ...}: {
           mycli.username = "snuppy";
           home-manager.users.snuppy = import ./snp-des1nix/snuppy-home.nix;
-        }
+          # https://discourse.nixos.org/t/home-manager-useuserpackages-useglobalpkgs-settings/34506/6
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            pkgs-unstable = import inputs.nixpkgs-unstable {
+              system = pkgs.system;
+              config.allowUnfree = true;
+            };
+          };
+        })
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
