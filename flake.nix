@@ -92,10 +92,20 @@
         ./snp-lap1nix/hardware-myextra.nix
         ./snp-lap1nix/hardware-configuration.nix
         home-manager.nixosModules.home-manager
-        {
+        ({pkgs, ...}: {
           mycli.username = "snuppy";
           home-manager.users.snuppy = import ./snp-lap1nix/snuppy-home.nix;
-        }
+          # https://discourse.nixos.org/t/home-manager-useuserpackages-useglobalpkgs-settings/34506/6
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            pkgs-unstable = import inputs.nixpkgs-unstable {
+              system = pkgs.system;
+              config.allowUnfree = true;
+            };
+          };
+        })
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
