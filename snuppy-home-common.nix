@@ -129,6 +129,7 @@
     yubioath-flutter
     #super-productivity
     killall
+    atool
     qbittorrent
     transmission_4-gtk
     makemkv
