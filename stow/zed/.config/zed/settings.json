@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "provider": "none",
+  },
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
@@ -16,6 +19,8 @@
     "dock": "right",
   },
   // "disable_ai": true,
+  "show_completions_on_input": false,
+
   "cli_default_open_behavior": "new_window",
   "project_panel": {
     "dock": "left",
