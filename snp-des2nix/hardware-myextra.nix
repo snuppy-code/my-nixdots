@@ -40,18 +40,18 @@ in {
   networking.hostName = "snp-des2nix";
   networking.hostId = "c90f3653";
 
-  # fileSystems."/export/zfs" =
-  #   { device = "tank/terminaldogma";
-  #     fsType = "zfs";
-  #   };
+  fileSystems."/export/zfs" = {
+    device = "tank/terminaldogma";
+    fsType = "zfs";
+  };
 
-  # fileSystems."/tank" =
-  #   { device = "tank";
-  #     fsType = "zfs";
-  #   };
+  fileSystems."/tank" = {
+    device = "tank";
+    fsType = "zfs";
+  };
 
-  # fileSystems."/mnt/secondbranch" =
-  #   { device = "tank/terminaldogma/secondbranch";
-  #     fsType = "zfs";
-  #   };
+  fileSystems."/mnt/secondbranch" = {
+    device = "tank/terminaldogma/secondbranch";
+    fsType = "zfs";
+  };
 }
