@@ -120,6 +120,7 @@
         ./style.nix
         ./snp-des2nix/configuration.nix
         ./snp-des2nix/hardware-configuration.nix
+        ./snp-des2nix/hardware-myextra.nix
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
