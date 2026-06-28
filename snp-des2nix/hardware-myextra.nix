@@ -36,6 +36,7 @@ in {
   # services.xserver.videoDrivers = ["nvidia"];
 
   # nixpkgs.config.cudaSupport = true; # later !
+  boot.initrd.kernelModules = ["nvidia"];
   hardware.graphics.enable = true;
   hardware.nvidia.open = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535; # or 470 or 580
