@@ -39,7 +39,8 @@ in {
   boot.initrd.kernelModules = ["nvidia"];
   hardware.graphics.enable = true;
   hardware.nvidia.open = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535; # or 470 or 580
+  # 535 or 470 or 580
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   hardware.nvidia.modesetting.enable = true;
 
   boot.kernelPackages = newZfsYumKernelPackage;
