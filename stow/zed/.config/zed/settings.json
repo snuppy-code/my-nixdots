@@ -7,8 +7,10 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "auto_update": false,
   "edit_predictions": {
     "provider": "none",
+    "allow_data_collection": "no",
   },
   "agent_servers": {
     "claude-acp": {
@@ -19,7 +21,7 @@
     "dock": "right",
   },
   // "disable_ai": true,
-  "show_completions_on_input": false,
+  // "show_completions_on_input": false,
 
   "cli_default_open_behavior": "new_window",
   "project_panel": {
@@ -38,8 +40,8 @@
 
   "theme": {
     "mode": "dark",
-    "dark": "Duskfox - opaque",
-    "light": "Everforest Light Soft (material)",
+    "dark": "Kanagawa Wave",
+    "light": "Everforest Light Medium (regular)",
   },
   "buffer_font_family": "0xProto Nerd Font",
   "icon_theme": {
@@ -55,7 +57,6 @@
 
   "base_keymap": "VSCode",
   "middle_click_paste": false,
-
   "lsp": {
     "nil": {
       "initialization_options": {

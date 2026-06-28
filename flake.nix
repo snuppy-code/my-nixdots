@@ -125,10 +125,20 @@
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
         home-manager.nixosModules.home-manager
-        {
+        ({pkgs, ...}: {
           mycli.username = "mend";
           home-manager.users.mend = import ./mend-home.nix;
-        }
+          # https://discourse.nixos.org/t/home-manager-useuserpackages-useglobalpkgs-settings/34506/6
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            pkgs-unstable = import inputs.nixpkgs-unstable {
+              system = pkgs.system;
+              config.allowUnfree = true;
+            };
+          };
+        })
       ];
     };
 
