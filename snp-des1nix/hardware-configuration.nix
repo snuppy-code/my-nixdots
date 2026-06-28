@@ -27,21 +27,6 @@
     options = ["fmask=0077" "dmask=0077"];
   };
 
-  # fileSystems."/export/zfs" =
-  #   { device = "tank/terminaldogma";
-  #     fsType = "zfs";
-  #   };
-
-  # fileSystems."/tank" =
-  #   { device = "tank";
-  #     fsType = "zfs";
-  #   };
-
-  # fileSystems."/mnt/secondbranch" =
-  #   { device = "tank/terminaldogma/secondbranch";
-  #     fsType = "zfs";
-  #   };
-
   swapDevices = [
     {device = "/dev/disk/by-uuid/a3cc36e7-ca45-4b5a-bc67-cecdc57af1ea";}
   ];
