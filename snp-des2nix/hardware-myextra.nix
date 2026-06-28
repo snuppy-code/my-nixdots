@@ -32,6 +32,15 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.availableKernelModules = ["usbhid" "usb_storage"];
 
+  # Would be needed if x11 or wayland, but this server is headless for now.
+  # services.xserver.videoDrivers = ["nvidia"];
+
+  # nixpkgs.config.cudaSupport = true; # later !
+  hardware.graphics.enable = true;
+  hardware.nvidia.open = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535; # or 470 or 580
+  hardware.nvidia.modesetting.enable = true;
+
   boot.kernelPackages = newZfsYumKernelPackage;
 
   boot.supportedFilesystems = ["zfs"];
