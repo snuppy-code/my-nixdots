@@ -20,8 +20,8 @@
   "agent": {
     "dock": "right",
   },
-  // "disable_ai": true,
-  // "show_completions_on_input": false,
+  "disable_ai": true,
+  "show_completions_on_input": false,
 
   "cli_default_open_behavior": "new_window",
   "project_panel": {
