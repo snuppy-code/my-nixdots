@@ -242,7 +242,5 @@
     ++ [
       inputs.finnjobtool.packages.${pkgs.system}.default
       inputs.finnjobtool.packages.${pkgs.system}.cli
-
-      inputs.nix-citizen.packages.${pkgs.system}.rsi-launcher
     ];
 }
