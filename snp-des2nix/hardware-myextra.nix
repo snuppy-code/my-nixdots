@@ -38,8 +38,8 @@ in {
   # nixpkgs.config.cudaSupport = true; # later !
   hardware.graphics.enable = true;
   hardware.nvidia.open = false; # open module only supports Turing+; GTX 960 is Maxwell
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535; # 535 is the last branch supporting Maxwell
+  hardware.nvidia.modesetting.enable = false; # headless server; modesetting blacks out the console with no DE to take over
   hardware.nvidia.nvidiaPersistenced.enable = true;
 
   boot.kernelPackages = newZfsYumKernelPackage;
