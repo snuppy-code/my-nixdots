@@ -43,8 +43,6 @@
     ";
   };
 
-  # Something something yubikey
-  services.pcscd.enable = true;
   # yubikey sudo: https://nixos.wiki/wiki/Yubikey
   security.pam.services = {
     login.u2fAuth = true;
