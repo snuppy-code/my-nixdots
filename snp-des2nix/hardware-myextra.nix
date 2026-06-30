@@ -53,15 +53,18 @@ in {
   fileSystems."/export/zfs" = {
     device = "tank/terminaldogma";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 
   fileSystems."/tank" = {
     device = "tank";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 
   fileSystems."/mnt/secondbranch" = {
     device = "tank/terminaldogma/secondbranch";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 }
