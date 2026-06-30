@@ -27,6 +27,10 @@
     helium.url = "github:schembriaiden/helium-browser-nix-flake";
     helium.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-citizen.url = "github:LovingMelody/nix-citizen";
+    # nix-gaming.url = "github:fufexan/nix-gaming";
+    # nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
+
     weathr.url = "github:Veirt/weathr";
   };
 
@@ -40,6 +44,7 @@
     stylix,
     spicetify-nix,
     helium,
+    nix-citizen,
     weathr,
     finnjobtool,
   } @ inputs: {
@@ -120,15 +125,26 @@
         ./style.nix
         ./snp-des2nix/configuration.nix
         ./snp-des2nix/hardware-configuration.nix
+        ./snp-des2nix/hardware-myextra.nix
         sops-nix.nixosModules.sops
         nvf.nixosModules.default
         stylix.nixosModules.stylix
         spicetify-nix.nixosModules.spicetify
         home-manager.nixosModules.home-manager
-        {
+        ({pkgs, ...}: {
           mycli.username = "mend";
           home-manager.users.mend = import ./mend-home.nix;
-        }
+          # https://discourse.nixos.org/t/home-manager-useuserpackages-useglobalpkgs-settings/34506/6
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            pkgs-unstable = import inputs.nixpkgs-unstable {
+              system = pkgs.system;
+              config.allowUnfree = true;
+            };
+          };
+        })
       ];
     };
 

@@ -44,7 +44,7 @@
       User mend
 
       Host snp-des2nix
-      Hostname snp-des2nix.tailf46592.ts.net 
+      Hostname snp-des2nix.tailf46592.ts.net
       Port 22
       User mend
 
@@ -54,7 +54,6 @@
       User mend
     ";
   };
-  #programs.ssh.startAgent = true;
 
   # Enable KDE !
   #services.displayManager.sddm.enable = true;

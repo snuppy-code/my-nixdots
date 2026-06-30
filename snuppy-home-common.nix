@@ -114,128 +114,135 @@
     EDITOR = "nvim";
   };
 
-  home.packages = with pkgs; [
-    inputs.finnjobtool.packages.${pkgs.system}.default
-    inputs.finnjobtool.packages.${pkgs.system}.cli
+  home.packages = with pkgs;
+    [
+      stow
 
-    stow
+      inputs.helium.packages.${pkgs.system}.default
+      #cura # unmaintained in nixpkgs !
+      prusa-slicer
+      #orca-slicer
 
-    inputs.helium.packages.${pkgs.system}.default
-    #cura # unmaintained in nixpkgs !
-    prusa-slicer
-    #orca-slicer
+      yubikey-manager
+      yubioath-flutter
+      #super-productivity
+      killall
+      ouch
+      qbittorrent
+      transmission_4-gtk
+      makemkv
+      claude-code
+      resources
 
-    yubikey-manager
-    yubioath-flutter
-    #super-productivity
-    killall
-    ouch
-    qbittorrent
-    transmission_4-gtk
-    makemkv
-    claude-code
-    resources
+      syncthing
+      #fresh-editor # not out of unstable yet
 
-    syncthing
-    #fresh-editor # not out of unstable yet
+      firefox
+      # vesktop
+      (discord.override {
+        withVencord = true;
+      })
+      gajim
+      # fractal
+      # fluffychat
+      #nheko # requires olm which has like 3 cves?
+      #cinny-desktop # nixpkgs is waiting on cinny which is waiting on something else, "CSF" or sumn?
 
-    firefox
-    vesktop
-    element-desktop
-    gajim
-    # fluffychat
-    #nheko # requires olm which has like 3 cves?
-    #cinny-desktop # nixpkgs is waiting on cinny which is waiting on something else, "CSF" or sumn?
+      typst
+      noto-fonts
+      noto-fonts-color-emoji
+      corefonts
+      vista-fonts
 
-    typst
-    noto-fonts
-    noto-fonts-color-emoji
-    corefonts
-    vista-fonts
+      #gnome-solanum # no history/stats
+      #gnome-pomodoro # slightly less pretty than:
+      pomodoro-gtk
+      normcap
+      anki
+      #input-leap # stuck on 'starting'
+      #deskflow
+      protonvpn-gui
+      solaar
+      gnome-system-monitor
+      gnome-font-viewer
+      gnome-clocks
+      jstest-gtk
+      qalculate-qt
+      spotify
+      obsidian
+      nextcloud-client
+      # mupdf
+      krita
+      aseprite # causing rebuild to fail after 26.05 switch !
+      blender
+      obs-studio
+      #davinci-resolve # zero codecs!
+      kdePackages.kdenlive # genuinely horrific to use!
+      #openshot-qt # security problems
+      shotcut
+      #olive-editor # nvm its development is on pause
+      flowblade
+      audacity
+      freecad
 
-    #gnome-solanum # no history/stats
-    #gnome-pomodoro # slightly less pretty than:
-    pomodoro-gtk
-    normcap
-    anki
-    #input-leap # stuck on 'starting'
-    #deskflow
-    protonvpn-gui
-    solaar
-    gnome-system-monitor
-    gnome-font-viewer
-    gnome-clocks
-    jstest-gtk
-    qalculate-qt
-    spotify
-    obsidian
-    nextcloud-client
-    # mupdf
-    krita
-    aseprite # causing rebuild to fail after 26.05 switch !
-    blender
-    obs-studio
-    #davinci-resolve # zero codecs!
-    kdePackages.kdenlive # genuinely horrific to use!
-    #openshot-qt # security problems
-    shotcut
-    #olive-editor # nvm its development is on pause
-    flowblade
-    audacity
-    freecad
+      protonplus
+      (prismlauncher.override {
+        jdks = [
+          jdk8
+          jdk17
+          jdk21
+          jdk25
+        ];
+      })
+      lutris
+      bottles
 
-    protonplus
-    (prismlauncher.override {
-      jdks = [
-        jdk8
-        jdk17
-        jdk21
-        jdk25
-      ];
-    })
-    lutris
-    bottles
+      gnome-boxes
+      gparted
+      veracrypt
 
-    gnome-boxes
-    gparted
-    veracrypt
+      processing
+      github-desktop
 
-    processing
-    github-desktop
+      zed-editor
+      # for nix support
+      nil
+      nixd
 
-    zed-editor
-    # for nix support
-    nil
-    nixd
+      vlc
+      mpv
+      ffmpeg
+      #easyeffects
+      #pavucontrol
 
-    vlc
-    mpv
-    ffmpeg
-    #easyeffects
-    #pavucontrol
+      sops
+      age
 
-    sops
-    age
+      cloc
 
-    cloc
+      #arduino-ide
+      arduino
+      avrdude
+      #avrlibc
 
-    #arduino-ide
-    arduino
-    avrdude
-    #avrlibc
+      jdk
+      # (python314.withPackages (ps: with ps; [pygame-ce]))
+      python314
+      rustup
+      #cargo
+      #rustc
+      #clippy
+      cargo-flamegraph
+      samply
+      cargo-public-api
+      cargo-modules
+      bacon
+      gcc
+    ]
+    ++ [
+      inputs.finnjobtool.packages.${pkgs.system}.default
+      inputs.finnjobtool.packages.${pkgs.system}.cli
 
-    jdk
-    # (python314.withPackages (ps: with ps; [pygame-ce]))
-    python314
-    rustup
-    #cargo
-    #rustc
-    #clippy
-    cargo-flamegraph
-    samply
-    cargo-public-api
-    cargo-modules
-    bacon
-    gcc
-  ];
+      inputs.nix-citizen.packages.${pkgs.system}.rsi-launcher
+    ];
 }
