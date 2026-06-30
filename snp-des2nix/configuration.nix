@@ -120,6 +120,21 @@
       PermitTTY no
       X11Forwarding no
     '';
+    knownHosts = {
+      bunya-desktop = {
+        extraHostNames = ["bunya-desktop.tailf46592.ts.net"];
+        publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIL6GdZbeYiKswMnNEhq6vSSJt4xzXDTFpUbxJ87JD/LuAAAABHNzaDo= bunyaminlkeser@gmail.com";
+      };
+      bunyamin-laptop-2 = {
+        extraHostNames = ["bunyamin-laptop-2.tailf46592.ts.net"];
+        publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIL6GdZbeYiKswMnNEhq6vSSJt4xzXDTFpUbxJ87JD/LuAAAABHNzaDo= bunyaminlkeser@gmail.com";
+      };
+      snp-lap1nix = {
+        extraHostNames = ["snp-lap1nix.tailf46592.ts.net"];
+        # publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE7DrFHxJnUCJ99xb/QW4OkTEN01YgZ+HNsfCdcuvYeV";
+        publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKULoTLRUxXh/H32tYRncHD4KGxXZC2lUryf0X5w6QMPAAAABHNzaDo= snuppy.code@pm.me";
+      };
+    };
   };
 
   # git on the server ! - https://nixos.wiki/wiki/Git
