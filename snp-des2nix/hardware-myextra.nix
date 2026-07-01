@@ -36,12 +36,11 @@ in {
   # services.xserver.videoDrivers = ["nvidia"];
 
   # nixpkgs.config.cudaSupport = true; # later !
-  boot.initrd.kernelModules = ["nvidia"];
   hardware.graphics.enable = true;
-  hardware.nvidia.open = true;
-  # 535 or 470 or 580
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.open = false; # open module only supports Turing+; GTX 960 is Maxwell
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535; # 535 is the last branch supporting Maxwell
+  hardware.nvidia.modesetting.enable = false; # headless server; modesetting blacks out the console with no DE to take over
+  hardware.nvidia.nvidiaPersistenced.enable = true;
 
   boot.kernelPackages = newZfsYumKernelPackage;
 
@@ -54,15 +53,18 @@ in {
   fileSystems."/export/zfs" = {
     device = "tank/terminaldogma";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 
   fileSystems."/tank" = {
     device = "tank";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 
   fileSystems."/mnt/secondbranch" = {
     device = "tank/terminaldogma/secondbranch";
     fsType = "zfs";
+    options = ["zfsutil"];
   };
 }
