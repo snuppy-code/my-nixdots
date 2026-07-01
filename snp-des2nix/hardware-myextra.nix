@@ -45,26 +45,26 @@ in {
   boot.kernelPackages = newZfsYumKernelPackage;
 
   boot.supportedFilesystems = ["zfs"];
-  # boot.zfs.extraPools = ["tank"];
+  boot.zfs.extraPools = ["tank"];
 
   networking.hostName = "snp-des2nix";
   networking.hostId = "c90f3653";
 
-  # fileSystems."/export/zfs" = {
-  #   device = "tank/terminaldogma";
-  #   fsType = "zfs";
-  #   options = ["zfsutil"];
-  # };
+  fileSystems."/export/zfs" = {
+    device = "tank/terminaldogma";
+    fsType = "zfs";
+    options = ["zfsutil"];
+  };
 
-  # fileSystems."/tank" = {
-  #   device = "tank";
-  #   fsType = "zfs";
-  #   options = ["zfsutil"];
-  # };
+  fileSystems."/tank" = {
+    device = "tank";
+    fsType = "zfs";
+    options = ["zfsutil"];
+  };
 
-  # fileSystems."/mnt/secondbranch" = {
-  #   device = "tank/terminaldogma/secondbranch";
-  #   fsType = "zfs";
-  #   options = ["zfsutil"];
-  # };
+  fileSystems."/mnt/secondbranch" = {
+    device = "tank/terminaldogma/secondbranch";
+    fsType = "zfs";
+    options = ["zfsutil"];
+  };
 }
