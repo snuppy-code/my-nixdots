@@ -8,12 +8,6 @@
 }: {
   imports = [
   ];
-  sops.secrets.mend-password.neededForUsers = true;
-  users.users.mend = {
-    isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"];
-    hashedPasswordFile = config.sops.secrets.mend-password.path;
-  };
 
   programs.nh = {
     enable = true;
@@ -93,15 +87,6 @@
     };
   };
 
-  programs.ssh = {
-    extraConfig = ''
-      Host snp-nuc1nix
-      	Hostname 192.168.30.65
-      	Port 22
-      	User mend
-    '';
-  };
-
   services.openssh = {
     enable = true;
     settings = {
@@ -112,16 +97,18 @@
       AllowUsers = ["mend" "del"];
     };
   };
-  users.users.mend.openssh.authorizedKeys.keys = [
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIL6GdZbeYiKswMnNEhq6vSSJt4xzXDTFpUbxJ87JD/LuAAAABHNzaDo= bunyaminlkeser@gmail.com"
-    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKULoTLRUxXh/H32tYRncHD4KGxXZC2lUryf0X5w6QMPAAAABHNzaDo= snuppy.code@pm.me"
-  ];
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  sops.secrets.mend-password.neededForUsers = true;
+  users.users.mend = {
+    isNormalUser = true;
+    extraGroups = ["networkmanager" "wheel"];
+    hashedPasswordFile = config.sops.secrets.mend-password.path;
+
+    openssh.authorizedKeys.keys = [
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIL6GdZbeYiKswMnNEhq6vSSJt4xzXDTFpUbxJ87JD/LuAAAABHNzaDo= bunyaminlkeser@gmail.com"
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKULoTLRUxXh/H32tYRncHD4KGxXZC2lUryf0X5w6QMPAAAABHNzaDo= snuppy.code@pm.me"
+    ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
