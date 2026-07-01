@@ -112,14 +112,6 @@
     settings = {
       PermitRootLogin = "no";
     };
-    extraConfig = ''
-      Match user git
-      AllowTcpForwarding no
-      AllowAgentForwarding no
-      PasswordAuthentication no
-      PermitTTY no
-      X11Forwarding no
-    '';
     knownHosts = {
       bunya-desktop = {
         extraHostNames = ["bunya-desktop.tailf46592.ts.net"];
@@ -135,7 +127,19 @@
         publicKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKULoTLRUxXh/H32tYRncHD4KGxXZC2lUryf0X5w6QMPAAAABHNzaDo= snuppy.code@pm.me";
       };
     };
+    extraConfig = ''
+      Match user git
+      AllowTcpForwarding no
+      AllowAgentForwarding no
+      PasswordAuthentication no
+      PermitTTY no
+      X11Forwarding no
+    '';
   };
+  users.users.mend.openssh.authorizedKeys.keys = [
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIL6GdZbeYiKswMnNEhq6vSSJt4xzXDTFpUbxJ87JD/LuAAAABHNzaDo= bunyaminlkeser@gmail.com"
+    "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKULoTLRUxXh/H32tYRncHD4KGxXZC2lUryf0X5w6QMPAAAABHNzaDo= snuppy.code@pm.me"
+  ];
 
   # git on the server ! - https://nixos.wiki/wiki/Git
   users.users.git = {
