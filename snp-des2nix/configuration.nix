@@ -99,11 +99,6 @@
       	Hostname 192.168.30.65
       	Port 22
       	User mend
-      Host localgit
-      	Hostname localhost
-      	User git
-      	IdentityFile ~/.ssh/id_ed25519
-      	IdentitiesOnly yes
     '';
   };
 
@@ -111,30 +106,12 @@
     enable = true;
     settings = {
       PermitRootLogin = "no";
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      X11Forwarding = false;
+      AllowUsers = ["mend" "del"];
     };
-    extraConfig = ''
-      Match user git
-      AllowTcpForwarding no
-      AllowAgentForwarding no
-      PasswordAuthentication no
-      PermitTTY no
-      X11Forwarding no
-    '';
   };
-
-  # git on the server ! - https://nixos.wiki/wiki/Git
-  users.users.git = {
-    isSystemUser = true;
-    group = "git";
-    home = "/var/lib/git-server";
-    createHome = true;
-    shell = "${pkgs.git}/bin/git-shell";
-    openssh.authorizedKeys.keys = [
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAILywcKsOrkjA6Zz0Nzv4zSkVSc67Yp8e1FZZql7AETTLAAAABHNzaDo= snuppy.code@pm.me"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILDkgmUlpM3cGE0MDHU0QyCtspkpImLjQVpkU7ihv5P9 mend@snp-des2nix"
-    ];
-  };
-  users.groups.git = {};
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
