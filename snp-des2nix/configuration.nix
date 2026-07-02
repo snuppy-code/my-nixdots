@@ -110,6 +110,18 @@
     ];
   };
 
+  sops.secrets.del-password.neededForUsers = true;
+  users.users.del = {
+    isNormalUser = true;
+    extraGroups = ["networkmanager" "wheel"];
+    hashedPasswordFile = config.sops.secrets.del-password.path;
+
+    openssh.authorizedKeys.keys = [
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIL6GdZbeYiKswMnNEhq6vSSJt4xzXDTFpUbxJ87JD/LuAAAABHNzaDo= bunyaminlkeser@gmail.com"
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKULoTLRUxXh/H32tYRncHD4KGxXZC2lUryf0X5w6QMPAAAABHNzaDo= snuppy.code@pm.me"
+    ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
